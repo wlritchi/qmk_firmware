@@ -50,6 +50,7 @@
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
+  ST_MACRO_0,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -60,19 +61,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLASH,
         KC_LCTRL, KC_A, KC_O, KC_E, KC_U, KC_I, MO(2), KC_TRANSPARENT, KC_D,
         KC_H, KC_T, KC_N, KC_S, KC_EQUAL, MO(1), KC_SCOLON, KC_Q, KC_J, KC_K,
-        KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSHIFT, TOGGLE_LAYER_COLOR,
+        KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSHIFT, MOON_LED_LEVEL,
         WEBUSB_PAIR, LALT(KC_LSHIFT), KC_TRANSPARENT, KC_TRANSPARENT, KC_LALT,
-        MT(MOD_LCTL, KC_ESCAPE), KC_TRANSPARENT, KC_TRANSPARENT, KC_LBRACKET,
-        KC_RBRACKET, MO(2), KC_SPACE, MO(1), KC_LGUI, KC_LALT, KC_BSPACE,
-        KC_ENTER),
+        MT(MOD_LCTL, KC_ESCAPE), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_SPACE, MO(1), KC_LGUI, KC_LALT,
+        KC_BSPACE, KC_ENTER),
     [1] = LAYOUT_moonlander(
         LSFT(KC_ESCAPE), KC_0, KC_1, KC_2, KC_3, KC_4, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_5, KC_6, KC_7, KC_8, KC_9, KC_GRAVE, LSFT(KC_TAB),
         KC_DQUO, KC_LABK, KC_RABK, LSFT(KC_P), LSFT(KC_Y), KC_TRANSPARENT,
         KC_TRANSPARENT, LSFT(KC_F), LSFT(KC_G), LSFT(KC_C), LSFT(KC_R),
-        LSFT(KC_L), KC_QUES, LSFT(KC_LCTRL), LSFT(KC_A), LSFT(KC_O), LSFT(KC_E),
+        LSFT(KC_L), KC_QUES, KC_TRANSPARENT, LSFT(KC_A), LSFT(KC_O), LSFT(KC_E),
         LSFT(KC_U), LSFT(KC_I), KC_TRANSPARENT, KC_TRANSPARENT, LSFT(KC_D),
-        LSFT(KC_H), LSFT(KC_T), LSFT(KC_N), LSFT(KC_S), KC_TRANSPARENT,
+        LSFT(KC_H), LSFT(KC_T), LSFT(KC_N), LSFT(KC_S), ST_MACRO_0,
         KC_TRANSPARENT, KC_COLN, LSFT(KC_Q), LSFT(KC_J), LSFT(KC_K), LSFT(KC_X),
         LSFT(KC_B), LSFT(KC_M), LSFT(KC_W), LSFT(KC_V), LSFT(KC_Z),
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -104,7 +105,7 @@ void keyboard_post_init_user(void) { rgb_matrix_enable(); }
 
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [0] = {{126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {43, 255, 255},  {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {220, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
@@ -113,9 +114,9 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {0, 0, 0},       {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {126, 255, 255}, {0, 0, 0},       {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
@@ -126,15 +127,15 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {0, 0, 0},       {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {126, 255, 255}, {0, 0, 0},       {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
@@ -202,6 +203,11 @@ void rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+  case ST_MACRO_0:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LSFT(SS_TAP(X_1)) SS_DELAY(100) SS_TAP(X_EQUAL));
+    }
+    break;
   case RGB_SLD:
     if (record->event.pressed) {
       rgblight_mode(1);
