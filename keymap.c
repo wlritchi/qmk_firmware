@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_I, KC_HYPR, KC_MEH, KC_D, KC_H, KC_T, KC_N, KC_S, KC_EQUAL,
         LM(1, MOD_LSFT), KC_SCOLON, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W,
         KC_V, KC_Z, KC_RSHIFT, KC_TRANSPARENT, WEBUSB_PAIR, LALT(KC_LSHIFT),
-        KC_LEFT, KC_RIGHT, MT(MOD_LALT, KC_APPLICATION),
-        MT(MOD_LCTL, KC_ESCAPE), KC_UP, KC_DOWN, KC_LBRACKET, KC_RBRACKET,
-        MO(2), KC_SPACE, MO(1), KC_LGUI, KC_LALT, KC_BSPACE, KC_ENTER),
+        KC_LEFT, KC_RIGHT, KC_LALT, MT(MOD_LCTL, KC_ESCAPE), KC_UP, KC_DOWN,
+        KC_LBRACKET, KC_RBRACKET, MO(2), KC_SPACE, MO(1), KC_LGUI, KC_LALT,
+        KC_BSPACE, KC_ENTER),
     [1] = LAYOUT_moonlander(
         KC_TILD, KC_0, KC_1, KC_2, KC_3, KC_4, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_5, KC_6, KC_7, KC_8, KC_9, KC_GRAVE, KC_TRANSPARENT, KC_DQUO,
@@ -114,6 +114,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_WWW_BACK),
 };
+
+extern bool g_suspend_state;
+extern rgb_config_t rgb_matrix_config;
+
+void keyboard_post_init_user(void) { rgb_matrix_enable(); }
+
+const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+    [0] = {{23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204},
+           {23, 233, 204}, {23, 233, 204}, {23, 233, 204}, {23, 233, 204}},
+
+};
+
+void set_layer_color(int layer) {
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    HSV hsv = {
+        .h = pgm_read_byte(&ledmap[layer][i][0]),
+        .s = pgm_read_byte(&ledmap[layer][i][1]),
+        .v = pgm_read_byte(&ledmap[layer][i][2]),
+    };
+    if (!hsv.h && !hsv.s && !hsv.v) {
+      rgb_matrix_set_color(i, 0, 0, 0);
+    } else {
+      RGB rgb = hsv_to_rgb(hsv);
+      float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+      rgb_matrix_set_color(i, f * rgb.r, f * rgb.g, f * rgb.b);
+    }
+  }
+}
+
+void rgb_matrix_indicators_user(void) {
+  if (g_suspend_state || keyboard_config.disable_layer_led) {
+    return;
+  }
+  switch (biton32(layer_state)) {
+  case 0:
+    set_layer_color(0);
+    break;
+  default:
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+      rgb_matrix_set_color_all(0, 0, 0);
+    break;
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
