@@ -5,5 +5,5 @@
 */
 #define ORYX_CONFIGURATOR
 #define USB_SUSPEND_WAKEUP_DELAY 0
-#define FIRMWARE_VERSION u8"pqddE/anLGo"
+#define FIRMWARE_VERSION u8"pqddE/z3lXr"
 #define RGB_MATRIX_STARTUP_SPD 60
