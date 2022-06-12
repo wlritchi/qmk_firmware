@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_S, KC_MINUS, MO(1), KC_SCOLON, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M,
         KC_W, KC_V, KC_Z, KC_RSHIFT, MOON_LED_LEVEL, WEBUSB_PAIR,
         LALT(KC_LSHIFT), KC_TRANSPARENT, MO(2), KC_LALT,
-        MT(MOD_LCTL, KC_ESCAPE), KC_RALT, KC_TRANSPARENT, KC_TRANSPARENT,
+        MT(MOD_LCTL, KC_ESCAPE), MO(4), KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_SPACE, MO(1), KC_LCTRL, KC_TAB,
         KC_BSPACE, KC_ENTER),
     [1] = LAYOUT_moonlander(
@@ -124,9 +124,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_RALT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(5), KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(5),
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
     [5] = LAYOUT_moonlander(
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -245,7 +245,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {220, 255, 255}, {220, 255, 255}, {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {43, 255, 255},  {220, 255, 255}, {0, 0, 0},
-           {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
+           {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255}},
 
@@ -264,7 +264,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {220, 255, 255}, {220, 255, 255}, {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {43, 255, 255},  {220, 255, 255}, {0, 0, 0},
-           {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
+           {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255}},
 
