@@ -57,29 +57,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_moonlander(
         KC_DLR, KC_AMPR, KC_LBRACKET, KC_LCBR, KC_LPRN, KC_PLUS, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRACKET, KC_EXLM,
-        KC_HASH, KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P, KC_Y, MO(2),
+        KC_HASH, KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P, KC_Y, MO(4),
         KC_TRANSPARENT, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLASH, KC_LCTRL, KC_A,
-        KC_O, KC_E, KC_U, KC_I, MO(4), KC_TRANSPARENT, KC_D, KC_H, KC_T, KC_N,
-        KC_S, KC_MINUS, MO(1), KC_SCOLON, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M,
-        KC_W, KC_V, KC_Z, KC_RSHIFT, MOON_LED_LEVEL, WEBUSB_PAIR,
-        LALT(KC_LSHIFT), KC_TRANSPARENT, MO(2), KC_LALT,
-        MT(MOD_LCTL, KC_ESCAPE), MO(4), KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_SPACE, MO(1), KC_LCTRL, KC_TAB,
-        KC_BSPACE, KC_ENTER),
+        KC_O, KC_E, KC_U, KC_I, MO(2), KC_AT, KC_D, KC_H, KC_T, KC_N, KC_S,
+        KC_MINUS, MO(1), KC_SCOLON, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W,
+        KC_V, KC_Z, KC_RSHIFT, MOON_LED_LEVEL, WEBUSB_PAIR, LALT(KC_LSHIFT),
+        MO(5), MO(4), KC_LALT, MT(MOD_LCTL, KC_ESCAPE), MO(4), KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_SPACE, MO(1),
+        KC_LCTRL, KC_TAB, KC_BSPACE, KC_ENTER),
     [1] = LAYOUT_moonlander(
         KC_TILD, KC_0, KC_1, KC_2, KC_3, KC_4, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_5, KC_6, KC_7, KC_8, KC_9, KC_GRAVE, LSFT(KC_TAB), KC_DQUO, KC_LABK,
         KC_RABK, LSFT(KC_P), LSFT(KC_Y), MO(5), KC_TRANSPARENT, LSFT(KC_F),
         LSFT(KC_G), LSFT(KC_C), LSFT(KC_R), LSFT(KC_L), KC_QUES, KC_TRANSPARENT,
         LSFT(KC_A), LSFT(KC_O), LSFT(KC_E), LSFT(KC_U), LSFT(KC_I), MO(3),
-        KC_TRANSPARENT, LSFT(KC_D), LSFT(KC_H), LSFT(KC_T), LSFT(KC_N),
-        LSFT(KC_S), KC_UNDS, KC_TRANSPARENT, KC_COLN, LSFT(KC_Q), LSFT(KC_J),
-        LSFT(KC_K), LSFT(KC_X), LSFT(KC_B), LSFT(KC_M), LSFT(KC_W), LSFT(KC_V),
-        LSFT(KC_Z), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, MO(5), KC_TRANSPARENT, LSFT(KC_ESCAPE),
+        KC_CIRC, LSFT(KC_D), LSFT(KC_H), LSFT(KC_T), LSFT(KC_N), LSFT(KC_S),
+        KC_UNDS, KC_TRANSPARENT, KC_COLN, LSFT(KC_Q), LSFT(KC_J), LSFT(KC_K),
+        LSFT(KC_X), LSFT(KC_B), LSFT(KC_M), LSFT(KC_W), LSFT(KC_V), LSFT(KC_Z),
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, MO(5), KC_TRANSPARENT, LSFT(KC_ESCAPE), KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        LSFT(KC_TAB), LSFT(KC_BSPACE), LSFT(KC_ENTER)),
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, LSFT(KC_TAB),
+        LSFT(KC_BSPACE), LSFT(KC_ENTER)),
     [2] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
@@ -116,10 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_PGUP, KC_UP,
-        KC_PGDOWN, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_PGDOWN, KC_TRANSPARENT, KC_BSLASH, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_LEFT,
-        KC_DOWN, KC_RIGHT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_LEFT, KC_DOWN,
+        KC_RIGHT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -134,21 +133,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, LSFT(KC_PGUP),
-        LSFT(KC_UP), LSFT(KC_PGDOWN), KC_TRANSPARENT, KC_TRANSPARENT,
+        LSFT(KC_UP), LSFT(KC_PGDOWN), KC_TRANSPARENT, KC_PIPE, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT,
-        LSFT(KC_LEFT), LSFT(KC_DOWN), LSFT(KC_RIGHT), KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, LSFT(KC_LEFT),
+        LSFT(KC_DOWN), LSFT(KC_RIGHT), KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT),
 };
 
-extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) { rgb_matrix_enable(); }
@@ -158,7 +156,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {220, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {220, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
+           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {43, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {43, 255, 255},  {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {0, 0, 0},       {43, 255, 255},  {43, 255, 255},
@@ -170,14 +168,14 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
+           {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255}},
 
     [1] = {{126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {220, 255, 255},
            {220, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {220, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
+           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {43, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {43, 255, 255},  {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {0, 0, 0},       {43, 255, 255},  {43, 255, 255},
@@ -189,7 +187,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
+           {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255}},
 
     [2] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
@@ -239,7 +237,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
+           {0, 0, 0},       {126, 255, 255}, {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {43, 255, 255},
            {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
@@ -258,7 +256,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {220, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
+           {0, 0, 0},       {126, 255, 255}, {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {43, 255, 255},
            {220, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
@@ -288,7 +286,10 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || keyboard_config.disable_layer_led) {
+  if (rawhid_state.rgb_control) {
+    return;
+  }
+  if (keyboard_config.disable_layer_led) {
     return;
   }
   switch (biton32(layer_state)) {
@@ -324,7 +325,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_TAP(X_0) SS_DELAY(100) SS_TAP(X_X));
     }
     break;
+
   case RGB_SLD:
+    if (rawhid_state.rgb_control) {
+      return false;
+    }
     if (record->event.pressed) {
       rgblight_mode(1);
     }
