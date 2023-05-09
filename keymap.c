@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLASH, KC_LCTRL, KC_A, KC_O, KC_E,
         KC_U, KC_I, MO(2), KC_AT, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINUS, MO(1),
         KC_SCOLON, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z,
-        KC_RSHIFT, MOON_LED_LEVEL, KC_TRANSPARENT, KC_LALT, MO(5), MO(4),
-        KC_LALT, MT(MOD_LCTL, KC_ESCAPE), MO(4), KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_RSHIFT, MOON_LED_LEVEL, KC_LGUI, KC_LALT, MO(5), MO(4), KC_LALT,
+        MT(MOD_LCTL, KC_ESCAPE), MO(4), KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_SPACE, MO(1), KC_LCTRL, KC_TAB,
         KC_BSPACE, KC_ENTER),
     [1] = LAYOUT_moonlander(
@@ -154,7 +154,7 @@ void keyboard_post_init_user(void) { rgb_matrix_enable(); }
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [0] = {{126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {220, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {0, 0, 0},       {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {43, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
@@ -173,7 +173,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 
     [1] = {{126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {220, 255, 255},
            {220, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {220, 255, 255}, {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {43, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
