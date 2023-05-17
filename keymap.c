@@ -55,12 +55,12 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_moonlander(
-        KC_DLR, KC_AMPR, KC_LBRACKET, KC_LCBR, KC_LPRN, KC_PLUS, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRACKET, KC_EXLM,
-        KC_HASH, KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P, KC_Y, MO(4), KC_PIPE,
-        KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLASH, KC_LCTRL, KC_A, KC_O, KC_E,
-        KC_U, KC_I, MO(2), KC_AT, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINUS, MO(1),
-        KC_SCOLON, KC_Q, KC_X, KC_J, KC_K, KC_B, KC_M, KC_W, KC_V, KC_Z,
+        KC_DLR, KC_AMPR, KC_LBRACKET, KC_LCBR, KC_LPRN, KC_PLUS, KC_EQUAL,
+        KC_EQUAL, KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRACKET, KC_EXLM, KC_HASH,
+        KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P, KC_Y, MO(4), KC_PIPE, KC_F,
+        KC_G, KC_C, KC_R, KC_L, KC_SLASH, MT(MOD_LCTL, KC_ESCAPE), KC_A, KC_O,
+        KC_E, KC_U, KC_I, MO(2), KC_AT, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINUS,
+        MO(1), KC_SCOLON, KC_Q, KC_X, KC_J, KC_K, KC_B, KC_M, KC_W, KC_V, KC_Z,
         KC_RSHIFT, MOON_LED_LEVEL, KC_LGUI, KC_LALT, MO(5), MO(4), KC_LALT,
         MT(MOD_LCTL, KC_ESCAPE), MO(4), KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_SPACE, MO(1), KC_LCTRL, KC_TAB,
@@ -159,7 +159,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {43, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {43, 255, 255},  {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {0, 0, 0},       {43, 255, 255},  {43, 255, 255},
+           {126, 255, 255}, {126, 255, 255}, {43, 255, 255},  {43, 255, 255},
            {126, 255, 255}, {43, 255, 255},  {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {0, 0, 0},       {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
@@ -168,7 +168,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {43, 255, 255},  {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
-           {126, 255, 255}, {0, 0, 0},       {126, 255, 255}, {126, 255, 255},
+           {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255}},
 
     [1] = {{126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {220, 255, 255},
