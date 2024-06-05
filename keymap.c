@@ -406,7 +406,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case ST_MACRO_17:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_D)) SS_DELAY(100) SS_LCTL(SS_TAP(X_D)));
+      SEND_STRING(SS_LCTL(SS_TAP(X_D)) SS_DELAY(100) SS_LGUI(SS_TAP(X_D)));
     }
     break;
   case ST_MACRO_18:
