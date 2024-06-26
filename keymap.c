@@ -31,6 +31,7 @@ enum custom_keycodes {
   ST_MACRO_24,
   ST_MACRO_25,
   ST_MACRO_26,
+  ST_MACRO_27,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -135,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ST_MACRO_16, KC_TRANSPARENT, KC_TRANSPARENT, ST_MACRO_3, ST_MACRO_4,
         ST_MACRO_5, ST_MACRO_6, ST_MACRO_7, KC_TRANSPARENT, KC_TRANSPARENT,
         ST_MACRO_17, ST_MACRO_18, ST_MACRO_19, ST_MACRO_20, ST_MACRO_21,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, ST_MACRO_8, ST_MACRO_9,
-        ST_MACRO_10, ST_MACRO_11, ST_MACRO_22, ST_MACRO_23, ST_MACRO_24,
-        ST_MACRO_25, ST_MACRO_26, KC_TRANSPARENT, KC_TRANSPARENT,
+        ST_MACRO_22, KC_TRANSPARENT, KC_TRANSPARENT, ST_MACRO_8, ST_MACRO_9,
+        ST_MACRO_10, ST_MACRO_11, ST_MACRO_23, ST_MACRO_24, ST_MACRO_25,
+        ST_MACRO_26, ST_MACRO_27, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -431,25 +432,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case ST_MACRO_22:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_B)) SS_DELAY(100) SS_LCTL(SS_TAP(X_B)));
+      SEND_STRING(SS_LGUI(SS_TAP(X_MINUS)) SS_DELAY(100)
+                      SS_LCTL(SS_TAP(X_MINUS)));
     }
     break;
   case ST_MACRO_23:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_M)) SS_DELAY(100) SS_LCTL(SS_TAP(X_M)));
+      SEND_STRING(SS_LGUI(SS_TAP(X_B)) SS_DELAY(100) SS_LCTL(SS_TAP(X_B)));
     }
     break;
   case ST_MACRO_24:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_W)) SS_DELAY(100) SS_LCTL(SS_TAP(X_W)));
+      SEND_STRING(SS_LGUI(SS_TAP(X_M)) SS_DELAY(100) SS_LCTL(SS_TAP(X_M)));
     }
     break;
   case ST_MACRO_25:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_V)) SS_DELAY(100) SS_LCTL(SS_TAP(X_V)));
+      SEND_STRING(SS_LGUI(SS_TAP(X_W)) SS_DELAY(100) SS_LCTL(SS_TAP(X_W)));
     }
     break;
   case ST_MACRO_26:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_TAP(X_V)) SS_DELAY(100) SS_LCTL(SS_TAP(X_V)));
+    }
+    break;
+  case ST_MACRO_27:
     if (record->event.pressed) {
       SEND_STRING(SS_LGUI(SS_TAP(X_Z)) SS_DELAY(100) SS_LCTL(SS_TAP(X_Z)));
     }
