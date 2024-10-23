@@ -95,6 +95,14 @@ enum custom_keycodes {
   ST_MACRO_87,
   ST_MACRO_88,
   ST_MACRO_89,
+  ST_MACRO_90,
+  ST_MACRO_91,
+  ST_MACRO_92,
+  ST_MACRO_93,
+  ST_MACRO_94,
+  ST_MACRO_95,
+  ST_MACRO_96,
+  ST_MACRO_97,
 };
 
 enum tap_dance_codes {
@@ -232,10 +240,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_TRANSPARENT, KC_NO, KC_NO, LCTL(KC_PAGE_UP),
-                             LCTL(KC_UP), LCTL(KC_PGDN), KC_NO, KC_NO,
+                             ST_MACRO_90, LCTL(KC_PGDN), KC_NO, KC_NO,
                              KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, LCTL(KC_HOME), LCTL(KC_LEFT),
-                             LCTL(KC_DOWN), LCTL(KC_RIGHT), LCTL(KC_END), KC_NO,
+                             KC_NO, KC_NO, LCTL(KC_HOME), ST_MACRO_91,
+                             ST_MACRO_92, ST_MACRO_93, LCTL(KC_END), KC_NO,
                              MO(11), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
                              KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -244,23 +252,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                              KC_TRANSPARENT, MO(11), KC_TRANSPARENT,
                              KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [11] = LAYOUT_moonlander(
-        KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_NO, KC_NO, LCTL(LSFT(KC_PAGE_UP)),
-        LCTL(LSFT(KC_UP)), LCTL(LSFT(KC_PGDN)), KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, LCTL(LSFT(KC_HOME)), LCTL(LSFT(KC_LEFT)), LCTL(LSFT(KC_DOWN)),
-        LCTL(LSFT(KC_RIGHT)), LCTL(LSFT(KC_END)), KC_NO,
-        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
+    [11] =
+        LAYOUT_moonlander(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                          KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                          KC_TRANSPARENT, KC_NO, KC_NO, LCTL(LSFT(KC_PAGE_UP)),
+                          ST_MACRO_94, LCTL(LSFT(KC_PGDN)), KC_NO, KC_NO,
+                          KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                          KC_NO, KC_NO, LCTL(LSFT(KC_HOME)), ST_MACRO_95,
+                          ST_MACRO_96, ST_MACRO_97, LCTL(LSFT(KC_END)), KC_NO,
+                          KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
 };
 
 extern rgb_config_t rgb_matrix_config;
@@ -1062,6 +1070,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F12))) SS_DELAY(100)
                       SS_LCTL(SS_LSFT(SS_TAP(X_F12))));
+    }
+    break;
+  case ST_MACRO_90:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_TAP(X_UP)) SS_DELAY(100) SS_LCTL(SS_TAP(X_UP)));
+    }
+    break;
+  case ST_MACRO_91:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)) SS_DELAY(100)
+                      SS_LCTL(SS_TAP(X_LEFT)));
+    }
+    break;
+  case ST_MACRO_92:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_TAP(X_DOWN)) SS_DELAY(100)
+                      SS_LCTL(SS_TAP(X_DOWN)));
+    }
+    break;
+  case ST_MACRO_93:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)) SS_DELAY(100)
+                      SS_LCTL(SS_TAP(X_RIGHT)));
+    }
+    break;
+  case ST_MACRO_94:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_UP))) SS_DELAY(100)
+                      SS_LCTL(SS_LSFT(SS_TAP(X_UP))));
+    }
+    break;
+  case ST_MACRO_95:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_LEFT))) SS_DELAY(100)
+                      SS_LCTL(SS_LSFT(SS_TAP(X_LEFT))));
+    }
+    break;
+  case ST_MACRO_96:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_DOWN))) SS_DELAY(100)
+                      SS_LCTL(SS_LSFT(SS_TAP(X_DOWN))));
+    }
+    break;
+  case ST_MACRO_97:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_RIGHT))) SS_DELAY(100)
+                      SS_LCTL(SS_LSFT(SS_TAP(X_RIGHT))));
     }
     break;
 
