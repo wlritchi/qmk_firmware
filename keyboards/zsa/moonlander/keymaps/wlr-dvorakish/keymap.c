@@ -572,6 +572,8 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
+#define CC(x) SEND_STRING(detected_host_os() == OS_MACOS ? SS_LGUI(x) : SS_LCTL(x))
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case ST_MACRO_0:
@@ -581,530 +583,472 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case ST_MACRO_1:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_P)) SS_DELAY(100) SS_LCTL(SS_TAP(X_P)));
+      CC(SS_TAP(X_P));
     }
     break;
   case ST_MACRO_2:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_Y)) SS_DELAY(100) SS_LCTL(SS_TAP(X_Y)));
+      CC(SS_TAP(X_Y));
     }
     break;
   case ST_MACRO_3:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_A)) SS_DELAY(100) SS_LCTL(SS_TAP(X_A)));
+      CC(SS_TAP(X_A));
     }
     break;
   case ST_MACRO_4:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_O)) SS_DELAY(100) SS_LCTL(SS_TAP(X_O)));
+      CC(SS_TAP(X_O));
     }
     break;
   case ST_MACRO_5:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_E)) SS_DELAY(100) SS_LCTL(SS_TAP(X_E)));
+      CC(SS_TAP(X_E));
     }
     break;
   case ST_MACRO_6:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_U)) SS_DELAY(100) SS_LCTL(SS_TAP(X_U)));
+      CC(SS_TAP(X_U));
     }
     break;
   case ST_MACRO_7:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_I)) SS_DELAY(100) SS_LCTL(SS_TAP(X_I)));
+      CC(SS_TAP(X_I));
     }
     break;
   case ST_MACRO_8:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_Q)) SS_DELAY(100) SS_LCTL(SS_TAP(X_Q)));
+      CC(SS_TAP(X_Q));
     }
     break;
   case ST_MACRO_9:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_X)) SS_DELAY(100) SS_LCTL(SS_TAP(X_X)));
+      CC(SS_TAP(X_X));
     }
     break;
   case ST_MACRO_10:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_J)) SS_DELAY(100) SS_LCTL(SS_TAP(X_J)));
+      CC(SS_TAP(X_J));
     }
     break;
   case ST_MACRO_11:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_K)) SS_DELAY(100) SS_LCTL(SS_TAP(X_K)));
+      CC(SS_TAP(X_K));
     }
     break;
   case ST_MACRO_12:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F)));
+      CC(SS_TAP(X_F));
     }
     break;
   case ST_MACRO_13:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_G)) SS_DELAY(100) SS_LCTL(SS_TAP(X_G)));
+      CC(SS_TAP(X_G));
     }
     break;
   case ST_MACRO_14:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_C)) SS_DELAY(100) SS_LCTL(SS_TAP(X_C)));
+      CC(SS_TAP(X_C));
     }
     break;
   case ST_MACRO_15:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_R)) SS_DELAY(100) SS_LCTL(SS_TAP(X_R)));
+      CC(SS_TAP(X_R));
     }
     break;
   case ST_MACRO_16:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_L)) SS_DELAY(100) SS_LCTL(SS_TAP(X_L)));
+      CC(SS_TAP(X_L));
     }
     break;
   case ST_MACRO_17:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_D)) SS_DELAY(100) SS_LGUI(SS_TAP(X_D)));
+      CC(SS_TAP(X_D));
     }
     break;
   case ST_MACRO_18:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_H)) SS_DELAY(100) SS_LCTL(SS_TAP(X_H)));
+      CC(SS_TAP(X_H));
     }
     break;
   case ST_MACRO_19:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_S)) SS_DELAY(100) SS_LCTL(SS_TAP(X_S)));
+      CC(SS_TAP(X_S));
     }
     break;
   case ST_MACRO_20:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_MINUS)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_MINUS)));
+      CC(SS_TAP(X_MINUS));
     }
     break;
   case ST_MACRO_21:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_B)) SS_DELAY(100) SS_LCTL(SS_TAP(X_B)));
+      CC(SS_TAP(X_B));
     }
     break;
   case ST_MACRO_22:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_M)) SS_DELAY(100) SS_LCTL(SS_TAP(X_M)));
+      CC(SS_TAP(X_M));
     }
     break;
   case ST_MACRO_23:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_V)) SS_DELAY(100) SS_LCTL(SS_TAP(X_V)));
+      CC(SS_TAP(X_V));
     }
     break;
   case ST_MACRO_24:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_Z)) SS_DELAY(100) SS_LCTL(SS_TAP(X_Z)));
+      CC(SS_TAP(X_Z));
     }
     break;
   case ST_MACRO_25:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_P))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_P))));
+      CC(SS_LSFT(SS_TAP(X_P)));
     }
     break;
   case ST_MACRO_26:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_Y))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_Y))));
+      CC(SS_LSFT(SS_TAP(X_Y)));
     }
     break;
   case ST_MACRO_27:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_A))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_A))));
+      CC(SS_LSFT(SS_TAP(X_A)));
     }
     break;
   case ST_MACRO_28:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_O))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_O))));
+      CC(SS_LSFT(SS_TAP(X_O)));
     }
     break;
   case ST_MACRO_29:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_E))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_E))));
+      CC(SS_LSFT(SS_TAP(X_E)));
     }
     break;
   case ST_MACRO_30:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_U))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_U))));
+      CC(SS_LSFT(SS_TAP(X_U)));
     }
     break;
   case ST_MACRO_31:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_I))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_I))));
+      CC(SS_LSFT(SS_TAP(X_I)));
     }
     break;
   case ST_MACRO_32:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_Q))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_Q))));
+      CC(SS_LSFT(SS_TAP(X_Q)));
     }
     break;
   case ST_MACRO_33:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_X))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_X))));
+      CC(SS_LSFT(SS_TAP(X_X)));
     }
     break;
   case ST_MACRO_34:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_J))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_J))));
+      CC(SS_LSFT(SS_TAP(X_J)));
     }
     break;
   case ST_MACRO_35:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_K))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_K))));
+      CC(SS_LSFT(SS_TAP(X_K)));
     }
     break;
   case ST_MACRO_36:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F))));
+      CC(SS_LSFT(SS_TAP(X_F)));
     }
     break;
   case ST_MACRO_37:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_G))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_G))));
+      CC(SS_LSFT(SS_TAP(X_G)));
     }
     break;
   case ST_MACRO_38:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_C))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_C))));
+      CC(SS_LSFT(SS_TAP(X_C)));
     }
     break;
   case ST_MACRO_39:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_R))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_R))));
+      CC(SS_LSFT(SS_TAP(X_R)));
     }
     break;
   case ST_MACRO_40:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_L))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_L))));
+      CC(SS_LSFT(SS_TAP(X_L)));
     }
     break;
   case ST_MACRO_41:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_D))) SS_DELAY(100)
-                      SS_LGUI(SS_LSFT(SS_TAP(X_D))));
+      CC(SS_LSFT(SS_TAP(X_D)));
     }
     break;
   case ST_MACRO_42:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_H))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_H))));
+      CC(SS_LSFT(SS_TAP(X_H)));
     }
     break;
   case ST_MACRO_43:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_T))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_T))));
+      CC(SS_LSFT(SS_TAP(X_T)));
     }
     break;
   case ST_MACRO_44:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_N))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_N))));
+      CC(SS_LSFT(SS_TAP(X_N)));
     }
     break;
   case ST_MACRO_45:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_S))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_S))));
+      CC(SS_LSFT(SS_TAP(X_S)));
     }
     break;
   case ST_MACRO_46:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_MINUS))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_MINUS))));
+      CC(SS_LSFT(SS_TAP(X_MINUS)));
     }
     break;
   case ST_MACRO_47:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_B))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_B))));
+      CC(SS_LSFT(SS_TAP(X_B)));
     }
     break;
   case ST_MACRO_48:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_M))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_M))));
+      CC(SS_LSFT(SS_TAP(X_M)));
     }
     break;
   case ST_MACRO_49:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_W))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_W))));
+      CC(SS_LSFT(SS_TAP(X_W)));
     }
     break;
   case ST_MACRO_50:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_V))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_V))));
+      CC(SS_LSFT(SS_TAP(X_V)));
     }
     break;
   case ST_MACRO_51:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_Z))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_Z))));
+      CC(SS_LSFT(SS_TAP(X_Z)));
     }
     break;
   case ST_MACRO_52:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F1)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F1)));
+      CC(SS_TAP(X_F1));
     }
     break;
   case ST_MACRO_53:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F2)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F2)));
+      CC(SS_TAP(X_F2));
     }
     break;
   case ST_MACRO_54:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F3)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F3)));
+      CC(SS_TAP(X_F3));
     }
     break;
   case ST_MACRO_55:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F4)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F4)));
+      CC(SS_TAP(X_F4));
     }
     break;
   case ST_MACRO_56:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F5)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F5)));
+      CC(SS_TAP(X_F5));
     }
     break;
   case ST_MACRO_57:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F6)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F6)));
+      CC(SS_TAP(X_F6));
     }
     break;
   case ST_MACRO_58:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F7)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F7)));
+      CC(SS_TAP(X_F7));
     }
     break;
   case ST_MACRO_59:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F8)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F8)));
+      CC(SS_TAP(X_F8));
     }
     break;
   case ST_MACRO_60:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F9)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F9)));
+      CC(SS_TAP(X_F9));
     }
     break;
   case ST_MACRO_61:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F10)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F10)));
+      CC(SS_TAP(X_F10));
     }
     break;
   case ST_MACRO_62:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_7)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_7)));
+      CC(SS_TAP(X_KP_7));
     }
     break;
   case ST_MACRO_63:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_8)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_8)));
+      CC(SS_TAP(X_KP_8));
     }
     break;
   case ST_MACRO_64:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_9)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_9)));
+      CC(SS_TAP(X_KP_9));
     }
     break;
   case ST_MACRO_65:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F11)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F11)));
+      CC(SS_TAP(X_F11));
     }
     break;
   case ST_MACRO_66:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_4)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_4)));
+      CC(SS_TAP(X_KP_4));
     }
     break;
   case ST_MACRO_67:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_5)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_5)));
+      CC(SS_TAP(X_KP_5));
     }
     break;
   case ST_MACRO_68:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_6)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_6)));
+      CC(SS_TAP(X_KP_6));
     }
     break;
   case ST_MACRO_69:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_F12)) SS_DELAY(100) SS_LCTL(SS_TAP(X_F12)));
+      CC(SS_TAP(X_F12));
     }
     break;
   case ST_MACRO_70:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_1)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_1)));
+      CC(SS_TAP(X_KP_1));
     }
     break;
   case ST_MACRO_71:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_2)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_2)));
+      CC(SS_TAP(X_KP_2));
     }
     break;
   case ST_MACRO_72:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_3)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_3)));
+      CC(SS_TAP(X_KP_3));
     }
     break;
   case ST_MACRO_73:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_0)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_0)));
+      CC(SS_TAP(X_KP_0));
     }
     break;
   case ST_MACRO_74:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_KP_DOT)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_KP_DOT)));
+      CC(SS_TAP(X_KP_DOT));
     }
     break;
   case ST_MACRO_75:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F1))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F1))));
+      CC(SS_LSFT(SS_TAP(X_F1)));
     }
     break;
   case ST_MACRO_76:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F2))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F2))));
+      CC(SS_LSFT(SS_TAP(X_F2)));
     }
     break;
   case ST_MACRO_77:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F3))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F3))));
+      CC(SS_LSFT(SS_TAP(X_F3)));
     }
     break;
   case ST_MACRO_78:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F4))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F4))));
+      CC(SS_LSFT(SS_TAP(X_F4)));
     }
     break;
   case ST_MACRO_79:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F5))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F5))));
+      CC(SS_LSFT(SS_TAP(X_F5)));
     }
     break;
   case ST_MACRO_80:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F6))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F6))));
+      CC(SS_LSFT(SS_TAP(X_F6)));
     }
     break;
   case ST_MACRO_81:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F7))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F7))));
+      CC(SS_LSFT(SS_TAP(X_F7)));
     }
     break;
   case ST_MACRO_82:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F8))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F8))));
+      CC(SS_LSFT(SS_TAP(X_F8)));
     }
     break;
   case ST_MACRO_83:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F9))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F9))));
+      CC(SS_LSFT(SS_TAP(X_F9)));
     }
     break;
   case ST_MACRO_84:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F10))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F10))));
+      CC(SS_LSFT(SS_TAP(X_F10)));
     }
     break;
   case ST_MACRO_85:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F11))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F11))));
+      CC(SS_LSFT(SS_TAP(X_F11)));
     }
     break;
   case ST_MACRO_86:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_F12))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_F12))));
+      CC(SS_LSFT(SS_TAP(X_F12)));
     }
     break;
   case ST_MACRO_87:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_UP)) SS_DELAY(100) SS_LCTL(SS_TAP(X_UP)));
+      CC(SS_TAP(X_UP));
     }
     break;
   case ST_MACRO_88:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_LEFT)));
+      CC(SS_TAP(X_LEFT));
     }
     break;
   case ST_MACRO_89:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_DOWN)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_DOWN)));
+      CC(SS_TAP(X_DOWN));
     }
     break;
   case ST_MACRO_90:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)) SS_DELAY(100)
-                      SS_LCTL(SS_TAP(X_RIGHT)));
+      CC(SS_TAP(X_RIGHT));
     }
     break;
   case ST_MACRO_91:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_UP))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_UP))));
+      CC(SS_LSFT(SS_TAP(X_UP)));
     }
     break;
   case ST_MACRO_92:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_LEFT))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_LEFT))));
+      CC(SS_LSFT(SS_TAP(X_LEFT)));
     }
     break;
   case ST_MACRO_93:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_DOWN))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_DOWN))));
+      CC(SS_LSFT(SS_TAP(X_DOWN)));
     }
     break;
   case ST_MACRO_94:
     if (record->event.pressed) {
-      SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_RIGHT))) SS_DELAY(100)
-                      SS_LCTL(SS_LSFT(SS_TAP(X_RIGHT))));
+      CC(SS_LSFT(SS_TAP(X_RIGHT)));
     }
     break;
 
