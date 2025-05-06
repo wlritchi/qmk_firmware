@@ -5,101 +5,101 @@
 
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
-  ST_MACRO_0,
-  ST_MACRO_1,
-  ST_MACRO_2,
-  ST_MACRO_3,
-  ST_MACRO_4,
-  ST_MACRO_5,
-  ST_MACRO_6,
-  ST_MACRO_7,
-  ST_MACRO_8,
-  ST_MACRO_9,
-  ST_MACRO_10,
-  ST_MACRO_11,
-  ST_MACRO_12,
-  ST_MACRO_13,
-  ST_MACRO_14,
-  ST_MACRO_15,
-  ST_MACRO_16,
-  ST_MACRO_17,
-  ST_MACRO_18,
-  ST_MACRO_19,
-  ST_MACRO_20,
-  ST_MACRO_21,
-  ST_MACRO_22,
-  ST_MACRO_23,
-  ST_MACRO_24,
-  ST_MACRO_25,
-  ST_MACRO_26,
-  ST_MACRO_27,
-  ST_MACRO_28,
-  ST_MACRO_29,
-  ST_MACRO_30,
-  ST_MACRO_31,
-  ST_MACRO_32,
-  ST_MACRO_33,
-  ST_MACRO_34,
-  ST_MACRO_35,
-  ST_MACRO_36,
-  ST_MACRO_37,
-  ST_MACRO_38,
-  ST_MACRO_39,
-  ST_MACRO_40,
-  ST_MACRO_41,
-  ST_MACRO_42,
-  ST_MACRO_43,
-  ST_MACRO_44,
-  ST_MACRO_45,
-  ST_MACRO_46,
-  ST_MACRO_47,
-  ST_MACRO_48,
-  ST_MACRO_49,
-  ST_MACRO_50,
-  ST_MACRO_51,
-  ST_MACRO_52,
-  ST_MACRO_53,
-  ST_MACRO_54,
-  ST_MACRO_55,
-  ST_MACRO_56,
-  ST_MACRO_57,
-  ST_MACRO_58,
-  ST_MACRO_59,
-  ST_MACRO_60,
-  ST_MACRO_61,
-  ST_MACRO_62,
-  ST_MACRO_63,
-  ST_MACRO_64,
-  ST_MACRO_65,
-  ST_MACRO_66,
-  ST_MACRO_67,
-  ST_MACRO_68,
-  ST_MACRO_69,
-  ST_MACRO_70,
-  ST_MACRO_71,
-  ST_MACRO_72,
-  ST_MACRO_73,
-  ST_MACRO_74,
-  ST_MACRO_75,
-  ST_MACRO_76,
-  ST_MACRO_77,
-  ST_MACRO_78,
-  ST_MACRO_79,
-  ST_MACRO_80,
-  ST_MACRO_81,
-  ST_MACRO_82,
-  ST_MACRO_83,
-  ST_MACRO_84,
-  ST_MACRO_85,
-  ST_MACRO_86,
-  ST_MACRO_87,
-  ST_MACRO_88,
-  ST_MACRO_89,
-  ST_MACRO_90,
-  ST_MACRO_91,
-  ST_MACRO_92,
-  ST_MACRO_93,
-  ST_MACRO_94,
+  MACRO_0X,
+  CC_P,
+  CC_Y,
+  CC_A,
+  CC_O,
+  CC_E,
+  CC_U,
+  CC_I,
+  CC_Q,
+  CC_X,
+  CC_J,
+  CC_K,
+  CC_F,
+  CC_G,
+  CC_C,
+  CC_R,
+  CC_L,
+  CC_D,
+  CC_H,
+  CC_S,
+  CC_MINUS,
+  CC_B,
+  CC_M,
+  CC_V,
+  CC_Z,
+  CC_SHIFT_P,
+  CC_SHIFT_Y,
+  CC_SHIFT_A,
+  CC_SHIFT_O,
+  CC_SHIFT_E,
+  CC_SHIFT_U,
+  CC_SHIFT_I,
+  CC_SHIFT_Q,
+  CC_SHIFT_X,
+  CC_SHIFT_J,
+  CC_SHIFT_K,
+  CC_SHIFT_F,
+  CC_SHIFT_G,
+  CC_SHIFT_C,
+  CC_SHIFT_R,
+  CC_SHIFT_L,
+  CC_SHIFT_D,
+  CC_SHIFT_H,
+  CC_SHIFT_T,
+  CC_SHIFT_N,
+  CC_SHIFT_S,
+  CC_SHIFT_MINUS,
+  CC_SHIFT_B,
+  CC_SHIFT_M,
+  CC_SHIFT_W,
+  CC_SHIFT_V,
+  CC_SHIFT_Z,
+  CC_F1,
+  CC_F2,
+  CC_F3,
+  CC_F4,
+  CC_F5,
+  CC_F6,
+  CC_F7,
+  CC_F8,
+  CC_F9,
+  CC_F10,
+  CC_KP7,
+  CC_KP8,
+  CC_KP9,
+  CC_F11,
+  CC_KP4,
+  CC_KP5,
+  CC_KP6,
+  CC_F12,
+  CC_KP1,
+  CC_KP2,
+  CC_KP3,
+  CC_KP0,
+  CC_KPDOT,
+  CC_SHIFT_F1,
+  CC_SHIFT_F2,
+  CC_SHIFT_F3,
+  CC_SHIFT_F4,
+  CC_SHIFT_F5,
+  CC_SHIFT_F6,
+  CC_SHIFT_F7,
+  CC_SHIFT_F8,
+  CC_SHIFT_F9,
+  CC_SHIFT_F10,
+  CC_SHIFT_F11,
+  CC_SHIFT_F12,
+  CC_UP,
+  CC_LEFT,
+  CC_DOWN,
+  CC_RIGHT,
+  CC_SHIFT_UP,
+  CC_SHIFT_LEFT,
+  CC_SHIFT_DOWN,
+  CC_SHIFT_RIGHT,
 };
 
 enum tap_dance_codes {
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_NO, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT,
-        ST_MACRO_0, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        MACRO_0X, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT),
     [4] = LAYOUT_moonlander(
@@ -183,51 +183,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT),
     [6] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, ST_MACRO_1,
-        ST_MACRO_2, MO(10), KC_NO, ST_MACRO_12, ST_MACRO_13, ST_MACRO_14,
-        ST_MACRO_15, ST_MACRO_16, KC_NO, KC_TRANSPARENT, ST_MACRO_3, ST_MACRO_4,
-        ST_MACRO_5, ST_MACRO_6, ST_MACRO_7, MO(8), KC_NO, ST_MACRO_17,
-        ST_MACRO_18, LGUI(KC_T), LGUI(KC_N), ST_MACRO_19, ST_MACRO_20, MO(7),
-        KC_NO, ST_MACRO_8, ST_MACRO_9, ST_MACRO_10, ST_MACRO_11, ST_MACRO_21,
-        ST_MACRO_22, LGUI(KC_W), ST_MACRO_23, ST_MACRO_24, KC_TRANSPARENT,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_P,
+        CC_Y, MO(10), KC_NO, CC_F, CC_G, CC_C,
+        CC_R, CC_L, KC_NO, KC_TRANSPARENT, CC_A, CC_O,
+        CC_E, CC_U, CC_I, MO(8), KC_NO, CC_D,
+        CC_H, LGUI(KC_T), LGUI(KC_N), CC_S, CC_MINUS, MO(7),
+        KC_NO, CC_Q, CC_X, CC_J, CC_K, CC_B,
+        CC_M, LGUI(KC_W), CC_V, CC_Z, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(11), MO(10),
         KC_TRANSPARENT, KC_TRANSPARENT, MO(10), KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(7), KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
     [7] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, ST_MACRO_25,
-        ST_MACRO_26, MO(11), KC_NO, ST_MACRO_36, ST_MACRO_37, ST_MACRO_38,
-        ST_MACRO_39, ST_MACRO_40, KC_NO, KC_TRANSPARENT, ST_MACRO_27,
-        ST_MACRO_28, ST_MACRO_29, ST_MACRO_30, ST_MACRO_31, MO(9), KC_NO,
-        ST_MACRO_41, ST_MACRO_42, ST_MACRO_43, ST_MACRO_44, ST_MACRO_45,
-        ST_MACRO_46, KC_TRANSPARENT, KC_NO, ST_MACRO_32, ST_MACRO_33,
-        ST_MACRO_34, ST_MACRO_35, ST_MACRO_47, ST_MACRO_48, ST_MACRO_49,
-        ST_MACRO_50, ST_MACRO_51, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_P,
+        CC_SHIFT_Y, MO(11), KC_NO, CC_SHIFT_F, CC_SHIFT_G, CC_SHIFT_C,
+        CC_SHIFT_R, CC_SHIFT_L, KC_NO, KC_TRANSPARENT, CC_SHIFT_A,
+        CC_SHIFT_O, CC_SHIFT_E, CC_SHIFT_U, CC_SHIFT_I, MO(9), KC_NO,
+        CC_SHIFT_D, CC_SHIFT_H, CC_SHIFT_T, CC_SHIFT_N, CC_SHIFT_S,
+        CC_SHIFT_MINUS, KC_TRANSPARENT, KC_NO, CC_SHIFT_Q, CC_SHIFT_X,
+        CC_SHIFT_J, CC_SHIFT_K, CC_SHIFT_B, CC_SHIFT_M, CC_SHIFT_W,
+        CC_SHIFT_V, CC_SHIFT_Z, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, MO(11), MO(11), KC_TRANSPARENT,
         KC_TRANSPARENT, MO(11), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
     [8] = LAYOUT_moonlander(
-        KC_NO, KC_NO, ST_MACRO_52, ST_MACRO_53, ST_MACRO_54, ST_MACRO_55,
-        KC_NO, KC_NO, ST_MACRO_56, ST_MACRO_57, ST_MACRO_58, ST_MACRO_59,
-        ST_MACRO_60, ST_MACRO_61, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, ST_MACRO_62, ST_MACRO_63, ST_MACRO_64,
-        KC_NO, ST_MACRO_65, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_NO, KC_NO, ST_MACRO_66, ST_MACRO_67, ST_MACRO_68,
-        KC_NO, ST_MACRO_69, MO(9), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        ST_MACRO_70, ST_MACRO_71, ST_MACRO_72, KC_NO, KC_TRANSPARENT,
+        KC_NO, KC_NO, CC_F1, CC_F2, CC_F3, CC_F4,
+        KC_NO, KC_NO, CC_F5, CC_F6, CC_F7, CC_F8,
+        CC_F9, CC_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, CC_KP7, CC_KP8, CC_KP9,
+        KC_NO, CC_F11, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_TRANSPARENT, KC_NO, KC_NO, CC_KP4, CC_KP5, CC_KP6,
+        KC_NO, CC_F12, MO(9), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        CC_KP1, CC_KP2, CC_KP3, KC_NO, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_TRANSPARENT, ST_MACRO_73, ST_MACRO_74,
+        KC_TRANSPARENT, KC_TRANSPARENT, CC_KP0, CC_KPDOT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(9),
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
     [9] = LAYOUT_moonlander(
-        KC_NO, KC_NO, ST_MACRO_75, ST_MACRO_76, ST_MACRO_77, ST_MACRO_78,
-        KC_NO, KC_NO, ST_MACRO_79, ST_MACRO_80, ST_MACRO_81, ST_MACRO_82,
-        ST_MACRO_83, ST_MACRO_84, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, ST_MACRO_85,
+        KC_NO, KC_NO, CC_SHIFT_F1, CC_SHIFT_F2, CC_SHIFT_F3, CC_SHIFT_F4,
+        KC_NO, KC_NO, CC_SHIFT_F5, CC_SHIFT_F6, CC_SHIFT_F7, CC_SHIFT_F8,
+        CC_SHIFT_F9, CC_SHIFT_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_F11,
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, ST_MACRO_86, KC_TRANSPARENT,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_F12, KC_TRANSPARENT,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,
         KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO, KC_TRANSPARENT,
@@ -237,10 +237,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_TRANSPARENT, KC_NO, KC_NO, LCTL(KC_PAGE_UP),
-                             ST_MACRO_87, LCTL(KC_PGDN), KC_NO, KC_NO,
+                             CC_UP, LCTL(KC_PGDN), KC_NO, KC_NO,
                              KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, LCTL(KC_HOME), ST_MACRO_88,
-                             ST_MACRO_89, ST_MACRO_90, LCTL(KC_END), KC_NO,
+                             KC_NO, KC_NO, LCTL(KC_HOME), CC_LEFT,
+                             CC_DOWN, CC_RIGHT, LCTL(KC_END), KC_NO,
                              MO(11), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
                              KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -254,10 +254,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                           KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                           KC_TRANSPARENT, KC_NO, KC_NO, LCTL(LSFT(KC_PAGE_UP)),
-                          ST_MACRO_91, LCTL(LSFT(KC_PGDN)), KC_NO, KC_NO,
+                          CC_SHIFT_UP, LCTL(LSFT(KC_PGDN)), KC_NO, KC_NO,
                           KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                          KC_NO, KC_NO, LCTL(LSFT(KC_HOME)), ST_MACRO_92,
-                          ST_MACRO_93, ST_MACRO_94, LCTL(LSFT(KC_END)), KC_NO,
+                          KC_NO, KC_NO, LCTL(LSFT(KC_HOME)), CC_SHIFT_LEFT,
+                          CC_SHIFT_DOWN, CC_SHIFT_RIGHT, LCTL(LSFT(KC_END)), KC_NO,
                           KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -576,477 +576,477 @@ bool rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case ST_MACRO_0:
+  case MACRO_0X:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_0) SS_DELAY(100) SS_TAP(X_X));
     }
     break;
-  case ST_MACRO_1:
+  case CC_P:
     if (record->event.pressed) {
       CC(SS_TAP(X_P));
     }
     break;
-  case ST_MACRO_2:
+  case CC_Y:
     if (record->event.pressed) {
       CC(SS_TAP(X_Y));
     }
     break;
-  case ST_MACRO_3:
+  case CC_A:
     if (record->event.pressed) {
       CC(SS_TAP(X_A));
     }
     break;
-  case ST_MACRO_4:
+  case CC_O:
     if (record->event.pressed) {
       CC(SS_TAP(X_O));
     }
     break;
-  case ST_MACRO_5:
+  case CC_E:
     if (record->event.pressed) {
       CC(SS_TAP(X_E));
     }
     break;
-  case ST_MACRO_6:
+  case CC_U:
     if (record->event.pressed) {
       CC(SS_TAP(X_U));
     }
     break;
-  case ST_MACRO_7:
+  case CC_I:
     if (record->event.pressed) {
       CC(SS_TAP(X_I));
     }
     break;
-  case ST_MACRO_8:
+  case CC_Q:
     if (record->event.pressed) {
       CC(SS_TAP(X_Q));
     }
     break;
-  case ST_MACRO_9:
+  case CC_X:
     if (record->event.pressed) {
       CC(SS_TAP(X_X));
     }
     break;
-  case ST_MACRO_10:
+  case CC_J:
     if (record->event.pressed) {
       CC(SS_TAP(X_J));
     }
     break;
-  case ST_MACRO_11:
+  case CC_K:
     if (record->event.pressed) {
       CC(SS_TAP(X_K));
     }
     break;
-  case ST_MACRO_12:
+  case CC_F:
     if (record->event.pressed) {
       CC(SS_TAP(X_F));
     }
     break;
-  case ST_MACRO_13:
+  case CC_G:
     if (record->event.pressed) {
       CC(SS_TAP(X_G));
     }
     break;
-  case ST_MACRO_14:
+  case CC_C:
     if (record->event.pressed) {
       CC(SS_TAP(X_C));
     }
     break;
-  case ST_MACRO_15:
+  case CC_R:
     if (record->event.pressed) {
       CC(SS_TAP(X_R));
     }
     break;
-  case ST_MACRO_16:
+  case CC_L:
     if (record->event.pressed) {
       CC(SS_TAP(X_L));
     }
     break;
-  case ST_MACRO_17:
+  case CC_D:
     if (record->event.pressed) {
       CC(SS_TAP(X_D));
     }
     break;
-  case ST_MACRO_18:
+  case CC_H:
     if (record->event.pressed) {
       CC(SS_TAP(X_H));
     }
     break;
-  case ST_MACRO_19:
+  case CC_S:
     if (record->event.pressed) {
       CC(SS_TAP(X_S));
     }
     break;
-  case ST_MACRO_20:
+  case CC_MINUS:
     if (record->event.pressed) {
       CC(SS_TAP(X_MINUS));
     }
     break;
-  case ST_MACRO_21:
+  case CC_B:
     if (record->event.pressed) {
       CC(SS_TAP(X_B));
     }
     break;
-  case ST_MACRO_22:
+  case CC_M:
     if (record->event.pressed) {
       CC(SS_TAP(X_M));
     }
     break;
-  case ST_MACRO_23:
+  case CC_V:
     if (record->event.pressed) {
       CC(SS_TAP(X_V));
     }
     break;
-  case ST_MACRO_24:
+  case CC_Z:
     if (record->event.pressed) {
       CC(SS_TAP(X_Z));
     }
     break;
-  case ST_MACRO_25:
+  case CC_SHIFT_P:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_P)));
     }
     break;
-  case ST_MACRO_26:
+  case CC_SHIFT_Y:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_Y)));
     }
     break;
-  case ST_MACRO_27:
+  case CC_SHIFT_A:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_A)));
     }
     break;
-  case ST_MACRO_28:
+  case CC_SHIFT_O:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_O)));
     }
     break;
-  case ST_MACRO_29:
+  case CC_SHIFT_E:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_E)));
     }
     break;
-  case ST_MACRO_30:
+  case CC_SHIFT_U:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_U)));
     }
     break;
-  case ST_MACRO_31:
+  case CC_SHIFT_I:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_I)));
     }
     break;
-  case ST_MACRO_32:
+  case CC_SHIFT_Q:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_Q)));
     }
     break;
-  case ST_MACRO_33:
+  case CC_SHIFT_X:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_X)));
     }
     break;
-  case ST_MACRO_34:
+  case CC_SHIFT_J:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_J)));
     }
     break;
-  case ST_MACRO_35:
+  case CC_SHIFT_K:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_K)));
     }
     break;
-  case ST_MACRO_36:
+  case CC_SHIFT_F:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F)));
     }
     break;
-  case ST_MACRO_37:
+  case CC_SHIFT_G:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_G)));
     }
     break;
-  case ST_MACRO_38:
+  case CC_SHIFT_C:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_C)));
     }
     break;
-  case ST_MACRO_39:
+  case CC_SHIFT_R:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_R)));
     }
     break;
-  case ST_MACRO_40:
+  case CC_SHIFT_L:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_L)));
     }
     break;
-  case ST_MACRO_41:
+  case CC_SHIFT_D:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_D)));
     }
     break;
-  case ST_MACRO_42:
+  case CC_SHIFT_H:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_H)));
     }
     break;
-  case ST_MACRO_43:
+  case CC_SHIFT_T:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_T)));
     }
     break;
-  case ST_MACRO_44:
+  case CC_SHIFT_N:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_N)));
     }
     break;
-  case ST_MACRO_45:
+  case CC_SHIFT_S:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_S)));
     }
     break;
-  case ST_MACRO_46:
+  case CC_SHIFT_MINUS:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_MINUS)));
     }
     break;
-  case ST_MACRO_47:
+  case CC_SHIFT_B:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_B)));
     }
     break;
-  case ST_MACRO_48:
+  case CC_SHIFT_M:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_M)));
     }
     break;
-  case ST_MACRO_49:
+  case CC_SHIFT_W:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_W)));
     }
     break;
-  case ST_MACRO_50:
+  case CC_SHIFT_V:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_V)));
     }
     break;
-  case ST_MACRO_51:
+  case CC_SHIFT_Z:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_Z)));
     }
     break;
-  case ST_MACRO_52:
+  case CC_F1:
     if (record->event.pressed) {
       CC(SS_TAP(X_F1));
     }
     break;
-  case ST_MACRO_53:
+  case CC_F2:
     if (record->event.pressed) {
       CC(SS_TAP(X_F2));
     }
     break;
-  case ST_MACRO_54:
+  case CC_F3:
     if (record->event.pressed) {
       CC(SS_TAP(X_F3));
     }
     break;
-  case ST_MACRO_55:
+  case CC_F4:
     if (record->event.pressed) {
       CC(SS_TAP(X_F4));
     }
     break;
-  case ST_MACRO_56:
+  case CC_F5:
     if (record->event.pressed) {
       CC(SS_TAP(X_F5));
     }
     break;
-  case ST_MACRO_57:
+  case CC_F6:
     if (record->event.pressed) {
       CC(SS_TAP(X_F6));
     }
     break;
-  case ST_MACRO_58:
+  case CC_F7:
     if (record->event.pressed) {
       CC(SS_TAP(X_F7));
     }
     break;
-  case ST_MACRO_59:
+  case CC_F8:
     if (record->event.pressed) {
       CC(SS_TAP(X_F8));
     }
     break;
-  case ST_MACRO_60:
+  case CC_F9:
     if (record->event.pressed) {
       CC(SS_TAP(X_F9));
     }
     break;
-  case ST_MACRO_61:
+  case CC_F10:
     if (record->event.pressed) {
       CC(SS_TAP(X_F10));
     }
     break;
-  case ST_MACRO_62:
+  case CC_KP7:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_7));
     }
     break;
-  case ST_MACRO_63:
+  case CC_KP8:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_8));
     }
     break;
-  case ST_MACRO_64:
+  case CC_KP9:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_9));
     }
     break;
-  case ST_MACRO_65:
+  case CC_F11:
     if (record->event.pressed) {
       CC(SS_TAP(X_F11));
     }
     break;
-  case ST_MACRO_66:
+  case CC_KP4:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_4));
     }
     break;
-  case ST_MACRO_67:
+  case CC_KP5:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_5));
     }
     break;
-  case ST_MACRO_68:
+  case CC_KP6:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_6));
     }
     break;
-  case ST_MACRO_69:
+  case CC_F12:
     if (record->event.pressed) {
       CC(SS_TAP(X_F12));
     }
     break;
-  case ST_MACRO_70:
+  case CC_KP1:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_1));
     }
     break;
-  case ST_MACRO_71:
+  case CC_KP2:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_2));
     }
     break;
-  case ST_MACRO_72:
+  case CC_KP3:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_3));
     }
     break;
-  case ST_MACRO_73:
+  case CC_KP0:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_0));
     }
     break;
-  case ST_MACRO_74:
+  case CC_KPDOT:
     if (record->event.pressed) {
       CC(SS_TAP(X_KP_DOT));
     }
     break;
-  case ST_MACRO_75:
+  case CC_SHIFT_F1:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F1)));
     }
     break;
-  case ST_MACRO_76:
+  case CC_SHIFT_F2:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F2)));
     }
     break;
-  case ST_MACRO_77:
+  case CC_SHIFT_F3:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F3)));
     }
     break;
-  case ST_MACRO_78:
+  case CC_SHIFT_F4:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F4)));
     }
     break;
-  case ST_MACRO_79:
+  case CC_SHIFT_F5:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F5)));
     }
     break;
-  case ST_MACRO_80:
+  case CC_SHIFT_F6:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F6)));
     }
     break;
-  case ST_MACRO_81:
+  case CC_SHIFT_F7:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F7)));
     }
     break;
-  case ST_MACRO_82:
+  case CC_SHIFT_F8:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F8)));
     }
     break;
-  case ST_MACRO_83:
+  case CC_SHIFT_F9:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F9)));
     }
     break;
-  case ST_MACRO_84:
+  case CC_SHIFT_F10:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F10)));
     }
     break;
-  case ST_MACRO_85:
+  case CC_SHIFT_F11:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F11)));
     }
     break;
-  case ST_MACRO_86:
+  case CC_SHIFT_F12:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_F12)));
     }
     break;
-  case ST_MACRO_87:
+  case CC_UP:
     if (record->event.pressed) {
       CC(SS_TAP(X_UP));
     }
     break;
-  case ST_MACRO_88:
+  case CC_LEFT:
     if (record->event.pressed) {
       CC(SS_TAP(X_LEFT));
     }
     break;
-  case ST_MACRO_89:
+  case CC_DOWN:
     if (record->event.pressed) {
       CC(SS_TAP(X_DOWN));
     }
     break;
-  case ST_MACRO_90:
+  case CC_RIGHT:
     if (record->event.pressed) {
       CC(SS_TAP(X_RIGHT));
     }
     break;
-  case ST_MACRO_91:
+  case CC_SHIFT_UP:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_UP)));
     }
     break;
-  case ST_MACRO_92:
+  case CC_SHIFT_LEFT:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_LEFT)));
     }
     break;
-  case ST_MACRO_93:
+  case CC_SHIFT_DOWN:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_DOWN)));
     }
     break;
-  case ST_MACRO_94:
+  case CC_SHIFT_RIGHT:
     if (record->event.pressed) {
       CC(SS_LSFT(SS_TAP(X_RIGHT)));
     }
