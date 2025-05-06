@@ -3,6 +3,21 @@
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
 
+enum layers {
+  BASE,
+  SHIFT,
+  NUM,
+  SHIFTNUM,
+  NAV,
+  SHIFTNAV,
+  CTRL,
+  CTRLSHIFT,
+  CTRLNUM,
+  CTRLSHIFTNUM,
+  CTRLNAV,
+  CTRLSHIFTNAV,
+};
+
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
   MACRO_0X,
@@ -106,7 +121,7 @@ enum tap_dance_codes {
   DANCE_0,
 };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_moonlander(
+    [BASE] = LAYOUT_moonlander(
         KC_DLR, KC_AMPR, KC_LBRC, KC_LCBR, KC_LPRN, KC_PLUS, KC_EQUAL, KC_EQUAL,
         KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRC, KC_EXLM, KC_HASH, KC_TAB, KC_QUOTE,
         KC_COMMA, KC_DOT, KC_P, KC_Y, MO(4), KC_PIPE, KC_F, KC_G, KC_C, KC_R,
@@ -117,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, MO(4), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_SPACE, LM(1, MOD_LSFT), KC_LEFT_ALT, KC_TAB, KC_BSPC,
         KC_ENTER),
-    [1] = LAYOUT_moonlander(
+    [SHIFT] = LAYOUT_moonlander(
         KC_TILD, KC_0, KC_1, KC_2, KC_3, KC_4, KC_NO, KC_PERC, KC_5, KC_6, KC_7,
         KC_8, KC_9, KC_GRAVE, LSFT(KC_TAB), KC_DQUO, KC_LABK, KC_RABK,
         LSFT(KC_P), LSFT(KC_Y), MO(5), KC_BSLS, LSFT(KC_F), LSFT(KC_G),
@@ -131,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         LSFT(KC_SPACE), KC_TRANSPARENT, KC_TRANSPARENT, LSFT(KC_TAB),
         LSFT(KC_BSPC), LSFT(KC_ENTER)),
-    [2] = LAYOUT_moonlander(
+    [NUM] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_NO, KC_NO, KC_F5, KC_F6,
         KC_F7, KC_F8, KC_F9, KC_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_KP_ASTERISK, KC_KP_7, KC_KP_8, KC_KP_9, KC_NO,
@@ -143,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_KP_DOT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, MO(3), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT),
-    [3] = LAYOUT_moonlander(
+    [SHIFTNUM] = LAYOUT_moonlander(
         KC_NO, KC_NO, LSFT(KC_F1), LSFT(KC_F2), LSFT(KC_F3), LSFT(KC_F4),
         KC_NO, KC_NO, LSFT(KC_F5), LSFT(KC_F6), LSFT(KC_F7), LSFT(KC_F8),
         LSFT(KC_F9), LSFT(KC_F10), KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -156,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MACRO_0X, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT),
-    [4] = LAYOUT_moonlander(
+    [NAV] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_TRANSPARENT, KC_NO, KC_NO, KC_PAGE_UP, KC_UP, KC_PGDN, KC_NO, KC_NO,
@@ -168,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, MO(5), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT),
-    [5] = LAYOUT_moonlander(
+    [SHIFTNAV] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_TRANSPARENT, KC_NO, KC_NO, LSFT(KC_PAGE_UP), LSFT(KC_UP),
@@ -181,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT),
-    [6] = LAYOUT_moonlander(
+    [CTRL] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_P,
         CC_Y, MO(10), KC_NO, CC_F, CC_G, CC_C,
@@ -194,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, MO(10), KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(7), KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [7] = LAYOUT_moonlander(
+    [CTRLSHIFT] = LAYOUT_moonlander(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_P,
         CC_SHIFT_Y, MO(11), KC_NO, CC_SHIFT_F, CC_SHIFT_G, CC_SHIFT_C,
@@ -208,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, MO(11), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [8] = LAYOUT_moonlander(
+    [CTRLNUM] = LAYOUT_moonlander(
         KC_NO, KC_NO, CC_F1, CC_F2, CC_F3, CC_F4,
         KC_NO, KC_NO, CC_F5, CC_F6, CC_F7, CC_F8,
         CC_F9, CC_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -221,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, CC_KP0, CC_KPDOT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(9),
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [9] = LAYOUT_moonlander(
+    [CTRLSHIFTNUM] = LAYOUT_moonlander(
         KC_NO, KC_NO, CC_SHIFT_F1, CC_SHIFT_F2, CC_SHIFT_F3, CC_SHIFT_F4,
         KC_NO, KC_NO, CC_SHIFT_F5, CC_SHIFT_F6, CC_SHIFT_F7, CC_SHIFT_F8,
         CC_SHIFT_F9, CC_SHIFT_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -233,7 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [10] = LAYOUT_moonlander(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    [CTRLNAV] = LAYOUT_moonlander(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                              KC_TRANSPARENT, KC_NO, KC_NO, LCTL(KC_PAGE_UP),
@@ -249,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
                              KC_TRANSPARENT, MO(11), KC_TRANSPARENT,
                              KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [11] =
+    [CTRLSHIFTNAV] =
         LAYOUT_moonlander(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                           KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
                           KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -273,7 +288,7 @@ extern rgb_config_t rgb_matrix_config;
 void keyboard_post_init_user(void) { rgb_matrix_enable(); }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [0] = {{126, 255, 255}, {126, 255, 255}, {220, 255, 255}, {43, 255, 255},
+    [BASE] = {{126, 255, 255}, {126, 255, 255}, {220, 255, 255}, {43, 255, 255},
            {220, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
@@ -292,7 +307,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0}},
 
-    [1] = {{126, 255, 255}, {126, 255, 255}, {220, 255, 255}, {0, 0, 255},
+    [SHIFT] = {{126, 255, 255}, {126, 255, 255}, {220, 255, 255}, {0, 0, 255},
            {220, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
@@ -311,7 +326,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {126, 255, 255},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0}},
 
-    [2] = {{0, 0, 0},       {126, 255, 255}, {220, 255, 255}, {43, 255, 255},
+    [NUM] = {{0, 0, 0},       {126, 255, 255}, {220, 255, 255}, {43, 255, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {126, 255, 255}, {220, 255, 255}, {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {126, 255, 255}, {220, 255, 255},
@@ -330,7 +345,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {43, 255, 255},  {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0}},
 
-    [3] = {{0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 255},
+    [SHIFTNUM] = {{0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {126, 255, 255}, {220, 255, 255}, {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {126, 255, 255}, {220, 255, 255},
@@ -349,7 +364,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0}},
 
-    [4] = {{0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {43, 255, 255},
+    [NAV] = {{0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {43, 255, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {126, 255, 255}, {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {126, 255, 255}, {0, 0, 0},
@@ -368,7 +383,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0}},
 
-    [5] = {{0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 255},
+    [SHIFTNAV] = {{0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
@@ -387,7 +402,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {126, 255, 255}, {0, 0, 0}},
 
-    [6] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {43, 255, 255},
+    [CTRL] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {43, 255, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {126, 255, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {0, 0, 0},       {0, 0, 0},
@@ -406,7 +421,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0}},
 
-    [7] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {0, 0, 255},
+    [CTRLSHIFT] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {0, 0, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {126, 255, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {126, 255, 255}, {126, 255, 255}, {0, 0, 0},       {0, 0, 0},
@@ -425,7 +440,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {126, 255, 255}, {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0}},
 
-    [8] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {43, 255, 255},
+    [CTRLNUM] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {43, 255, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {220, 255, 255},
@@ -444,7 +459,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0}},
 
-    [9] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {0, 0, 255},
+    [CTRLSHIFTNUM] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {0, 0, 255},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {220, 255, 255}, {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {220, 255, 255},
@@ -463,7 +478,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
            {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0}},
 
-    [10] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {43, 255, 255},
+    [CTRLNAV] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {43, 255, 255},
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
@@ -482,7 +497,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0}},
 
-    [11] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {0, 0, 255},
+    [CTRLSHIFTNAV] = {{0, 0, 0},       {0, 0, 0},       {0, 0, 255},     {0, 0, 255},
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
             {0, 0, 0},       {0, 0, 0},       {0, 0, 0},       {0, 0, 0},
