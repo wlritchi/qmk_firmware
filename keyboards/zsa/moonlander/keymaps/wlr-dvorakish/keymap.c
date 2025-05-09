@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
-#define MOON_LED_LEVEL LED_LEVEL
-#define ML_SAFE_RANGE SAFE_RANGE
 
 enum layers {
   BASE,
@@ -13,8 +11,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-  RGB_SLD = ML_SAFE_RANGE,
-  MACRO_0X,
+  MACRO_0X = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right lower: b m w v z (shift)
         KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RIGHT_SHIFT,
 
-        // left bottom: (led) (super) (alt) (shiftnav) (nav)
-        MOON_LED_LEVEL, KC_LEFT_GUI, KC_LEFT_ALT, MO(SHIFTNAV), MO(NAV),
+        // left bottom: (noop) (super) (alt) (shiftnav) (nav)
+        KC_TRANSPARENT, KC_LEFT_GUI, KC_LEFT_ALT, MO(SHIFTNAV), MO(NAV),
         // left red: (noop)
         KC_TRANSPARENT,
         // right red: (noop)
@@ -210,7 +207,7 @@ void keyboard_post_init_user(void) { rgb_matrix_enable(); }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [BASE] = {
-        {RGB_CYAN}, {RGB_CYAN}, {RGB_MAUVE}, {RGB_YELLOW}, {RGB_MAUVE},
+        {RGB_CYAN}, {RGB_CYAN}, {RGB_MAUVE}, {RGB_YELLOW}, {RGB_BLACK},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW},
@@ -231,7 +228,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     },
 
     [SHIFT] = {
-        {RGB_CYAN}, {RGB_CYAN}, {RGB_MAUVE}, {RGB_WHITE}, {RGB_MAUVE},
+        {RGB_CYAN}, {RGB_CYAN}, {RGB_MAUVE}, {RGB_WHITE}, {RGB_BLACK},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW},
@@ -383,40 +380,31 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!record->event.pressed) {
+    return true;
+  }
   if ((get_mods() & MOD_MASK_CTRL) && (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS)) {
-    if (record->event.pressed) {
-      if (
-        (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX)
-        || (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX)
-        || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)
-      ) {
-        return true;
-      }
-
-      uint8_t real_mods = get_mods();
-      uint8_t translated_mods = (real_mods & ~MOD_MASK_CTRL) | MOD_MASK_GUI;
-
-      set_mods(translated_mods);
-      register_code(keycode);
-      unregister_code(keycode);
-      set_mods(real_mods);
-      return false;
+    if (
+      (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX)
+      || (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX)
+      || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)
+    ) {
+      return true;
     }
+
+    uint8_t real_mods = get_mods();
+    uint8_t translated_mods = (real_mods & ~MOD_MASK_CTRL) | MOD_MASK_GUI;
+
+    set_mods(translated_mods);
+    register_code(keycode);
+    unregister_code(keycode);
+    set_mods(real_mods);
+    return false;
   }
   switch (keycode) {
   case MACRO_0X:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_0) SS_DELAY(100) SS_TAP(X_X));
-    }
+    SEND_STRING(SS_TAP(X_0) SS_DELAY(100) SS_TAP(X_X));
     break;
-  case RGB_SLD:
-    if (rawhid_state.rgb_control) {
-      return false;
-    }
-    if (record->event.pressed) {
-      rgblight_mode(1);
-    }
-    return false;
   }
   return true;
 }
