@@ -39,10 +39,13 @@ enum custom_keycodes {
   CC_L,
   CC_D,
   CC_H,
+  CC_T,
+  CC_N,
   CC_S,
   CC_MINUS,
   CC_B,
   CC_M,
+  CC_W,
   CC_V,
   CC_Z,
   CC_SHIFT_P,
@@ -122,165 +125,313 @@ enum tap_dance_codes {
 };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_moonlander(
-        KC_DLR, KC_AMPR, KC_LBRC, KC_LCBR, KC_LPRN, KC_PLUS, KC_EQUAL, KC_EQUAL,
-        KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRC, KC_EXLM, KC_HASH, KC_TAB, KC_QUOTE,
-        KC_COMMA, KC_DOT, KC_P, KC_Y, MO(4), KC_PIPE, KC_F, KC_G, KC_C, KC_R,
-        KC_L, KC_SLASH, LT(6, KC_ESCAPE), KC_A, KC_O, KC_E, KC_U, KC_I, MO(2),
-        KC_AT, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINUS, LM(1, MOD_LSFT), KC_SCLN,
-        KC_Q, KC_X, KC_J, KC_K, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RIGHT_SHIFT,
-        MOON_LED_LEVEL, KC_LEFT_GUI, KC_LEFT_ALT, MO(5), MO(4), KC_TRANSPARENT,
-        KC_TRANSPARENT, MO(4), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_SPACE, LM(1, MOD_LSFT), KC_LEFT_ALT, KC_TAB, KC_BSPC,
-        KC_ENTER),
+        // left top: $ & [ { ( + =
+        KC_DLR, KC_AMPR, KC_LBRC, KC_LCBR, KC_LPRN, KC_PLUS, KC_EQUAL,
+        // right top: = * ) } ] ! #
+        KC_EQUAL, KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRC, KC_EXLM, KC_HASH,
+        
+        // left upper: (tab) ' , . p y (nav)
+        KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P, KC_Y, MO(NAV),
+        // right upper: | f g c r l /
+        KC_PIPE, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLASH,
+
+        // left home: (esc/ctrl) a o e u i (num)
+        LT(CTRL, KC_ESCAPE), KC_A, KC_O, KC_E, KC_U, KC_I, MO(NUM),
+        // right home: @ d h t n s -
+        KC_AT, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINUS,
+        
+        // left lower: (shift) ; q x j k
+        LM(SHIFT, MOD_LSFT), KC_SCLN, KC_Q, KC_X, KC_J, KC_K,
+        // right lower: b m w v z (shift)
+        KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RIGHT_SHIFT,
+
+        // left bottom: (led) (super) (alt) (shiftnav) (nav)
+        MOON_LED_LEVEL, KC_LEFT_GUI, KC_LEFT_ALT, MO(SHIFTNAV), MO(NAV),
+        // left red: (noop)
+        KC_TRANSPARENT,
+        // right red: (noop)
+        KC_TRANSPARENT,
+        // right bottom: (nav) (noop) (noop) (noop) (noop)
+        MO(NAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        // left thumb cluster: (space) (shift) (alt)
+        KC_SPACE, LM(SHIFT, MOD_LSFT), KC_LEFT_ALT,
+        // right thumb cluster: (tab) (backspace) (enter)
+        KC_TAB, KC_BSPC, KC_ENTER
+    ),
     [SHIFT] = LAYOUT_moonlander(
-        KC_TILD, KC_0, KC_1, KC_2, KC_3, KC_4, KC_NO, KC_PERC, KC_5, KC_6, KC_7,
-        KC_8, KC_9, KC_GRAVE, LSFT(KC_TAB), KC_DQUO, KC_LABK, KC_RABK,
-        LSFT(KC_P), LSFT(KC_Y), MO(5), KC_BSLS, LSFT(KC_F), LSFT(KC_G),
-        LSFT(KC_C), LSFT(KC_R), LSFT(KC_L), KC_QUES, TD(DANCE_0), LSFT(KC_A),
-        LSFT(KC_O), LSFT(KC_E), LSFT(KC_U), LSFT(KC_I), MO(3), KC_CIRC,
-        LSFT(KC_D), LSFT(KC_H), LSFT(KC_T), LSFT(KC_N), LSFT(KC_S), KC_UNDS,
+        // left top: ~ 0 1 2 3 4 (noop)
+        KC_TILD, KC_0, KC_1, KC_2, KC_3, KC_4, KC_NO,
+        // right top: % 5 6 7 8 9 `
+        KC_PERC, KC_5, KC_6, KC_7, KC_8, KC_9, KC_GRAVE,
+
+        // left upper: (shift+tab) " < > P Y (shiftnav)
+        LSFT(KC_TAB), KC_DQUO, KC_LABK, KC_RABK, LSFT(KC_P), LSFT(KC_Y), MO(SHIFTNAV),
+        // right upper: \ F G C R L ?
+        KC_BSLS, LSFT(KC_F), LSFT(KC_G), LSFT(KC_C), LSFT(KC_R), LSFT(KC_L), KC_QUES,
+
+        // left home: (?????) A O E U I (shiftnum)
+        TD(DANCE_0), LSFT(KC_A), LSFT(KC_O), LSFT(KC_E), LSFT(KC_U), LSFT(KC_I), MO(SHIFTNUM),
+        // right home: ^ D H T N S _
+        KC_CIRC, LSFT(KC_D), LSFT(KC_H), LSFT(KC_T), LSFT(KC_N), LSFT(KC_S), KC_UNDS,
+
+        // left lower: (shift) : Q X J K
         KC_TRANSPARENT, KC_COLN, LSFT(KC_Q), LSFT(KC_X), LSFT(KC_J), LSFT(KC_K),
-        LSFT(KC_B), LSFT(KC_M), LSFT(KC_W), LSFT(KC_V), LSFT(KC_Z),
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, MO(5), KC_TRANSPARENT, KC_TRANSPARENT, MO(5),
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        LSFT(KC_SPACE), KC_TRANSPARENT, KC_TRANSPARENT, LSFT(KC_TAB),
-        LSFT(KC_BSPC), LSFT(KC_ENTER)),
+        // right lower: B M W V Z (shift)
+        LSFT(KC_B), LSFT(KC_M), LSFT(KC_W), LSFT(KC_V), LSFT(KC_Z), KC_TRANSPARENT,
+
+        // left bottom: (led) (super) (alt) (shiftnav) (shiftnav)
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(SHIFTNAV),
+        // left red: (noop)
+        KC_TRANSPARENT,
+        // right red: (noop)
+        KC_TRANSPARENT,
+        // right bottom: (shiftnav) (noop) (noop) (noop) (noop)
+        MO(SHIFTNAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+
+        // left thumb cluster: (space) (shift) (alt)
+        LSFT(KC_SPACE), KC_TRANSPARENT, KC_TRANSPARENT,
+        // right thumb cluster: (tab) (backspace) (enter)
+        LSFT(KC_TAB), LSFT(KC_BSPC), LSFT(KC_ENTER)
+    ),
     [NUM] = LAYOUT_moonlander(
-        KC_NO, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_NO, KC_NO, KC_F5, KC_F6,
-        KC_F7, KC_F8, KC_F9, KC_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_KP_ASTERISK, KC_KP_7, KC_KP_8, KC_KP_9, KC_NO,
-        KC_F11, LT(8, KC_ESCAPE), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_NO, KC_KP_PLUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_NO,
-        KC_F12, MO(3), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_EQUAL, KC_KP_1,
-        KC_KP_2, KC_KP_3, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_NO, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_KP_0,
-        KC_KP_DOT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, MO(3), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT),
-    [SHIFTNUM] = LAYOUT_moonlander(
-        KC_NO, KC_NO, LSFT(KC_F1), LSFT(KC_F2), LSFT(KC_F3), LSFT(KC_F4),
-        KC_NO, KC_NO, LSFT(KC_F5), LSFT(KC_F6), LSFT(KC_F7), LSFT(KC_F8),
-        LSFT(KC_F9), LSFT(KC_F10), KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_KP_SLASH, KC_D, KC_E, KC_F, KC_NO, LSFT(KC_F11),
-        LT(9, KC_ESCAPE), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-        KC_NO, KC_KP_MINUS, KC_A, KC_B, KC_C, KC_NO, LSFT(KC_F12),
-        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_NO, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT,
-        MACRO_0X, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT),
-    [NAV] = LAYOUT_moonlander(
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_NO, KC_NO, KC_PAGE_UP, KC_UP, KC_PGDN, KC_NO, KC_NO,
-        LT(10, KC_ESCAPE), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, KC_NO, MO(5), KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, MO(5), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT),
-    [SHIFTNAV] = LAYOUT_moonlander(
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_TRANSPARENT, KC_NO, KC_NO, LSFT(KC_PAGE_UP), LSFT(KC_UP),
-        LSFT(KC_PGDN), KC_NO, KC_NO, LT(11, KC_ESCAPE), KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, LSFT(KC_HOME), LSFT(KC_LEFT), LSFT(KC_DOWN),
-        LSFT(KC_RIGHT), LSFT(KC_END), KC_NO, KC_TRANSPARENT, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT),
-    [CTRL] = LAYOUT_moonlander(
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_P,
-        CC_Y, MO(10), KC_NO, CC_F, CC_G, CC_C,
-        CC_R, CC_L, KC_NO, KC_TRANSPARENT, CC_A, CC_O,
-        CC_E, CC_U, CC_I, MO(8), KC_NO, CC_D,
-        CC_H, LGUI(KC_T), LGUI(KC_N), CC_S, CC_MINUS, MO(7),
-        KC_NO, CC_Q, CC_X, CC_J, CC_K, CC_B,
-        CC_M, LGUI(KC_W), CC_V, CC_Z, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(11), MO(10),
-        KC_TRANSPARENT, KC_TRANSPARENT, MO(10), KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(7), KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [CTRLSHIFT] = LAYOUT_moonlander(
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_P,
-        CC_SHIFT_Y, MO(11), KC_NO, CC_SHIFT_F, CC_SHIFT_G, CC_SHIFT_C,
-        CC_SHIFT_R, CC_SHIFT_L, KC_NO, KC_TRANSPARENT, CC_SHIFT_A,
-        CC_SHIFT_O, CC_SHIFT_E, CC_SHIFT_U, CC_SHIFT_I, MO(9), KC_NO,
-        CC_SHIFT_D, CC_SHIFT_H, CC_SHIFT_T, CC_SHIFT_N, CC_SHIFT_S,
-        CC_SHIFT_MINUS, KC_TRANSPARENT, KC_NO, CC_SHIFT_Q, CC_SHIFT_X,
-        CC_SHIFT_J, CC_SHIFT_K, CC_SHIFT_B, CC_SHIFT_M, CC_SHIFT_W,
-        CC_SHIFT_V, CC_SHIFT_Z, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, MO(11), MO(11), KC_TRANSPARENT,
-        KC_TRANSPARENT, MO(11), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [CTRLNUM] = LAYOUT_moonlander(
-        KC_NO, KC_NO, CC_F1, CC_F2, CC_F3, CC_F4,
-        KC_NO, KC_NO, CC_F5, CC_F6, CC_F7, CC_F8,
-        CC_F9, CC_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, CC_KP7, CC_KP8, CC_KP9,
-        KC_NO, CC_F11, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_NO, KC_NO, CC_KP4, CC_KP5, CC_KP6,
-        KC_NO, CC_F12, MO(9), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        CC_KP1, CC_KP2, CC_KP3, KC_NO, KC_TRANSPARENT,
+        // left top: (noop) (noop) F1 F2 F3 F4 (noop)
+        KC_NO, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_NO,
+        // right top: (noop) F5 F6 F7 F8 F9 F10
+        KC_NO, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
+        
+        // left upper: (shift-tab ???) (noop) (noop) (noop) (noop) (noop) (noop)
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right upper: (noop) * 7 8 9 (noop) F11
+        KC_NO, KC_KP_ASTERISK, KC_KP_7, KC_KP_8, KC_KP_9, KC_NO, KC_F11,
+
+        // left home: (esc/ctrlnum) (noop) (noop) (noop) (noop) (noop) (num)
+        LT(CTRLNUM, KC_ESCAPE), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        // right home: (noop) + 4 5 6 (noop) F12
+        KC_NO, KC_KP_PLUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_NO, KC_F12,
+        
+        // left lower: (shiftnum) (noop) (noop) (noop) (noop) (noop)
+        MO(SHIFTNUM), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right lower: = 1 2 3 (noop) (shift)
+        KC_EQUAL, KC_KP_1, KC_KP_2, KC_KP_3, KC_NO, KC_TRANSPARENT,
+        
+        // left bottom: (led) (super) (alt) (noop) (noop)
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_TRANSPARENT, CC_KP0, CC_KPDOT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(9),
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [CTRLSHIFTNUM] = LAYOUT_moonlander(
-        KC_NO, KC_NO, CC_SHIFT_F1, CC_SHIFT_F2, CC_SHIFT_F3, CC_SHIFT_F4,
-        KC_NO, KC_NO, CC_SHIFT_F5, CC_SHIFT_F6, CC_SHIFT_F7, CC_SHIFT_F8,
-        CC_SHIFT_F9, CC_SHIFT_F10, KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_F11,
+        // left red: (noop)
+        KC_TRANSPARENT,
+        // right red: (noop)
+        KC_TRANSPARENT,
+        // right bottom: 0 . (noop) (noop) (noop)
+        KC_KP_0, KC_KP_DOT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+
+        // left thumb cluster: (space) (shiftnum) (alt)
+        KC_TRANSPARENT, MO(SHIFTNUM), KC_TRANSPARENT,
+        // right thumb cluster: (tab) (backspace) (enter)
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [SHIFTNUM] = LAYOUT_moonlander(
+        // left top: (noop) (noop) (shift)+F1 (shift)+F2 (shift)+F3 (shift)+F4 (noop)
+        KC_NO, KC_NO, LSFT(KC_F1), LSFT(KC_F2), LSFT(KC_F3), LSFT(KC_F4), KC_NO,
+        // right top: (noop) (shift)+F5 (shift)+F6 (shift)+F7 (shift)+F8 (shift)+F9 (shift)+F10
+        KC_NO, LSFT(KC_F5), LSFT(KC_F6), LSFT(KC_F7), LSFT(KC_F8), LSFT(KC_F9), LSFT(KC_F10),
+        
+        // left upper: (shift-tab) (noop) (noop) (noop) (noop) (noop) (noop)
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right upper: (noop) / D E F (noop) (shift)+F11
+        KC_NO, KC_KP_SLASH, KC_D, KC_E, KC_F, KC_NO, LSFT(KC_F11),
+        
+        // left home: (esc/ctrlshiftnum) (noop) (noop) (noop) (noop) (noop) (num)
+        LT(CTRLSHIFTNUM, KC_ESCAPE), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        // right home: (noop) - A B C (noop) (shift)+F12
+        KC_NO, KC_KP_MINUS, KC_A, KC_B, KC_C, KC_NO, LSFT(KC_F12),
+
+        // left lower: (shiftnum) (noop) (noop) (noop) (noop) (noop)
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right lower: (noop) (noop) (noop) (noop) (noop) (shift)
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+
+        // left bottom: (led) (super) (alt) (noop) (noop)
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO,
+        // left red: (noop)
+        KC_TRANSPARENT,
+        // right red: (noop)
+        KC_TRANSPARENT,
+        // right bottom: 0x (noop) (noop) (noop) (noop)
+        MACRO_0X, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+
+        // left thumb cluster: (space) (shiftnum) (alt)
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        // right thumb cluster: (tab) (backspace) (enter)
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [NAV] = LAYOUT_moonlander(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        KC_NO, KC_NO, KC_PAGE_UP, KC_UP, KC_PGDN, KC_NO, KC_NO,
+
+        LT(CTRLNAV, KC_ESCAPE), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, KC_NO,
+
+        MO(SHIFTNAV), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, MO(SHIFTNAV), KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [SHIFTNAV] = LAYOUT_moonlander(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_F12, KC_TRANSPARENT,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,
-        KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [CTRLNAV] = LAYOUT_moonlander(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_TRANSPARENT, KC_NO, KC_NO, LCTL(KC_PAGE_UP),
-                             CC_UP, LCTL(KC_PGDN), KC_NO, KC_NO,
-                             KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, LCTL(KC_HOME), CC_LEFT,
-                             CC_DOWN, CC_RIGHT, LCTL(KC_END), KC_NO,
-                             MO(11), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                             KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-                             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                             MO(11), KC_TRANSPARENT, KC_TRANSPARENT,
-                             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                             KC_TRANSPARENT, MO(11), KC_TRANSPARENT,
-                             KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
-    [CTRLSHIFTNAV] =
-        LAYOUT_moonlander(KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                          KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                          KC_TRANSPARENT, KC_NO, KC_NO, LCTL(LSFT(KC_PAGE_UP)),
-                          CC_SHIFT_UP, LCTL(LSFT(KC_PGDN)), KC_NO, KC_NO,
-                          KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                          KC_NO, KC_NO, LCTL(LSFT(KC_HOME)), CC_SHIFT_LEFT,
-                          CC_SHIFT_DOWN, CC_SHIFT_RIGHT, LCTL(LSFT(KC_END)), KC_NO,
-                          KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-                          KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
+        KC_NO, KC_NO, LSFT(KC_PAGE_UP), LSFT(KC_UP), LSFT(KC_PGDN), KC_NO, KC_NO,
+
+        LT(CTRLSHIFTNAV, KC_ESCAPE), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, LSFT(KC_HOME), LSFT(KC_LEFT), LSFT(KC_DOWN), LSFT(KC_RIGHT), LSFT(KC_END), KC_NO,
+
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [CTRL] = LAYOUT_moonlander(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        
+        KC_NO, KC_NO, KC_NO, KC_NO, CC_P, CC_Y, MO(CTRLNAV),
+        KC_NO, CC_F, CC_G, CC_C, CC_R, CC_L, KC_NO,
+        
+        KC_TRANSPARENT, CC_A, CC_O, CC_E, CC_U, CC_I, MO(CTRLNUM),
+        KC_NO, CC_D, CC_H, CC_T, CC_N, CC_S, CC_MINUS,
+        
+        MO(CTRLSHIFT), KC_NO, CC_Q, CC_X, CC_J, CC_K,
+        CC_B, CC_M, CC_W, CC_V, CC_Z, KC_TRANSPARENT,
+
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(CTRLSHIFTNAV), MO(CTRLNAV),
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        MO(CTRLNAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, MO(CTRLSHIFT), KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [CTRLSHIFT] = LAYOUT_moonlander(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        
+        KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_P, CC_SHIFT_Y, MO(CTRLSHIFTNAV),
+        KC_NO, CC_SHIFT_F, CC_SHIFT_G, CC_SHIFT_C, CC_SHIFT_R, CC_SHIFT_L, KC_NO,
+        
+        KC_TRANSPARENT, CC_SHIFT_A, CC_SHIFT_O, CC_SHIFT_E, CC_SHIFT_U, CC_SHIFT_I, MO(CTRLSHIFTNUM),
+        KC_NO, CC_SHIFT_D, CC_SHIFT_H, CC_SHIFT_T, CC_SHIFT_N, CC_SHIFT_S, CC_SHIFT_MINUS,
+        
+        KC_TRANSPARENT, KC_NO, CC_SHIFT_Q, CC_SHIFT_X, CC_SHIFT_J, CC_SHIFT_K,
+        CC_SHIFT_B, CC_SHIFT_M, CC_SHIFT_W, CC_SHIFT_V, CC_SHIFT_Z, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(CTRLSHIFTNAV), MO(CTRLSHIFTNAV),
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        MO(CTRLSHIFTNAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [CTRLNUM] = LAYOUT_moonlander(
+        KC_NO, KC_NO, CC_F1, CC_F2, CC_F3, CC_F4, KC_NO,
+        KC_NO, CC_F5, CC_F6, CC_F7, CC_F8, CC_F9, CC_F10,
+        
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, CC_KP7, CC_KP8, CC_KP9, KC_NO, CC_F11,
+        
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        KC_NO, KC_NO, CC_KP4, CC_KP5, CC_KP6, KC_NO, CC_F12,
+        
+        MO(CTRLSHIFTNUM), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, CC_KP1, CC_KP2, CC_KP3, KC_NO, KC_TRANSPARENT,
+
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        CC_KP0, CC_KPDOT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, MO(CTRLSHIFTNUM), KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [CTRLSHIFTNUM] = LAYOUT_moonlander(
+        KC_NO, KC_NO, CC_SHIFT_F1, CC_SHIFT_F2, CC_SHIFT_F3, CC_SHIFT_F4, KC_NO,
+        KC_NO, CC_SHIFT_F5, CC_SHIFT_F6, CC_SHIFT_F7, CC_SHIFT_F8, CC_SHIFT_F9, CC_SHIFT_F10,
+
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_F11,
+
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CC_SHIFT_F12,
+        
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_NO, KC_NO, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [CTRLNAV] = LAYOUT_moonlander(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        KC_NO, KC_NO, LCTL(KC_PAGE_UP), CC_UP, LCTL(KC_PGDN), KC_NO, KC_NO,
+
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, LCTL(KC_HOME), CC_LEFT, CC_DOWN, CC_RIGHT, LCTL(KC_END), KC_NO,
+
+        MO(CTRLSHIFTNAV), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, MO(CTRLSHIFTNAV), KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, MO(CTRLSHIFTNAV), KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [CTRLSHIFTNAV] = LAYOUT_moonlander(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        KC_NO, KC_NO, LCTL(LSFT(KC_PAGE_UP)), CC_SHIFT_UP, LCTL(LSFT(KC_PGDN)), KC_NO, KC_NO,
+
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, LCTL(LSFT(KC_HOME)), CC_SHIFT_LEFT, CC_SHIFT_DOWN, CC_SHIFT_RIGHT, LCTL(LSFT(KC_END)), KC_NO,
+
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
 };
 
 extern rgb_config_t rgb_matrix_config;
@@ -607,7 +758,7 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-#define CC(x) SEND_STRING(detected_host_os() == OS_MACOS ? SS_LGUI(x) : SS_LCTL(x))
+#define CC(x) SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_LGUI(x) : SS_LCTL(x))
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -706,6 +857,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       CC(SS_TAP(X_H));
     }
     break;
+  case CC_T:
+    if (record->event.pressed) {
+      CC(SS_TAP(X_T));
+    }
+    break;
+  case CC_N:
+    if (record->event.pressed) {
+      CC(SS_TAP(X_N));
+    }
+    break;
   case CC_S:
     if (record->event.pressed) {
       CC(SS_TAP(X_S));
@@ -724,6 +885,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CC_M:
     if (record->event.pressed) {
       CC(SS_TAP(X_M));
+    }
+    break;
+  case CC_W:
+    if (record->event.pressed) {
+      CC(SS_TAP(X_W));
     }
     break;
   case CC_V:
