@@ -383,28 +383,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!record->event.pressed) {
     return true;
   }
-  if ((get_mods() & MOD_MASK_CTRL) && (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS)) {
-    if (
-      (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX)
-      || (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX)
-      || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)
-    ) {
-      return true;
-    }
-
-    uint8_t real_mods = get_mods();
-    uint8_t translated_mods = (real_mods & ~MOD_MASK_CTRL) | MOD_MASK_GUI;
-
-    set_mods(translated_mods);
-    register_code(keycode);
-    unregister_code(keycode);
-    set_mods(real_mods);
-    return false;
-  }
   switch (keycode) {
   case MACRO_0X:
     SEND_STRING(SS_TAP(X_0) SS_DELAY(100) SS_TAP(X_X));
     break;
+  }
+  uint8_t unset_mods = 0;
+  uint8_t force_mods = 0;
+  if ((get_mods() & MOD_MASK_CTRL) && (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS)) {
+    if (
+      (keycode < QK_MOMENTARY || keycode > QK_MOMENTARY_MAX)
+      && (keycode < QK_MOD_TAP || keycode > QK_MOD_TAP_MAX)
+      && (keycode < QK_LAYER_TAP || keycode > QK_LAYER_TAP_MAX)
+    ) {
+      unset_mods |= MOD_MASK_CTRL;
+      force_mods |= MOD_MASK_GUI;
+    }
+  }
+  switch (keycode) {
+  case KC_GRAVE:
+  case KC_BSLS:
+    unset_mods |= MOD_MASK_SHIFT;
+  }
+  if (unset_mods || force_mods) {
+    uint8_t real_mods = get_mods();
+    set_mods((real_mods & ~unset_mods) | force_mods);
+    register_code(keycode);
+    unregister_code(keycode);
+    set_mods(real_mods);
+    return false;
   }
   return true;
 }
