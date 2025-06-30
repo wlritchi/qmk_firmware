@@ -1,6 +1,8 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+#define OS_DETECTION_KEYBOARD_RESET
+
 enum layers {
   BASE,
   SHIFT,
@@ -14,13 +16,25 @@ enum custom_keycodes {
   MACRO_0X = SAFE_RANGE,
 };
 
+const uint16_t PROGMEM ALWAYS_CTRL_KEYS[] = {
+    KC_D,
+    0,
+};
+const uint16_t PROGMEM CTRL_CMD_KEYS[] = {
+    KC_C,
+    0,
+};
+const uint16_t PROGMEM CMD_CTRL_KEYS[] = {
+    0,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_moonlander(
         // left top: $ & [ { ( + =
         KC_DLR, KC_AMPR, KC_LBRC, KC_LCBR, KC_LPRN, KC_PLUS, KC_EQUAL,
         // right top: = * ) } ] ! #
         KC_EQUAL, KC_ASTR, KC_RPRN, KC_RCBR, KC_RBRC, KC_EXLM, KC_HASH,
-        
+
         // left upper: (tab) ' , . p y (nav)
         KC_TAB, KC_QUOTE, KC_COMMA, KC_DOT, KC_P, KC_Y, MO(NAV),
         // right upper: | f g c r l /
@@ -30,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MT(MOD_LCTL, KC_ESCAPE), KC_A, KC_O, KC_E, KC_U, KC_I, MO(NUM),
         // right home: @ d h t n s -
         KC_AT, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINUS,
-        
+
         // left lower: (shift) ; q x j k
         LM(SHIFT, MOD_LSFT), KC_SCLN, KC_Q, KC_X, KC_J, KC_K,
         // right lower: b m w v z (shift)
@@ -44,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,
         // right bottom: (nav) (noop) (noop) (noop) (noop)
         MO(NAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        
+
         // left thumb cluster: (space) (shift) (alt)
         KC_SPACE, LM(SHIFT, MOD_LSFT), KC_LEFT_ALT,
         // right thumb cluster: (tab) (backspace) (enter)
@@ -90,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_NO,
         // right top: (noop) F5 F6 F7 F8 F9 F10
         KC_NO, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
-        
+
         // left upper: (shift-tab ???) (noop) (noop) (noop) (noop) (noop) (noop)
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right upper: (noop) * 7 8 9 (noop) F11
@@ -100,12 +114,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
         // right home: (noop) + 4 5 6 (noop) F12
         KC_NO, KC_KP_PLUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_NO, KC_F12,
-        
+
         // left lower: (shiftnum) (noop) (noop) (noop) (noop) (noop)
         MO(SHIFTNUM), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right lower: = 1 2 3 (noop) (shift)
         KC_EQUAL, KC_KP_1, KC_KP_2, KC_KP_3, KC_NO, KC_TRANSPARENT,
-        
+
         // left bottom: (led) (super) (alt) (noop) (noop)
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO,
         // left red: (noop)
@@ -125,12 +139,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, LSFT(KC_F1), LSFT(KC_F2), LSFT(KC_F3), LSFT(KC_F4), KC_NO,
         // right top: (noop) (shift)+F5 (shift)+F6 (shift)+F7 (shift)+F8 (shift)+F9 (shift)+F10
         KC_NO, LSFT(KC_F5), LSFT(KC_F6), LSFT(KC_F7), LSFT(KC_F8), LSFT(KC_F9), LSFT(KC_F10),
-        
+
         // left upper: (shift-tab) (noop) (noop) (noop) (noop) (noop) (noop)
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right upper: (noop) / D E F (noop) (shift)+F11
         KC_NO, KC_KP_SLASH, KC_D, KC_E, KC_F, KC_NO, LSFT(KC_F11),
-        
+
         // left home: (esc/ctrl) (noop) (noop) (noop) (noop) (noop) (num)
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
         // right home: (noop) - A B C (noop) (shift)+F12
@@ -172,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,
         KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        
+
         KC_TRANSPARENT, MO(SHIFTNAV), KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
@@ -390,27 +404,66 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   uint8_t unset_mods = 0;
   uint8_t force_mods = 0;
-  if ((get_mods() & MOD_MASK_CTRL) && (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS)) {
-    if (
-      (keycode < QK_MOMENTARY || keycode > QK_MOMENTARY_MAX)
-      && (keycode < QK_MOD_TAP || keycode > QK_MOD_TAP_MAX)
-      && (keycode < QK_LAYER_TAP || keycode > QK_LAYER_TAP_MAX)
-    ) {
-      unset_mods |= MOD_MASK_CTRL;
-      force_mods |= MOD_MASK_GUI;
+  bool raw_hit_before = false;
+  bool raw_hit_after = false;
+  bool override_keycode = false;
+  if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS) {
+    if (get_mods() & MOD_MASK_CTRL) {
+      if (
+        (keycode < QK_MOMENTARY || keycode > QK_MOMENTARY_MAX)
+        && (keycode < QK_MOD_TAP || keycode > QK_MOD_TAP_MAX)
+        && (keycode < QK_LAYER_TAP || keycode > QK_LAYER_TAP_MAX)
+      ) {
+        unset_mods |= MOD_MASK_CTRL;
+        force_mods |= MOD_MASK_GUI;
+        for (uint16_t i = 0; ALWAYS_CTRL_KEYS[i] != 0; i++) {
+          if (keycode == ALWAYS_CTRL_KEYS[i]) {
+            unset_mods = 0;
+            force_mods = 0;
+            break;
+          }
+        }
+        for (uint16_t i = 0; CTRL_CMD_KEYS[i] != 0; i++) {
+          if (keycode == CTRL_CMD_KEYS[i]) {
+            raw_hit_before = true;
+            break;
+          }
+        }
+        for (uint16_t i = 0; CMD_CTRL_KEYS[i] != 0; i++) {
+          if (keycode == CMD_CTRL_KEYS[i]) {
+            raw_hit_after = true;
+            break;
+          }
+        }
+      }
     }
+  }
+  if (keycode == KC_DLR && (get_mods() & MOD_MASK_ALT)) {
+    // hack: alt-dollar comes in as alt-shift-4 because qwerty
+    // convert it to alt+` (which is how Aerospace parses it on OS-dvorak anyway, and can be added as a separate bind in Niri)
+    keycode = KC_GRAVE;
+    override_keycode = true;
   }
   switch (keycode) {
   case KC_GRAVE:
   case KC_BSLS:
     unset_mods |= MOD_MASK_SHIFT;
+    break;
   }
-  if (unset_mods || force_mods) {
+  if (unset_mods || force_mods || override_keycode) {
+    if (raw_hit_before) {
+      register_code(keycode);
+      unregister_code(keycode);
+    }
     uint8_t real_mods = get_mods();
     set_mods((real_mods & ~unset_mods) | force_mods);
     register_code(keycode);
     unregister_code(keycode);
     set_mods(real_mods);
+    if (raw_hit_after) {
+      register_code(keycode);
+      unregister_code(keycode);
+    }
     return false;
   }
   return true;
