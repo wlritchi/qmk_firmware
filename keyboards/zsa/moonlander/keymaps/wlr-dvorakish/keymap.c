@@ -112,13 +112,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // left home: (esc/ctrl) (noop) (noop) (noop) (noop) (noop) (num)
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
-        // right home: (noop) + 4 5 6 (noop) F12
-        KC_NO, KC_KP_PLUS, KC_KP_4, KC_KP_5, KC_KP_6, KC_NO, KC_F12,
+        // right home: (noop) = 4 5 6 (noop) F12
+        KC_NO, KC_EQUAL, KC_KP_4, KC_KP_5, KC_KP_6, KC_NO, KC_F12,
 
         // left lower: (shiftnum) (noop) (noop) (noop) (noop) (noop)
         MO(SHIFTNUM), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        // right lower: = 1 2 3 (noop) (shift)
-        KC_EQUAL, KC_KP_1, KC_KP_2, KC_KP_3, KC_NO, KC_TRANSPARENT,
+        // right lower: + 1 2 3 (noop) (shift)
+        KC_KP_PLUS, KC_KP_1, KC_KP_2, KC_KP_3, KC_NO, KC_TRANSPARENT,
 
         // left bottom: (led) (super) (alt) (noop) (noop)
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO, KC_NO,
