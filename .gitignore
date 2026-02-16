@@ -119,7 +119,6 @@ via*.json
 /keyboards/**/keymaps/vial/*
 
 # ZSA Specific ignores
-/docs/**
 /users/**
 /layouts/community/**
 /keyboards/**
