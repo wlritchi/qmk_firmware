@@ -1,5 +1,7 @@
 #include "windownav.h"
 
+extern rgb_config_t rgb_matrix_config;
+
 // ── State ───────────────────────────────────────────────────────────────────
 
 static uint8_t wn_scope  = WN_SCOPE_WINDOW;
@@ -118,9 +120,26 @@ void wn_on_layer_change(layer_state_t state, uint8_t windownav_layer) {
     wn_was_active = is_active;
 }
 
-// ── Public: LED placeholder ─────────────────────────────────────────────────
+// ── Scope LED colors (R, G, B) ──────────────────────────────────────────────
 
-void wn_set_leds(void) {}
+static const uint8_t scope_colors[WN_SCOPE_COUNT][3] = {
+    [WN_SCOPE_WINDOW]    = {0x00, 0xFF, 0xFF},  // cyan
+    [WN_SCOPE_WORKSPACE] = {0xFF, 0xA5, 0x00},  // orange
+    [WN_SCOPE_PANE]      = {0x00, 0xFF, 0x00},  // green
+    [WN_SCOPE_MONITOR]   = {0xFF, 0x00, 0xFF},  // magenta
+};
+
+// ── Public: set LEDs based on current scope ─────────────────────────────────
+
+void wn_set_leds(void) {
+    float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+    uint8_t r = f * scope_colors[wn_scope][0];
+    uint8_t g = f * scope_colors[wn_scope][1];
+    uint8_t b = f * scope_colors[wn_scope][2];
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        rgb_matrix_set_color(i, r, g, b);
+    }
+}
 
 // ── Helper: get the switcher modifier (alt or cmd depending on OS) ──────────
 

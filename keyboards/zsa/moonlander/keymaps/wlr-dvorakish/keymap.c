@@ -556,23 +556,30 @@ bool rgb_matrix_indicators_user(void) {
     return false;
   }
   switch (biton32(layer_state)) {
-  case 0:
-    set_layer_color(0);
+  case BASE:
+    set_layer_color(BASE);
     break;
-  case 1:
-    set_layer_color(1);
+  case SHIFT:
+    set_layer_color(SHIFT);
     break;
-  case 2:
-    set_layer_color(2);
+  case NUM:
+    set_layer_color(NUM);
     break;
-  case 3:
-    set_layer_color(3);
+  case SHIFTNUM:
+    set_layer_color(SHIFTNUM);
     break;
-  case 4:
-    set_layer_color(4);
+  case NAV:
+    set_layer_color(NAV);
     break;
-  case 5:
-    set_layer_color(5);
+  case SHIFTNAV:
+    set_layer_color(SHIFTNAV);
+    break;
+  case WINDOWNAV:
+  case WN_NUM:
+  case WN_LAUNCHER:
+  case WN_SCRATCHPAD:
+  case WN_SWITCHER:
+    wn_set_leds();
     break;
   default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
