@@ -39,13 +39,6 @@ enum wn_action {
     WN_ACT_COUNT,
 };
 
-// ── Binding table entry ─────────────────────────────────────────────────────
-
-typedef struct {
-    uint8_t  mods;
-    uint16_t keycode;
-} wn_binding_t;
-
 // ── Custom keycodes ────────────────────────────────────────────────────────
 
 enum wn_keycodes {

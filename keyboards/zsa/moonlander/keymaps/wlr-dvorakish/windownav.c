@@ -7,6 +7,7 @@ static uint8_t wn_prefix = WN_PREFIX_NONE;
 static uint8_t wn_layer_windownav = 0;
 static uint8_t wn_layer_switcher  = 0;
 static bool    wn_switcher_active = false;
+static bool    wn_was_active      = false;
 
 // ── Modifier bits for scope encoding ────────────────────────────────────────
 
@@ -109,15 +110,24 @@ void wn_init(uint8_t windownav_layer, uint8_t switcher_layer) {
 // ── Public: layer change handler ────────────────────────────────────────────
 
 void wn_on_layer_change(layer_state_t state, uint8_t windownav_layer) {
-    if (get_highest_layer(state) == windownav_layer) {
+    bool is_active = layer_state_cmp(state, windownav_layer);
+    if (is_active && !wn_was_active) {
         wn_scope  = WN_SCOPE_WINDOW;
         wn_prefix = WN_PREFIX_NONE;
     }
+    wn_was_active = is_active;
 }
 
 // ── Public: LED placeholder ─────────────────────────────────────────────────
 
 void wn_set_leds(void) {}
+
+// ── Helper: get the switcher modifier (alt or cmd depending on OS) ──────────
+
+static uint8_t switcher_mod(void) {
+    os_variant_t os = detected_host_os();
+    return (os == OS_MACOS || os == OS_IOS) ? KC_LGUI : KC_LALT;
+}
 
 // ── Public: process_record ──────────────────────────────────────────────────
 
@@ -290,12 +300,8 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
 
     // ── Switcher keys ───────────────────────────────────────────────────
     case WN_SW_FWD: {
-        uint8_t mod = KC_LALT;
-        if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS) {
-            mod = KC_LGUI;
-        }
         if (!wn_switcher_active) {
-            register_code(mod);
+            register_code(switcher_mod());
             layer_on(wn_layer_switcher);
             wn_switcher_active = true;
         }
@@ -303,12 +309,8 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     case WN_SW_BACK: {
-        uint8_t mod = KC_LALT;
-        if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS) {
-            mod = KC_LGUI;
-        }
         if (!wn_switcher_active) {
-            register_code(mod);
+            register_code(switcher_mod());
             layer_on(wn_layer_switcher);
             wn_switcher_active = true;
         }
@@ -318,24 +320,19 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     case WN_SW_CONF: {
-        uint8_t mod = KC_LALT;
-        if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS) {
-            mod = KC_LGUI;
-        }
-        unregister_code(mod);
+        if (!wn_switcher_active) return false;
+        unregister_code(switcher_mod());
         layer_off(wn_layer_switcher);
         wn_switcher_active = false;
         return false;
     }
     case WN_SW_EXIT: {
-        uint8_t mod = KC_LALT;
-        if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS) {
-            mod = KC_LGUI;
+        if (wn_switcher_active) {
+            unregister_code(switcher_mod());
+            layer_off(wn_layer_switcher);
+            wn_switcher_active = false;
         }
-        unregister_code(mod);
-        layer_off(wn_layer_switcher);
         layer_off(wn_layer_windownav);
-        wn_switcher_active = false;
         return false;
     }
 

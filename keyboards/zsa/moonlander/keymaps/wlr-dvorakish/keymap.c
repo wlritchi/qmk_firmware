@@ -583,7 +583,7 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (keycode >= WN_H && keycode <= WN_SCRATCH_CALC) {
+  if (keycode >= WN_H && keycode < WN_SAFE_RANGE) {
     return wn_process_record(keycode, record);
   }
   if (!record->event.pressed) {
