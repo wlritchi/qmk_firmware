@@ -19,44 +19,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-  MACRO_0X = SAFE_RANGE,
-  WN_H,
-  WN_C,
-  WN_T,
-  WN_N,
-  WN_TAB_L,
-  WN_TAB_R,
-  WN_SCOPE_W,
-  WN_SCOPE_S,
-  WN_SCOPE_P,
-  WN_SCOPE_O,
-  WN_FULLSCR,
-  WN_FLOAT,
-  WN_CLOSE,
-  WN_CREATE,
-  WN_CONSUME,
-  WN_EMIT,
-  WN_SW_FWD,
-  WN_SW_BACK,
-  WN_SW_CONF,
-  WN_SW_EXIT,
-  WN_WS_0,
-  WN_WS_1,
-  WN_WS_2,
-  WN_WS_3,
-  WN_WS_4,
-  WN_WS_5,
-  WN_WS_6,
-  WN_WS_7,
-  WN_WS_8,
-  WN_WS_9,
-  WN_LAUNCH_PROGRAMS,
-  WN_LAUNCH_SSH,
-  WN_LAUNCH_OATH,
-  WN_SCRATCH_NOTES,
-  WN_SCRATCH_TERM,
-  WN_SCRATCH_LLM,
-  WN_SCRATCH_CALC,
+  MACRO_0X = WN_SAFE_RANGE,
 };
 
 const uint16_t PROGMEM ALWAYS_CTRL_KEYS[] = {
@@ -433,7 +396,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 extern rgb_config_t rgb_matrix_config;
 
-void keyboard_post_init_user(void) { rgb_matrix_enable(); }
+void keyboard_post_init_user(void) {
+  rgb_matrix_enable();
+  wn_init(WINDOWNAV, WN_SWITCHER);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  wn_on_layer_change(state, WINDOWNAV);
+  return state;
+}
 
 #define RGB_MAUVE    0xFF, 0x00, 0xD2
 
@@ -612,6 +583,9 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (keycode >= WN_H && keycode <= WN_SCRATCH_CALC) {
+    return wn_process_record(keycode, record);
+  }
   if (!record->event.pressed) {
     return true;
   }

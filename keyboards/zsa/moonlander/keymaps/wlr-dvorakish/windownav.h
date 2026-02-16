@@ -46,6 +46,49 @@ typedef struct {
     uint16_t keycode;
 } wn_binding_t;
 
+// ── Custom keycodes ────────────────────────────────────────────────────────
+
+enum wn_keycodes {
+    WN_H = SAFE_RANGE,
+    WN_C,
+    WN_T,
+    WN_N,
+    WN_TAB_L,
+    WN_TAB_R,
+    WN_SCOPE_W,
+    WN_SCOPE_S,
+    WN_SCOPE_P,
+    WN_SCOPE_O,
+    WN_FULLSCR,
+    WN_FLOAT,
+    WN_CLOSE,
+    WN_CREATE,
+    WN_CONSUME,
+    WN_EMIT,
+    WN_SW_FWD,
+    WN_SW_BACK,
+    WN_SW_CONF,
+    WN_SW_EXIT,
+    WN_WS_0,
+    WN_WS_1,
+    WN_WS_2,
+    WN_WS_3,
+    WN_WS_4,
+    WN_WS_5,
+    WN_WS_6,
+    WN_WS_7,
+    WN_WS_8,
+    WN_WS_9,
+    WN_LAUNCH_PROGRAMS,
+    WN_LAUNCH_SSH,
+    WN_LAUNCH_OATH,
+    WN_SCRATCH_NOTES,
+    WN_SCRATCH_TERM,
+    WN_SCRATCH_LLM,
+    WN_SCRATCH_CALC,
+    WN_SAFE_RANGE,
+};
+
 // ── Public API ──────────────────────────────────────────────────────────────
 
 bool wn_process_record(uint16_t keycode, keyrecord_t *record);
