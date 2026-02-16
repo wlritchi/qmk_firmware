@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "windownav.h"
 
 #define OS_DETECTION_KEYBOARD_RESET
 
@@ -10,10 +11,52 @@ enum layers {
   SHIFTNUM,
   NAV,
   SHIFTNAV,
+  WINDOWNAV,
+  WN_NUM,
+  WN_LAUNCHER,
+  WN_SCRATCHPAD,
+  WN_SWITCHER,
 };
 
 enum custom_keycodes {
   MACRO_0X = SAFE_RANGE,
+  WN_H,
+  WN_C,
+  WN_T,
+  WN_N,
+  WN_TAB_L,
+  WN_TAB_R,
+  WN_SCOPE_W,
+  WN_SCOPE_S,
+  WN_SCOPE_P,
+  WN_SCOPE_O,
+  WN_FULLSCR,
+  WN_FLOAT,
+  WN_CLOSE,
+  WN_CREATE,
+  WN_CONSUME,
+  WN_EMIT,
+  WN_SW_FWD,
+  WN_SW_BACK,
+  WN_SW_CONF,
+  WN_SW_EXIT,
+  WN_WS_0,
+  WN_WS_1,
+  WN_WS_2,
+  WN_WS_3,
+  WN_WS_4,
+  WN_WS_5,
+  WN_WS_6,
+  WN_WS_7,
+  WN_WS_8,
+  WN_WS_9,
+  WN_LAUNCH_PROGRAMS,
+  WN_LAUNCH_SSH,
+  WN_LAUNCH_OATH,
+  WN_SCRATCH_NOTES,
+  WN_SCRATCH_TERM,
+  WN_SCRATCH_LLM,
+  WN_SCRATCH_CALC,
 };
 
 const uint16_t PROGMEM ALWAYS_CTRL_KEYS[] = {
@@ -210,6 +253,181 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    ),
+    [WINDOWNAV] = LAYOUT_moonlander(
+        // left top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left upper: _ _ _ _ p _ _
+        KC_NO, KC_NO, KC_NO, KC_NO, WN_SCOPE_P, KC_NO, KC_NO,
+        // right upper: _ f g c r _ _
+        KC_NO, WN_FULLSCR, WN_TAB_L, WN_C, WN_TAB_R, KC_NO, KC_NO,
+
+        // left home: ctrl a o e _ i num
+        KC_LCTL, WN_CREATE, WN_SCOPE_O, WN_EMIT, KC_NO, WN_CONSUME, MO(WN_NUM),
+        // right home: _ _ h t n s _
+        KC_NO, KC_NO, WN_H, WN_T, WN_N, WN_SCOPE_S, KC_NO,
+
+        // left lower: _ _ _ x _ _
+        KC_NO, KC_NO, KC_NO, WN_CLOSE, KC_NO, KC_NO,
+        // right lower: _ _ w v _ _
+        KC_NO, KC_NO, WN_SCOPE_W, WN_FLOAT, KC_NO, KC_NO,
+
+        // left bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // left red
+        KC_NO,
+        // right red
+        KC_NO,
+        // right bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left thumb: space(launcher) shift toggle
+        OSL(WN_LAUNCHER), KC_LSFT, TG(WINDOWNAV),
+        // right thumb: tab(sw-back) bspc(sw-fwd) enter(scratchpad)
+        WN_SW_BACK, WN_SW_FWD, OSL(WN_SCRATCHPAD)
+    ),
+    [WN_NUM] = LAYOUT_moonlander(
+        // left top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left upper
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right upper: _ _ 7 8 9 _ _
+        KC_NO, KC_NO, WN_WS_7, WN_WS_8, WN_WS_9, KC_NO, KC_NO,
+
+        // left home: ctrl _ _ _ _ _ (num)
+        KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
+        // right home: _ _ 4 5 6 _ _
+        KC_NO, KC_NO, WN_WS_4, WN_WS_5, WN_WS_6, KC_NO, KC_NO,
+
+        // left lower
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right lower: _ 1 2 3 _ _
+        KC_NO, WN_WS_1, WN_WS_2, WN_WS_3, KC_NO, KC_NO,
+
+        // left bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // left red
+        KC_NO,
+        // right red
+        KC_NO,
+        // right bottom: 0 _ _ _ _
+        WN_WS_0, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left thumb: _ shift _
+        KC_NO, KC_TRANSPARENT, KC_NO,
+        // right thumb
+        KC_NO, KC_NO, KC_NO
+    ),
+    [WN_LAUNCHER] = LAYOUT_moonlander(
+        // left top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left upper: _ _ _ _ p _ _
+        KC_NO, KC_NO, KC_NO, KC_NO, WN_LAUNCH_PROGRAMS, KC_NO, KC_NO,
+        // right upper
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left home
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right home: _ _ _ t _ s _
+        KC_NO, KC_NO, KC_NO, WN_LAUNCH_OATH, KC_NO, WN_LAUNCH_SSH, KC_NO,
+
+        // left lower
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right lower
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // left red
+        KC_NO,
+        // right red
+        KC_NO,
+        // right bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left thumb
+        KC_NO, KC_NO, KC_NO,
+        // right thumb
+        KC_NO, KC_NO, KC_NO
+    ),
+    [WN_SCRATCHPAD] = LAYOUT_moonlander(
+        // left top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left upper
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right upper: _ _ _ c _ l _
+        KC_NO, KC_NO, KC_NO, WN_SCRATCH_CALC, KC_NO, WN_SCRATCH_LLM, KC_NO,
+
+        // left home
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right home: _ _ _ t n _ _
+        KC_NO, KC_NO, KC_NO, WN_SCRATCH_TERM, WN_SCRATCH_NOTES, KC_NO, KC_NO,
+
+        // left lower
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right lower
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // left red
+        KC_NO,
+        // right red
+        KC_NO,
+        // right bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left thumb
+        KC_NO, KC_NO, KC_NO,
+        // right thumb
+        KC_NO, KC_NO, KC_NO
+    ),
+    [WN_SWITCHER] = LAYOUT_moonlander(
+        // left top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right top
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left upper
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right upper
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left home
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right home
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left lower
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // right lower
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // left red
+        KC_NO,
+        // right red
+        KC_NO,
+        // right bottom
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+
+        // left thumb: _ _ exit
+        KC_NO, KC_NO, WN_SW_EXIT,
+        // right thumb: back fwd confirm
+        WN_SW_BACK, WN_SW_FWD, WN_SW_CONF
     ),
 };
 
