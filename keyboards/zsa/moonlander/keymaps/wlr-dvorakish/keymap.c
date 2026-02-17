@@ -224,19 +224,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
         // left upper: _ _ _ _ p _ _
-        KC_NO, KC_NO, KC_NO, KC_NO, WN_SCOPE_P, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, WN_KEY_SCOPE_PANE, KC_NO, KC_NO,
         // right upper: _ f g c r _ _
-        KC_NO, WN_FULLSCR, WN_TAB_L, WN_C, WN_TAB_R, KC_NO, KC_NO,
+        KC_NO, WN_FULLSCREEN, WN_TAB_LEFT, WN_KEY_UP, WN_TAB_RIGHT, KC_NO, KC_NO,
 
         // left home: ctrl a o e _ i num
-        KC_LCTL, WN_CREATE, WN_SCOPE_O, WN_EMIT, KC_NO, WN_CONSUME, MO(WN_NUM),
+        KC_LCTL, WN_CREATE, WN_KEY_SCOPE_MONITOR, WN_EMIT, KC_NO, WN_CONSUME, MO(WN_NUM),
         // right home: _ _ h t n s _
-        KC_NO, KC_NO, WN_H, WN_T, WN_N, WN_SCOPE_S, KC_NO,
+        KC_NO, KC_NO, WN_KEY_LEFT, WN_KEY_DOWN, WN_KEY_RIGHT, WN_KEY_SCOPE_WORKSPACE, KC_NO,
 
         // left lower: _ _ _ x _ _
         KC_NO, KC_NO, KC_NO, WN_CLOSE, KC_NO, KC_NO,
         // right lower: _ _ w v _ _
-        KC_NO, KC_NO, WN_SCOPE_W, WN_FLOAT, KC_NO, KC_NO,
+        KC_NO, KC_NO, WN_KEY_SCOPE_WINDOW, WN_FLOAT, KC_NO, KC_NO,
 
         // left bottom
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -250,7 +250,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left thumb: space(launcher) shift toggle
         OSL(WN_LAUNCHER), KC_LSFT, TG(WINDOWNAV),
         // right thumb: tab(sw-back) bspc(sw-fwd) enter(scratchpad)
-        WN_SW_BACK, WN_SW_FWD, OSL(WN_SCRATCHPAD)
+        WN_SWITCHER_BACK, WN_SWITCHER_FORWARD, OSL(WN_SCRATCHPAD)
     ),
     [WN_NUM] = LAYOUT_moonlander(
         // left top
@@ -261,17 +261,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left upper
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right upper: _ _ 7 8 9 _ _
-        KC_NO, KC_NO, WN_WS_7, WN_WS_8, WN_WS_9, KC_NO, KC_NO,
+        KC_NO, KC_NO, WN_WORKSPACE_7, WN_WORKSPACE_8, WN_WORKSPACE_9, KC_NO, KC_NO,
 
         // left home: ctrl _ _ _ _ _ (num)
         KC_TRANSPARENT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
         // right home: _ _ 4 5 6 _ _
-        KC_NO, KC_NO, WN_WS_4, WN_WS_5, WN_WS_6, KC_NO, KC_NO,
+        KC_NO, KC_NO, WN_WORKSPACE_4, WN_WORKSPACE_5, WN_WORKSPACE_6, KC_NO, KC_NO,
 
         // left lower
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right lower: _ 1 2 3 _ _
-        KC_NO, WN_WS_1, WN_WS_2, WN_WS_3, KC_NO, KC_NO,
+        KC_NO, WN_WORKSPACE_1, WN_WORKSPACE_2, WN_WORKSPACE_3, KC_NO, KC_NO,
 
         // left bottom
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -280,7 +280,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right red
         KC_NO,
         // right bottom: 0 _ _ _ _
-        WN_WS_0, KC_NO, KC_NO, KC_NO, KC_NO,
+        WN_WORKSPACE_0, KC_NO, KC_NO, KC_NO, KC_NO,
 
         // left thumb: _ shift _
         KC_NO, KC_TRANSPARENT, KC_NO,
@@ -294,14 +294,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
         // left upper: _ _ _ _ p _ _
-        KC_NO, KC_NO, KC_NO, KC_NO, WN_LAUNCH_PROGRAMS, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, LALT(KC_P), KC_NO, KC_NO,
         // right upper
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
         // left home
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right home: _ _ _ t _ s _
-        KC_NO, KC_NO, KC_NO, WN_LAUNCH_OATH, KC_NO, WN_LAUNCH_SSH, KC_NO,
+        KC_NO, KC_NO, KC_NO, LSA(KC_T), KC_NO, LSA(KC_S), KC_NO,
 
         // left lower
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -331,12 +331,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left upper
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right upper: _ _ _ c _ l _
-        KC_NO, KC_NO, KC_NO, WN_SCRATCH_CALC, KC_NO, WN_SCRATCH_LLM, KC_NO,
+        KC_NO, KC_NO, KC_NO, MEH(KC_C), KC_NO, MEH(KC_L), KC_NO,
 
         // left home
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right home: _ _ _ t n _ _
-        KC_NO, KC_NO, KC_NO, WN_SCRATCH_TERM, WN_SCRATCH_NOTES, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, MEH(KC_T), MEH(KC_N), KC_NO, KC_NO,
 
         // left lower
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -388,9 +388,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
         // left thumb: _ _ exit
-        KC_NO, KC_NO, WN_SW_EXIT,
+        KC_NO, KC_NO, WN_SWITCHER_EXIT,
         // right thumb: back fwd confirm
-        WN_SW_BACK, WN_SW_FWD, WN_SW_CONF
+        WN_SWITCHER_BACK, WN_SWITCHER_FORWARD, WN_SWITCHER_CONFIRM
     ),
 };
 
@@ -590,7 +590,7 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (keycode >= WN_H && keycode < WN_SAFE_RANGE) {
+  if (keycode >= WN_KEY_LEFT && keycode < WN_SAFE_RANGE) {
     return wn_process_record(keycode, record);
   }
   if (!record->event.pressed) {

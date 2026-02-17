@@ -156,34 +156,34 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 
     // ── Scope keys ──────────────────────────────────────────────────────
-    case WN_SCOPE_W:
+    case WN_KEY_SCOPE_WINDOW:
         wn_scope  = WN_SCOPE_WINDOW;
         wn_prefix = WN_PREFIX_NONE;
         return false;
-    case WN_SCOPE_S:
+    case WN_KEY_SCOPE_WORKSPACE:
         wn_scope  = WN_SCOPE_WORKSPACE;
         wn_prefix = WN_PREFIX_NONE;
         return false;
-    case WN_SCOPE_P:
+    case WN_KEY_SCOPE_PANE:
         wn_scope  = WN_SCOPE_PANE;
         wn_prefix = WN_PREFIX_NONE;
         return false;
-    case WN_SCOPE_O:
+    case WN_KEY_SCOPE_MONITOR:
         wn_scope  = WN_SCOPE_MONITOR;
         wn_prefix = WN_PREFIX_NONE;
         return false;
 
     // ── Directional keys ────────────────────────────────────────────────
-    case WN_H:
+    case WN_KEY_LEFT:
         send_directional(WN_DIR_LEFT);
         return false;
-    case WN_C:
+    case WN_KEY_UP:
         send_directional(WN_DIR_UP);
         return false;
-    case WN_T:
+    case WN_KEY_DOWN:
         send_directional(WN_DIR_DOWN);
         return false;
-    case WN_N:
+    case WN_KEY_RIGHT:
         send_directional(WN_DIR_RIGHT);
         return false;
 
@@ -196,7 +196,7 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         return false;
 
     // ── Tab keys (unscoped) ─────────────────────────────────────────────
-    case WN_TAB_L: {
+    case WN_TAB_LEFT: {
         uint8_t real_mods = get_mods();
         bool is_move = (real_mods & MOD_MASK_SHIFT) || (real_mods & MOD_MASK_CTRL);
         clear_mods();
@@ -206,7 +206,7 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         set_mods(real_mods);
         return false;
     }
-    case WN_TAB_R: {
+    case WN_TAB_RIGHT: {
         uint8_t real_mods = get_mods();
         bool is_move = (real_mods & MOD_MASK_SHIFT) || (real_mods & MOD_MASK_CTRL);
         clear_mods();
@@ -218,7 +218,7 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
     }
 
     // ── Scoped one-shot actions ─────────────────────────────────────────
-    case WN_FULLSCR: {
+    case WN_FULLSCREEN: {
         uint8_t real_mods = get_mods();
         clear_mods();
         send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | scope_mods[wn_scope], KC_F);
@@ -248,12 +248,12 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
     }
 
     // ── Absolute workspace keys ─────────────────────────────────────────
-    case WN_WS_0: case WN_WS_1: case WN_WS_2: case WN_WS_3: case WN_WS_4:
-    case WN_WS_5: case WN_WS_6: case WN_WS_7: case WN_WS_8: case WN_WS_9: {
+    case WN_WORKSPACE_0: case WN_WORKSPACE_1: case WN_WORKSPACE_2: case WN_WORKSPACE_3: case WN_WORKSPACE_4:
+    case WN_WORKSPACE_5: case WN_WORKSPACE_6: case WN_WORKSPACE_7: case WN_WORKSPACE_8: case WN_WORKSPACE_9: {
         static const uint16_t ws_keys[] = {
             KC_0, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9,
         };
-        uint8_t ws_index = keycode - WN_WS_0;
+        uint8_t ws_index = keycode - WN_WORKSPACE_0;
         uint8_t real_mods = get_mods();
         bool is_send = real_mods & MOD_MASK_SHIFT;
         clear_mods();
@@ -264,61 +264,8 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    // ── Launcher keys ───────────────────────────────────────────────────
-    case WN_LAUNCH_PROGRAMS: {
-        uint8_t real_mods = get_mods();
-        clear_mods();
-        send_binding(MOD_BIT(KC_LALT), KC_P);
-        set_mods(real_mods);
-        return false;
-    }
-    case WN_LAUNCH_SSH: {
-        uint8_t real_mods = get_mods();
-        clear_mods();
-        send_binding(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT), KC_S);
-        set_mods(real_mods);
-        return false;
-    }
-    case WN_LAUNCH_OATH: {
-        uint8_t real_mods = get_mods();
-        clear_mods();
-        send_binding(MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT), KC_T);
-        set_mods(real_mods);
-        return false;
-    }
-
-    // ── Scratchpad keys ─────────────────────────────────────────────────
-    case WN_SCRATCH_NOTES: {
-        uint8_t real_mods = get_mods();
-        clear_mods();
-        send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT), KC_N);
-        set_mods(real_mods);
-        return false;
-    }
-    case WN_SCRATCH_TERM: {
-        uint8_t real_mods = get_mods();
-        clear_mods();
-        send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT), KC_T);
-        set_mods(real_mods);
-        return false;
-    }
-    case WN_SCRATCH_LLM: {
-        uint8_t real_mods = get_mods();
-        clear_mods();
-        send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT), KC_L);
-        set_mods(real_mods);
-        return false;
-    }
-    case WN_SCRATCH_CALC: {
-        uint8_t real_mods = get_mods();
-        clear_mods();
-        send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT), KC_C);
-        set_mods(real_mods);
-        return false;
-    }
-
     // ── Switcher keys ───────────────────────────────────────────────────
-    case WN_SW_FWD: {
+    case WN_SWITCHER_FORWARD: {
         if (!wn_switcher_active) {
             register_code(switcher_mod());
             layer_on(wn_layer_switcher);
@@ -327,7 +274,7 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         tap_code(KC_TAB);
         return false;
     }
-    case WN_SW_BACK: {
+    case WN_SWITCHER_BACK: {
         if (!wn_switcher_active) {
             register_code(switcher_mod());
             layer_on(wn_layer_switcher);
@@ -338,14 +285,14 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LSFT);
         return false;
     }
-    case WN_SW_CONF: {
+    case WN_SWITCHER_CONFIRM: {
         if (!wn_switcher_active) return false;
         unregister_code(switcher_mod());
         layer_off(wn_layer_switcher);
         wn_switcher_active = false;
         return false;
     }
-    case WN_SW_EXIT: {
+    case WN_SWITCHER_EXIT: {
         if (wn_switcher_active) {
             unregister_code(switcher_mod());
             layer_off(wn_layer_switcher);
