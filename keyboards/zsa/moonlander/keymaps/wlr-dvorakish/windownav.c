@@ -8,6 +8,7 @@ static uint8_t wn_scope  = WN_SCOPE_WINDOW;
 static uint8_t wn_prefix = WN_PREFIX_NONE;
 static uint8_t wn_layer_windownav   = 0;
 static uint8_t wn_layer_switcher    = 0;
+static uint8_t wn_layer_num         = 0;
 static uint8_t wn_layer_launcher    = 0;
 static uint8_t wn_layer_scratchpad  = 0;
 static bool    wn_switcher_active = false;
@@ -107,9 +108,11 @@ static void send_directional(uint8_t direction) {
 // ── Public: init ────────────────────────────────────────────────────────────
 
 void wn_init(uint8_t windownav_layer, uint8_t switcher_layer,
-             uint8_t launcher_layer, uint8_t scratchpad_layer) {
+             uint8_t num_layer, uint8_t launcher_layer,
+             uint8_t scratchpad_layer) {
     wn_layer_windownav  = windownav_layer;
     wn_layer_switcher   = switcher_layer;
+    wn_layer_num        = num_layer;
     wn_layer_launcher   = launcher_layer;
     wn_layer_scratchpad = scratchpad_layer;
 }
@@ -176,6 +179,18 @@ void wn_on_layer_change(layer_state_t state, uint8_t windownav_layer) {
 #define LED_SCRATCH_T  53  // t position: right home key 3  [8,3]
 #define LED_SCRATCH_N  48  // n position: right home key 4  [8,4]
 
+// WN_NUM layer keys (numpad on right hand)
+#define LED_WS_0       60  // right bottom key 0 [10,2]
+#define LED_WS_1       59  // right lower key 1  [9,2]
+#define LED_WS_2       54  // right lower key 2  [9,3]
+#define LED_WS_3       49  // right lower key 3  [9,4]
+#define LED_WS_4       58  // right home key 2   [8,2]
+#define LED_WS_5       53  // right home key 3   [8,3]
+#define LED_WS_6       48  // right home key 4   [8,4]
+#define LED_WS_7       57  // right upper key 2  [7,2]
+#define LED_WS_8       52  // right upper key 3  [7,3]
+#define LED_WS_9       47  // right upper key 4  [7,4]
+
 // ── Public: set LEDs based on current state ─────────────────────────────────
 
 void wn_set_leds(void) {
@@ -194,6 +209,24 @@ void wn_set_leds(void) {
         rgb_matrix_set_color(LED_LAUNCH_P, cr, cg, cb);
         rgb_matrix_set_color(LED_LAUNCH_T, cr, cg, cb);
         rgb_matrix_set_color(LED_LAUNCH_S, cr, cg, cb);
+        return;
+    }
+
+    // Num layer: numpad keys + shift for send-to-workspace
+    if (active_layer == wn_layer_num) {
+        rgb_matrix_set_color(LED_WS_0, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_1, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_2, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_3, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_4, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_5, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_6, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_7, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_8, cr, cg, cb);
+        rgb_matrix_set_color(LED_WS_9, cr, cg, cb);
+        // Shift (send window to workspace)
+        uint8_t mr = f * 0xFF, mg = f * 0x00, mb = f * 0xD2;
+        rgb_matrix_set_color(LED_MOD_SHIFT, mr, mg, mb);
         return;
     }
 
