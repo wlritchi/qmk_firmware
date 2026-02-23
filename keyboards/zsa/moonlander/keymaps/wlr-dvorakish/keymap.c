@@ -65,8 +65,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right bottom: (nav) (noop) (noop) (noop) (noop)
         MO(NAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
-        // left thumb cluster: (space) (shift) (alt)
-        KC_SPACE, LM(SHIFT, MOD_LSFT), KC_LEFT_ALT,
+        // left thumb cluster: (space) (shift) (windownav)
+        KC_SPACE, LM(SHIFT, MOD_LSFT), TG(WINDOWNAV),
         // right thumb cluster: (tab) (backspace) (enter)
         KC_TAB, KC_BSPC, KC_ENTER
     ),
