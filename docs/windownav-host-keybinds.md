@@ -317,32 +317,58 @@ will be received as F, V, X, A. On a Dvorak host, the WM receives the same
 scancodes but may display or match them differently depending on whether it
 operates on keysyms or keycodes.
 
+### Linux XKB keysym remapping (important!)
+
+On Linux, the XKB `inet(evdev)` overlay remaps F13-F24 to XF86\* keysyms.
+The WM and wev will see these keysyms rather than "F13", "F14", etc.
+
+| HID key | evdev code | XKB keysym      |
+|---------|------------|-----------------|
+| F13     | 183        | XF86Tools       |
+| F14     | 184        | XF86Launch5     |
+| F15     | 185        | XF86Launch6     |
+| F16     | 186        | XF86Launch7     |
+| F17     | 187        | XF86Launch8     |
+| F18     | 188        | XF86Launch9     |
+| F19     | 189        | XF86Star        |
+| F20     | 190        | XF86AudioRewind |
+| F21     | 191        | XF86Phone       |
+| F22     | 192        | XF86HomePage    |
+| F23     | 193        | XF86Close       |
+| F24     | 194        | (varies)        |
+
+Note: wev on Wayland displays XKB keycodes (evdev + 8), not raw evdev codes.
+If wev shows "key: 191", that is evdev 183 = KEY_F13, not KEY_F21.
+
+WM configurations must use either the XF86\* keysym names or raw keycodes
+depending on the WM's binding format. Using "F13" directly will not work unless
+custom XKB rules are added to restore F13-F24 keysyms.
+
 ### niri-specific notes
 
-niri binds use the format `Mod+Key`. Example niri config entries:
+niri binds use the format `Mod+Key` and accept XF86 keysym names. Example:
 
 ```kdl
 binds {
     // Directional: navigate window
-    F13 { focus-column-left; }
-    F14 { focus-workspace-up; }
-    F15 { focus-workspace-down; }
-    F16 { focus-column-right; }
+    XF86Tools { focus-column-left; }
+    XF86Launch5 { focus-workspace-up; }
+    XF86Launch6 { focus-workspace-down; }
+    XF86Launch7 { focus-column-right; }
 
     // Directional: move window
-    Shift+F13 { move-column-left; }
-    Shift+F14 { move-column-to-workspace-up; }
+    Shift+XF86Tools { move-column-left; }
+    Shift+XF86Launch5 { move-column-to-workspace-up; }
     // ... etc.
-
-    // Consume/emit (niri columns)
-    F20 { consume-window-into-column; }
-    F24 { expel-window-from-column; }
 
     // One-shot: fullscreen
     Ctrl+Shift+F { fullscreen-window; }
     // ... etc.
 }
 ```
+
+Alternatively, niri may support binding by raw keycode (evdev code) to avoid
+depending on XKB keysym names. Check niri's documentation for the exact syntax.
 
 ### tmux-specific notes
 
