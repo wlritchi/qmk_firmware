@@ -20,6 +20,7 @@ enum layers {
 
 enum custom_keycodes {
   MACRO_0X = WN_SAFE_RANGE,
+  TG_WN,  // toggle WINDOWNAV on keypress (not release)
 };
 
 const uint16_t PROGMEM ALWAYS_CTRL_KEYS[] = {
@@ -66,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(NAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
         // left thumb cluster: (space) (shift) (windownav)
-        KC_SPACE, LM(SHIFT, MOD_LSFT), TG(WINDOWNAV),
+        KC_SPACE, LM(SHIFT, MOD_LSFT), TG_WN,
         // right thumb cluster: (tab) (backspace) (enter)
         KC_TAB, KC_BSPC, KC_ENTER
     ),
@@ -248,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
         // left thumb: space(launcher) shift toggle
-        OSL(WN_LAUNCHER), KC_LSFT, TG(WINDOWNAV),
+        OSL(WN_LAUNCHER), KC_LSFT, TG_WN,
         // right thumb: tab(sw-back) bspc(sw-fwd) enter(scratchpad)
         WN_SWITCHER_BACK, WN_SWITCHER_FORWARD, OSL(WN_SCRATCHPAD)
     ),
@@ -768,6 +769,10 @@ bool rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (keycode >= WN_KEY_LEFT && keycode < WN_SAFE_RANGE) {
     return wn_process_record(keycode, record);
+  }
+  if (keycode == TG_WN && record->event.pressed) {
+    layer_invert(WINDOWNAV);
+    return false;
   }
   if (!record->event.pressed) {
     return true;
