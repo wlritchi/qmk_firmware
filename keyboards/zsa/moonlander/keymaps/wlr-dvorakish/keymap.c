@@ -398,7 +398,7 @@ extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  wn_init(WINDOWNAV, WN_SWITCHER);
+  wn_init(WINDOWNAV, WN_SWITCHER, WN_LAUNCHER, WN_SCRATCHPAD);
 }
 
 // NOTE: layer_state_set_user is NOT called on this keyboard because
