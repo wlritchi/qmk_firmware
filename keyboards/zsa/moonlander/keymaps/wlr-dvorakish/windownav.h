@@ -80,6 +80,4 @@ enum wn_keycodes {
 bool wn_process_record(uint16_t keycode, keyrecord_t *record);
 void wn_on_layer_change(layer_state_t state, uint8_t windownav_layer);
 void wn_set_leds(void);
-void wn_init(uint8_t windownav_layer, uint8_t switcher_layer,
-             uint8_t num_layer, uint8_t launcher_layer,
-             uint8_t scratchpad_layer);
+void wn_init(uint8_t windownav_layer, uint8_t switcher_layer);

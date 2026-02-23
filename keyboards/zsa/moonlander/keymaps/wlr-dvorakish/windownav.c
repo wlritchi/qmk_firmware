@@ -6,11 +6,8 @@ extern rgb_config_t rgb_matrix_config;
 
 static uint8_t wn_scope  = WN_SCOPE_WINDOW;
 static uint8_t wn_prefix = WN_PREFIX_NONE;
-static uint8_t wn_layer_windownav   = 0;
-static uint8_t wn_layer_switcher    = 0;
-static uint8_t wn_layer_num         = 0;
-static uint8_t wn_layer_launcher    = 0;
-static uint8_t wn_layer_scratchpad  = 0;
+static uint8_t wn_layer_windownav = 0;
+static uint8_t wn_layer_switcher  = 0;
 static bool    wn_switcher_active = false;
 static bool    wn_was_active      = false;
 
@@ -107,14 +104,9 @@ static void send_directional(uint8_t direction) {
 
 // ── Public: init ────────────────────────────────────────────────────────────
 
-void wn_init(uint8_t windownav_layer, uint8_t switcher_layer,
-             uint8_t num_layer, uint8_t launcher_layer,
-             uint8_t scratchpad_layer) {
-    wn_layer_windownav  = windownav_layer;
-    wn_layer_switcher   = switcher_layer;
-    wn_layer_num        = num_layer;
-    wn_layer_launcher   = launcher_layer;
-    wn_layer_scratchpad = scratchpad_layer;
+void wn_init(uint8_t windownav_layer, uint8_t switcher_layer) {
+    wn_layer_windownav = windownav_layer;
+    wn_layer_switcher  = switcher_layer;
 }
 
 // ── Public: layer change handler ────────────────────────────────────────────
@@ -128,166 +120,24 @@ void wn_on_layer_change(layer_state_t state, uint8_t windownav_layer) {
     wn_was_active = is_active;
 }
 
-// ── LED index mapping ───────────────────────────────────────────────────────
-// Moonlander LED indices are column-major per half. These were derived from
-// the rgb_matrix layout in keyboard.json mapping LED index → matrix position,
-// then cross-referenced with LAYOUT_moonlander key order.
-//
-// Left hand columns 0-6 top-to-bottom, right hand columns 6-0 top-to-bottom.
-// Thumb clusters and red buttons follow.
-
-// Directional keys (cyan)
-#define LED_KEY_UP     52  // c position: right upper key 3 [7,3]
-#define LED_KEY_LEFT   58  // h position: right home key 2  [8,2]
-#define LED_KEY_DOWN   53  // t position: right home key 3  [8,3]
-#define LED_KEY_RIGHT  48  // n position: right home key 4  [8,4]
-
-// Action modifiers (magenta)
-#define LED_MOD_CTRL   2   // left home key 0  [2,0]
-#define LED_MOD_SHIFT  33  // left thumb key 1  [5,1]
-
-// Scope keys (active = green, inactive = yellow)
+// ── LED indices for scope keys (used for dynamic override) ──────────────────
+// Moonlander LED indices are column-major per half, derived from keyboard.json.
 #define LED_SCOPE_PANE      21  // p position: left upper key 4  [1,4]
 #define LED_SCOPE_MONITOR   12  // o position: left home key 2   [2,2]
 #define LED_SCOPE_WORKSPACE 43  // s position: right home key 5  [8,5]
 #define LED_SCOPE_WINDOW    54  // w position: right lower key 2 [9,3]
 
-// Other bound keys (white)
-#define LED_CREATE     7   // a position: left home key 1   [2,1]
-#define LED_EMIT       17  // e position: left home key 3   [2,3]
-#define LED_CONSUME    27  // i position: left home key 5   [2,5]
-#define LED_CLOSE      18  // x position: left lower key 3  [3,3]
-#define LED_FULLSCREEN 62  // f position: right upper key 1 [7,1]
-#define LED_TAB_LEFT   57  // g position: right upper key 2 [7,2]
-#define LED_TAB_RIGHT  47  // r position: right upper key 4 [7,4]
-#define LED_FLOAT      49  // v position: right lower key 3 [9,4]
-#define LED_NUM_LAYER  31  // num hold: left home key 6     [2,6]
-#define LED_LAUNCHER   32  // space: left thumb key 0       [5,0]
-#define LED_TOGGLE     34  // toggle: left thumb key 2      [5,2]
-#define LED_SW_BACK    70  // tab: right thumb key 0        [11,4]
-#define LED_SW_FWD     69  // bksp: right thumb key 1       [11,5]
-#define LED_SCRATCHPAD 68  // enter: right thumb key 2      [11,6]
-
-// Launcher layer keys
-#define LED_LAUNCH_P   21  // p position: left upper key 4  [1,4]
-#define LED_LAUNCH_T   53  // t position: right home key 3  [8,3]
-#define LED_LAUNCH_S   43  // s position: right home key 5  [8,5]
-
-// Scratchpad layer keys
-#define LED_SCRATCH_C  52  // c position: right upper key 3 [7,3]
-#define LED_SCRATCH_L  42  // l position: right upper key 5 [7,5]
-#define LED_SCRATCH_T  53  // t position: right home key 3  [8,3]
-#define LED_SCRATCH_N  48  // n position: right home key 4  [8,4]
-
-// WN_NUM layer keys (numpad on right hand)
-#define LED_WS_0       60  // right bottom key 0 [10,2]
-#define LED_WS_1       59  // right lower key 1  [9,2]
-#define LED_WS_2       54  // right lower key 2  [9,3]
-#define LED_WS_3       49  // right lower key 3  [9,4]
-#define LED_WS_4       58  // right home key 2   [8,2]
-#define LED_WS_5       53  // right home key 3   [8,3]
-#define LED_WS_6       48  // right home key 4   [8,4]
-#define LED_WS_7       57  // right upper key 2  [7,2]
-#define LED_WS_8       52  // right upper key 3  [7,3]
-#define LED_WS_9       47  // right upper key 4  [7,4]
-
-// ── Public: set LEDs based on current state ─────────────────────────────────
+// ── Public: override active scope key from yellow (ledmap) to green ──────────
+// Called after set_layer_color(WINDOWNAV) sets the baseline from ledmap.
 
 void wn_set_leds(void) {
     float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-    uint8_t active_layer = biton32(layer_state);
+    uint8_t gr = f * 0x00, gg = f * 0xFF, gb = f * 0x00;  // green
 
-    // All LEDs off first
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        rgb_matrix_set_color(i, 0, 0, 0);
-    }
-
-    uint8_t cr = f * 0x00, cg = f * 0xFF, cb = f * 0xFF;  // cyan
-
-    // Launcher layer: only show bound keys
-    if (active_layer == wn_layer_launcher) {
-        rgb_matrix_set_color(LED_LAUNCH_P, cr, cg, cb);
-        rgb_matrix_set_color(LED_LAUNCH_T, cr, cg, cb);
-        rgb_matrix_set_color(LED_LAUNCH_S, cr, cg, cb);
-        return;
-    }
-
-    // Num layer: numpad keys + shift for send-to-workspace
-    if (active_layer == wn_layer_num) {
-        rgb_matrix_set_color(LED_WS_0, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_1, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_2, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_3, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_4, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_5, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_6, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_7, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_8, cr, cg, cb);
-        rgb_matrix_set_color(LED_WS_9, cr, cg, cb);
-        // Shift (send window to workspace)
-        uint8_t mr = f * 0xFF, mg = f * 0x00, mb = f * 0xD2;
-        rgb_matrix_set_color(LED_MOD_SHIFT, mr, mg, mb);
-        return;
-    }
-
-    // Scratchpad layer: only show bound keys
-    if (active_layer == wn_layer_scratchpad) {
-        rgb_matrix_set_color(LED_SCRATCH_C, cr, cg, cb);
-        rgb_matrix_set_color(LED_SCRATCH_L, cr, cg, cb);
-        rgb_matrix_set_color(LED_SCRATCH_T, cr, cg, cb);
-        rgb_matrix_set_color(LED_SCRATCH_N, cr, cg, cb);
-        return;
-    }
-
-    // ── WINDOWNAV base / WN_NUM / WN_SWITCHER ──
-
-    // Directional keys + tabs: cyan
-    rgb_matrix_set_color(LED_KEY_UP, cr, cg, cb);
-    rgb_matrix_set_color(LED_KEY_LEFT, cr, cg, cb);
-    rgb_matrix_set_color(LED_KEY_DOWN, cr, cg, cb);
-    rgb_matrix_set_color(LED_KEY_RIGHT, cr, cg, cb);
-    rgb_matrix_set_color(LED_TAB_LEFT, cr, cg, cb);
-    rgb_matrix_set_color(LED_TAB_RIGHT, cr, cg, cb);
-
-    // Action modifiers: magenta (0xFF, 0x00, 0xD2)
-    uint8_t mr = f * 0xFF, mg = f * 0x00, mb = f * 0xD2;
-    rgb_matrix_set_color(LED_MOD_CTRL, mr, mg, mb);
-    rgb_matrix_set_color(LED_MOD_SHIFT, mr, mg, mb);
-
-    // Scope keys: active = green, inactive = yellow
-    uint8_t ar = f * 0x00, ag = f * 0xFF, ab = f * 0x00;  // active (green)
-    uint8_t yr = f * 0xFF, yg = f * 0xFF, yb = f * 0x00;  // inactive (yellow)
     static const uint8_t scope_leds[] = {
         LED_SCOPE_WINDOW, LED_SCOPE_WORKSPACE, LED_SCOPE_PANE, LED_SCOPE_MONITOR,
     };
-    for (int i = 0; i < WN_SCOPE_COUNT; i++) {
-        if (i == wn_scope) {
-            rgb_matrix_set_color(scope_leds[i], ar, ag, ab);
-        } else {
-            rgb_matrix_set_color(scope_leds[i], yr, yg, yb);
-        }
-    }
-
-    // Scoped one-shots: yellow
-    rgb_matrix_set_color(LED_CREATE, yr, yg, yb);
-    rgb_matrix_set_color(LED_CLOSE, yr, yg, yb);
-    rgb_matrix_set_color(LED_FULLSCREEN, yr, yg, yb);
-    rgb_matrix_set_color(LED_FLOAT, yr, yg, yb);
-
-    // Prefix keys (consume/emit): cyan
-    rgb_matrix_set_color(LED_CONSUME, cr, cg, cb);
-    rgb_matrix_set_color(LED_EMIT, cr, cg, cb);
-
-    // Launcher prefixes (OSL layers): cyan
-    rgb_matrix_set_color(LED_LAUNCHER, cr, cg, cb);
-    rgb_matrix_set_color(LED_SCRATCHPAD, cr, cg, cb);
-
-    // Remaining bound keys: white
-    uint8_t wr = f * 0xFF, wg = f * 0xFF, wb = f * 0xFF;
-    rgb_matrix_set_color(LED_NUM_LAYER, wr, wg, wb);
-    rgb_matrix_set_color(LED_TOGGLE, wr, wg, wb);
-    rgb_matrix_set_color(LED_SW_BACK, wr, wg, wb);
-    rgb_matrix_set_color(LED_SW_FWD, wr, wg, wb);
+    rgb_matrix_set_color(scope_leds[wn_scope], gr, gg, gb);
 }
 
 // ── Helper: get the switcher modifier (alt or cmd depending on OS) ──────────

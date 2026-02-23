@@ -398,7 +398,7 @@ extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
-  wn_init(WINDOWNAV, WN_SWITCHER, WN_NUM, WN_LAUNCHER, WN_SCRATCHPAD);
+  wn_init(WINDOWNAV, WN_SWITCHER);
 }
 
 // NOTE: layer_state_set_user is NOT called on this keyboard because
@@ -533,6 +533,176 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_BLACK}
     },
+
+    // WINDOWNAV: baseline colors (scope keys default to yellow;
+    // active scope overridden to green by wn_set_leds)
+    [WINDOWNAV] = {
+        // left col 0: _ _ ctrl _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_MAUVE}, {RGB_BLACK}, {RGB_BLACK},
+        // left col 1: _ _ create/a _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK},
+        // left col 2: _ _ monitor/o _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK},
+        // left col 3: _ _ emit/e close/x _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN}, {RGB_YELLOW}, {RGB_BLACK},
+        // left col 4: _ pane/p _ _ _
+        {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left col 5: _ _ consume/i _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN}, {RGB_BLACK},
+        // left col 6: _ _ num
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_WHITE},
+        // left thumb: launcher/space shift toggle
+        {RGB_CYAN}, {RGB_MAUVE}, {RGB_WHITE},
+        // left red
+        {RGB_BLACK},
+        // right col 6: _ _ _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 5: _ _ workspace/s _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 4: _ tab-right/r right/n float/v _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW}, {RGB_BLACK},
+        // right col 3: _ up/c down/t window/w _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW}, {RGB_BLACK},
+        // right col 2: _ tab-left/g left/h _ _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 1: _ fullscreen/f _ _
+        {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 0: _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right thumb: scratchpad/enter sw-fwd/bksp sw-back/tab
+        {RGB_CYAN}, {RGB_WHITE}, {RGB_WHITE},
+        // right red
+        {RGB_BLACK}
+    },
+
+    // WN_NUM: workspace numpad on right hand
+    [WN_NUM] = {
+        // left col 0-4 (all black)
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left col 5-6
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left thumb: _ shift _
+        {RGB_BLACK}, {RGB_MAUVE}, {RGB_BLACK},
+        // left red
+        {RGB_BLACK},
+        // right col 6: _ _ _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 5: _ _ _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 4: _ 9 6 3 _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_BLACK},
+        // right col 3: _ 8 5 2 _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_BLACK},
+        // right col 2: _ 7 4 1 0
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
+        // right col 1: _ _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 0: _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right thumb
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right red
+        {RGB_BLACK}
+    },
+
+    // WN_LAUNCHER: launcher mnemonic keys
+    [WN_LAUNCHER] = {
+        // left col 0-3 (all black)
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left col 4: _ p/programs _ _ _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left col 5-6
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left thumb
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left red
+        {RGB_BLACK},
+        // right col 6: _ _ _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 5: _ _ s/ssh _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 4: _ _ _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 3: _ _ t/tokens _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 2-0 (all black)
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right thumb
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right red
+        {RGB_BLACK}
+    },
+
+    // WN_SCRATCHPAD: scratchpad mnemonic keys
+    [WN_SCRATCHPAD] = {
+        // left col 0-6 (all black)
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left thumb
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left red
+        {RGB_BLACK},
+        // right col 6: _ _ _ _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 5: _ l/llm _ _ _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 4: _ _ n/notes _ _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 3: _ c/calc t/terminal _ _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 2-0 (all black)
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right thumb
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right red
+        {RGB_BLACK}
+    },
+
+    // WN_SWITCHER: only thumb cluster keys bound
+    [WN_SWITCHER] = {
+        // left col 0-6 (all black)
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // left thumb: _ _ exit
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_WHITE},
+        // left red
+        {RGB_BLACK},
+        // right col 6-0 (all black)
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right thumb: back fwd confirm
+        {RGB_WHITE}, {RGB_WHITE}, {RGB_WHITE},
+        // right red
+        {RGB_BLACK}
+    },
 };
 
 void set_layer_color(int layer) {
@@ -577,12 +747,15 @@ bool rgb_matrix_indicators_user(void) {
   case SHIFTNAV:
     set_layer_color(SHIFTNAV);
     break;
-  case WINDOWNAV:
   case WN_NUM:
   case WN_LAUNCHER:
   case WN_SCRATCHPAD:
   case WN_SWITCHER:
-    wn_set_leds();
+    set_layer_color(biton32(layer_state));
+    break;
+  case WINDOWNAV:
+    set_layer_color(WINDOWNAV);
+    wn_set_leds();  // override scope keys with active/inactive colors
     break;
   default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
