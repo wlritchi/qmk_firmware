@@ -129,16 +129,93 @@ static const uint8_t scope_colors[WN_SCOPE_COUNT][3] = {
     [WN_SCOPE_MONITOR]   = {0xFF, 0x00, 0xFF},  // magenta
 };
 
+// ── LED index mapping ───────────────────────────────────────────────────────
+// Moonlander LED indices are column-major per half. These were derived from
+// the rgb_matrix layout in keyboard.json mapping LED index → matrix position,
+// then cross-referenced with LAYOUT_moonlander key order.
+//
+// Left hand columns 0-6 top-to-bottom, right hand columns 6-0 top-to-bottom.
+// Thumb clusters and red buttons follow.
+
+// Directional keys (scope color)
+#define LED_KEY_UP     52  // c position: right upper key 3 [7,3]
+#define LED_KEY_LEFT   58  // h position: right home key 2  [8,2]
+#define LED_KEY_DOWN   53  // t position: right home key 3  [8,3]
+#define LED_KEY_RIGHT  48  // n position: right home key 4  [8,4]
+
+// Action modifiers (magenta)
+#define LED_MOD_CTRL   2   // left home key 0  [2,0]
+#define LED_MOD_SHIFT  33  // left thumb key 1  [5,1]
+
+// Scope keys (green)
+#define LED_SCOPE_PANE      21  // p position: left upper key 4  [1,4]
+#define LED_SCOPE_MONITOR   12  // o position: left home key 2   [2,2]
+#define LED_SCOPE_WORKSPACE 43  // s position: right home key 5  [8,5]
+#define LED_SCOPE_WINDOW    54  // w position: right lower key 2 [9,3]
+
+// Other bound keys (white)
+#define LED_CREATE     7   // a position: left home key 1   [2,1]
+#define LED_EMIT       17  // e position: left home key 3   [2,3]
+#define LED_CONSUME    27  // i position: left home key 5   [2,5]
+#define LED_CLOSE      18  // x position: left lower key 3  [3,3]
+#define LED_FULLSCREEN 62  // f position: right upper key 1 [7,1]
+#define LED_TAB_LEFT   57  // g position: right upper key 2 [7,2]
+#define LED_TAB_RIGHT  47  // r position: right upper key 4 [7,4]
+#define LED_FLOAT      49  // v position: right lower key 3 [9,4]
+#define LED_NUM_LAYER  31  // num hold: left home key 6     [2,6]
+#define LED_LAUNCHER   32  // space: left thumb key 0       [5,0]
+#define LED_TOGGLE     34  // toggle: left thumb key 2      [5,2]
+#define LED_SW_BACK    70  // tab: right thumb key 0        [11,4]
+#define LED_SW_FWD     69  // bksp: right thumb key 1       [11,5]
+#define LED_SCRATCHPAD 68  // enter: right thumb key 2      [11,6]
+
 // ── Public: set LEDs based on current scope ─────────────────────────────────
 
 void wn_set_leds(void) {
     float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-    uint8_t r = f * scope_colors[wn_scope][0];
-    uint8_t g = f * scope_colors[wn_scope][1];
-    uint8_t b = f * scope_colors[wn_scope][2];
+
+    // All LEDs off first
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        rgb_matrix_set_color(i, r, g, b);
+        rgb_matrix_set_color(i, 0, 0, 0);
     }
+
+    // Directional keys: scope color
+    uint8_t sr = f * scope_colors[wn_scope][0];
+    uint8_t sg = f * scope_colors[wn_scope][1];
+    uint8_t sb = f * scope_colors[wn_scope][2];
+    rgb_matrix_set_color(LED_KEY_UP, sr, sg, sb);
+    rgb_matrix_set_color(LED_KEY_LEFT, sr, sg, sb);
+    rgb_matrix_set_color(LED_KEY_DOWN, sr, sg, sb);
+    rgb_matrix_set_color(LED_KEY_RIGHT, sr, sg, sb);
+
+    // Action modifiers: magenta (0xFF, 0x00, 0xD2)
+    uint8_t mr = f * 0xFF, mg = f * 0x00, mb = f * 0xD2;
+    rgb_matrix_set_color(LED_MOD_CTRL, mr, mg, mb);
+    rgb_matrix_set_color(LED_MOD_SHIFT, mr, mg, mb);
+
+    // Scope keys: green
+    uint8_t kr = f * 0x00, kg = f * 0xFF, kb = f * 0x00;
+    rgb_matrix_set_color(LED_SCOPE_PANE, kr, kg, kb);
+    rgb_matrix_set_color(LED_SCOPE_MONITOR, kr, kg, kb);
+    rgb_matrix_set_color(LED_SCOPE_WORKSPACE, kr, kg, kb);
+    rgb_matrix_set_color(LED_SCOPE_WINDOW, kr, kg, kb);
+
+    // Other bound keys: white
+    uint8_t wr = f * 0xFF, wg = f * 0xFF, wb = f * 0xFF;
+    rgb_matrix_set_color(LED_CREATE, wr, wg, wb);
+    rgb_matrix_set_color(LED_EMIT, wr, wg, wb);
+    rgb_matrix_set_color(LED_CONSUME, wr, wg, wb);
+    rgb_matrix_set_color(LED_CLOSE, wr, wg, wb);
+    rgb_matrix_set_color(LED_FULLSCREEN, wr, wg, wb);
+    rgb_matrix_set_color(LED_TAB_LEFT, wr, wg, wb);
+    rgb_matrix_set_color(LED_TAB_RIGHT, wr, wg, wb);
+    rgb_matrix_set_color(LED_FLOAT, wr, wg, wb);
+    rgb_matrix_set_color(LED_NUM_LAYER, wr, wg, wb);
+    rgb_matrix_set_color(LED_LAUNCHER, wr, wg, wb);
+    rgb_matrix_set_color(LED_TOGGLE, wr, wg, wb);
+    rgb_matrix_set_color(LED_SW_BACK, wr, wg, wb);
+    rgb_matrix_set_color(LED_SW_FWD, wr, wg, wb);
+    rgb_matrix_set_color(LED_SCRATCHPAD, wr, wg, wb);
 }
 
 // ── Helper: get the switcher modifier (alt or cmd depending on OS) ──────────

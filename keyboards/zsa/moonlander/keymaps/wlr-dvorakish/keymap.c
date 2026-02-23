@@ -401,10 +401,9 @@ void keyboard_post_init_user(void) {
   wn_init(WINDOWNAV, WN_SWITCHER);
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  wn_on_layer_change(state, WINDOWNAV);
-  return state;
-}
+// NOTE: layer_state_set_user is NOT called on this keyboard because
+// MOONLANDER_USER_LEDS causes layer_state_set_kb to skip it.
+// Layer change detection is handled in rgb_matrix_indicators_user instead.
 
 #define RGB_MAUVE    0xFF, 0x00, 0xD2
 
@@ -549,6 +548,10 @@ void set_layer_color(int layer) {
 }
 
 bool rgb_matrix_indicators_user(void) {
+  // Detect WINDOWNAV activation edge here because layer_state_set_user
+  // is never called (MOONLANDER_USER_LEDS blocks it in layer_state_set_kb).
+  wn_on_layer_change(layer_state, WINDOWNAV);
+
   if (rawhid_state.rgb_control) {
     return false;
   }
