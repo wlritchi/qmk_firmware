@@ -4,10 +4,8 @@
 
 #pragma once
 
+#include <stdint.h>
 #include "quantum.h"
-#ifdef ORYX_ENABLE
-#    include "oryx.h"
-#endif // ORYX_ENABLE
 
 extern bool mcp23018_leds[];
 
@@ -18,18 +16,13 @@ extern bool mcp23018_leds[];
 #define STATUS_LED_3(status) mcp23018_leds[0] = (bool)(status)
 #define STATUS_LED_4(status) mcp23018_leds[1] = (bool)(status)
 
-enum voyager_keycodes {
-    TOGGLE_LAYER_COLOR = QK_KB,
-    LED_LEVEL,
-};
-
 typedef union {
     uint32_t raw;
     struct {
         bool    disable_layer_led : 1;
-        bool    placeholder : 1;
         bool    led_level : 1;
         uint8_t led_level_res : 2; // DO NOT REMOVE
+        uint8_t navigator_cpi : 3;
     };
 } keyboard_config_t;
 

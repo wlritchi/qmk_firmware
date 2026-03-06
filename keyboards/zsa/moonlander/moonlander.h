@@ -14,16 +14,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
+ */
 
 #pragma once
 
 #include "quantum.h"
-#ifdef ORYX_ENABLE
-#    include "oryx.h"
-#endif // ORYX_ENABLE
 
 extern bool mcp23018_leds[];
 
@@ -36,11 +31,6 @@ extern bool mcp23018_leds[];
 #define STATUS_LED_4(status) mcp23018_leds[0] = (bool)status
 #define STATUS_LED_5(status) mcp23018_leds[1] = (bool)status
 #define STATUS_LED_6(status) mcp23018_leds[2] = (bool)status
-
-enum planck_ez_keycodes {
-    TOGGLE_LAYER_COLOR = QK_KB_0,
-    LED_LEVEL,
-};
 
 #ifndef WEBUSB_ENABLE
 #    define WEBUSB_PAIR KC_NO

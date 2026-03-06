@@ -2,7 +2,14 @@
 // Copyright 2023 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "voyager.h"
+#include QMK_KEYBOARD_H
+
+#ifdef COMMUNITY_MODULE_ORYX_ENABLE
+#    include "oryx.h"
+#endif // COMMUNITY_MODULE_ORYX_ENABLE
+#ifdef COMMUNITY_MODULE_DEFAULTS_ENABLE
+#     include "defaults.h"
+#endif
 
 keyboard_config_t keyboard_config;
 
@@ -21,18 +28,26 @@ static uint32_t dynamic_macro_led(uint32_t trigger_time, void *cb_arg) {
     return 100;
 }
 
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
     if (dynamic_macro_token == INVALID_DEFERRED_TOKEN) {
         STATUS_LED_3(true);
         dynamic_macro_token = defer_exec(100, dynamic_macro_led, NULL);
     }
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     if (cancel_deferred_exec(dynamic_macro_token)) {
         dynamic_macro_token = INVALID_DEFERRED_TOKEN;
         STATUS_LED_3(false);
     }
+    return true;
 }
 #    endif
 
@@ -96,9 +111,10 @@ void keyboard_pre_init_kb(void) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
     state = layer_state_set_user(state);
 #if !defined(VOYAGER_USER_LEDS)
-#    ifdef ORYX_ENABLE
-    layer_state_set_oryx(state);
-    if (rawhid_state.status_led_control) return state;
+#    ifdef COMMUNITY_MODULE_ORYX_ENABLE
+    if (rawhid_state.status_led_control) {
+        return state;
+    }
 #    endif
     if (is_launching || !keyboard_config.led_level) return state;
     uint8_t layer = get_highest_layer(state);
@@ -114,7 +130,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -240,9 +256,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 keyboard_config.disable_layer_led ^= 1;
                 if (keyboard_config.disable_layer_led) rgb_matrix_set_color_all(0, 0, 0);
+                eeconfig_update_kb(keyboard_config.raw);
             }
             break;
         case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {

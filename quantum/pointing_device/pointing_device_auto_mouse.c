@@ -23,12 +23,19 @@
 #    include "debug.h"
 #    include "action_util.h"
 #    include "quantum_keycodes.h"
+#ifdef LAYER_LOCK_ENABLE
+#    include "layer_lock.h"
+#endif
 
 /* local data structure for tracking auto mouse */
 static auto_mouse_context_t auto_mouse_context = {
     .config.layer    = (uint8_t)(AUTO_MOUSE_DEFAULT_LAYER),
     .config.timeout  = (uint16_t)(AUTO_MOUSE_TIME),
     .config.debounce = (uint8_t)(AUTO_MOUSE_DEBOUNCE),
+#ifdef AUTO_MOUSE_ONESHOT
+    .one_shot = false,
+    .one_shot_triggered = false,
+#endif
 };
 
 /* local functions */
@@ -46,7 +53,11 @@ static inline bool layer_hold_check(void) {
 
 /* check all layer activation criteria */
 bool is_auto_mouse_active(void) {
+#ifdef AUTO_MOUSE_ONESHOT
+    return auto_mouse_context.status.is_activated || auto_mouse_context.status.mouse_key_tracker || layer_hold_check() || auto_mouse_context.one_shot;
+#else
     return auto_mouse_context.status.is_activated || auto_mouse_context.status.mouse_key_tracker || layer_hold_check();
+#endif
 }
 
 /**
@@ -193,6 +204,18 @@ void auto_mouse_toggle(void) {
     auto_mouse_context.timer.delay = 0;
 }
 
+/** @brief set toggled mouse layer flag
+ *
+ * Change state of local layer_toggled bool meant to track when the mouse layer is toggled on by other means
+ *
+ * NOTE: While is_toggled is true it will prevent deactiving target layer (but not activation)
+ *
+ * @param[in] toggled bool
+ */
+void set_auto_mouse_toggled(bool toggled) {
+    auto_mouse_context.status.is_toggled = toggled;
+}
+
 /**
  * @brief Remove current auto mouse target layer from layer state
  *
@@ -240,7 +263,7 @@ __attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
     auto_mouse_context.total_mouse_movement.y += mouse_report.y;
     auto_mouse_context.total_mouse_movement.h += mouse_report.h;
     auto_mouse_context.total_mouse_movement.v += mouse_report.v;
-    return abs(auto_mouse_context.total_mouse_movement.x) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.y) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.h) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.v) > AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
+    return abs(auto_mouse_context.total_mouse_movement.x) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.y) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.h) > AUTO_MOUSE_SCROLL_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.v) > AUTO_MOUSE_SCROLL_THRESHOLD || (mouse_report.buttons && layer_state_is(AUTO_MOUSE_TARGET_LAYER));
 }
 
 /**
@@ -257,17 +280,35 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
     }
     // update activation and reset debounce
     auto_mouse_context.status.is_activated = auto_mouse_activation(mouse_report);
-    if (is_auto_mouse_active()) {
+    // Check for actual activity (mouse movement, held mouse keys, or layer hold)
+    // Also include one_shot that hasn't been triggered yet (keeps layer alive until first key press)
+    bool has_activity = auto_mouse_context.status.is_activated || auto_mouse_context.status.mouse_key_tracker || layer_hold_check();
+#ifdef AUTO_MOUSE_ONESHOT
+    has_activity = has_activity || (auto_mouse_context.one_shot && !auto_mouse_context.one_shot_triggered);
+#endif
+    if (has_activity) {
         auto_mouse_context.total_mouse_movement = (total_mouse_movement_t){.x = 0, .y = 0, .h = 0, .v = 0};
         auto_mouse_context.timer.active         = timer_read();
         auto_mouse_context.timer.delay          = 0;
         if (!layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
             layer_on((AUTO_MOUSE_TARGET_LAYER));
         }
+#ifdef AUTO_MOUSE_ONESHOT
+        if (!auto_mouse_context.one_shot) {
+            auto_mouse_context.one_shot = true;
+        }
+#endif
     } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > auto_mouse_context.config.timeout) {
+#ifdef LAYER_LOCK_ENABLE
+        if(is_layer_locked(AUTO_MOUSE_DEFAULT_LAYER)) return;
+#endif
         layer_off((AUTO_MOUSE_TARGET_LAYER));
         auto_mouse_context.timer.active         = 0;
         auto_mouse_context.total_mouse_movement = (total_mouse_movement_t){.x = 0, .y = 0, .h = 0, .v = 0};
+#ifdef AUTO_MOUSE_ONESHOT
+        auto_mouse_context.one_shot = false;
+        auto_mouse_context.one_shot_triggered = false;
+#endif
     }
 }
 
@@ -299,9 +340,9 @@ void auto_mouse_keyevent(bool pressed) {
  */
 void auto_mouse_reset_trigger(bool pressed) {
     if (pressed) {
-        if (layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
-            layer_off((AUTO_MOUSE_TARGET_LAYER));
-        };
+#ifdef LAYER_LOCK_ENABLE
+        if(is_layer_locked(AUTO_MOUSE_DEFAULT_LAYER)) return;
+#endif
         auto_mouse_reset();
     }
     auto_mouse_context.timer.delay = timer_read();
@@ -334,14 +375,18 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
     if (!(AUTO_MOUSE_ENABLED)) return true;
 
     switch (keycode) {
-        // Skip Mod keys to avoid layer reset
+        // Skip Mod keys, KC_NO, and layer lock to avoid layer reset
+        case KC_NO:
         case KC_LEFT_CTRL ... KC_RIGHT_GUI:
         case QK_MODS ... QK_MODS_MAX:
+        case QK_LLCK:
             break;
         // TO((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_TO ... QK_TO_MAX:
             if (QK_TO_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                 if (!(record->event.pressed)) auto_mouse_toggle();
+            } else {
+                auto_mouse_context.status.is_toggled = false;
             }
             break;
         // TG((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
@@ -357,6 +402,8 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
             }
         // DF ---------------------------------------------------------------------------------------------------------
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        // PDF --------------------------------------------------------------------------------------------------------
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:
 #    ifndef NO_ACTION_ONESHOT
         // OSL((AUTO_MOUSE_TARGET_LAYER))------------------------------------------------------------------------------
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
@@ -409,11 +456,18 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
                 // all non-mousekey presses restart delay timer and reset status
                 auto_mouse_reset_trigger(record->event.pressed);
             }
+#ifdef AUTO_MOUSE_ONESHOT
+            else if (auto_mouse_context.one_shot && !auto_mouse_context.one_shot_triggered && record->event.pressed) {
+                // First non-mouse key press while one_shot is active - start the countdown
+                auto_mouse_context.one_shot_triggered = true;
+            }
+#endif
     }
     if (auto_mouse_context.status.mouse_key_tracker < 0) {
         auto_mouse_context.status.mouse_key_tracker = 0;
         dprintf("key tracker error (<0) \n");
     }
+
     return true;
 }
 
@@ -428,7 +482,8 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
  */
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
-    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode)) return true;
+    if (is_mouse_record_kb(keycode, record)) return true;
+
     return false;
 }
 

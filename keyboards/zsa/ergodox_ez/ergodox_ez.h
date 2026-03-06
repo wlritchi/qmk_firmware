@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include "i2c_master.h"
-#ifdef ORYX_ENABLE
-#    include "oryx.h"
-#endif // ORYX_ENABLE
 
 extern i2c_status_t mcp23018_status;
 
@@ -65,12 +62,6 @@ void ergodox_led_all_set(uint8_t n);
 #ifndef LED_BRIGHTNESS_HI
 #    define LED_BRIGHTNESS_HI 255
 #endif
-
-enum ergodox_ez_keycodes {
-    LED_LEVEL = QK_KB,
-    TOGGLE_LAYER_COLOR,
-    EZ_SAFE_RANGE
-};
 
 typedef union {
     uint32_t raw;

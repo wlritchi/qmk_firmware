@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c_master.h"
 #include "gpio.h"
 #include "atomic_util.h"
+#include "matrix.h"
 
 /*
  * This constant define not debouncing time in msecs, assuming eager_pr.
@@ -94,14 +95,14 @@ uint8_t init_mcp23018(void) {
     // - input   : input  : 1
     // - driving : output : 0
     uint8_t buf[]   = {0b00000000, 0b00111111};
-    mcp23018_status = i2c_writeReg(MCP23018_EXPANDER_I2C_ADDR, MCP23018_IODIRA, buf, sizeof(buf), ERGODOX_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(MCP23018_EXPANDER_I2C_ADDR, MCP23018_IODIRA, buf, sizeof(buf), ERGODOX_EZ_I2C_TIMEOUT);
 
     if (!mcp23018_status) {
         // set pull-up
         // - unused  : on  : 1
         // - input   : on  : 1
         // - driving : off : 0
-        mcp23018_status = i2c_writeReg(MCP23018_EXPANDER_I2C_ADDR, MCP23018_GPPUA, buf, sizeof(buf), ERGODOX_EZ_I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(MCP23018_EXPANDER_I2C_ADDR, MCP23018_GPPUA, buf, sizeof(buf), ERGODOX_EZ_I2C_TIMEOUT);
     }
 
     return mcp23018_status;
@@ -178,7 +179,7 @@ static matrix_row_t read_cols(uint8_t row) {
             uint8_t data = 0;
             // reading GPIOB (column port) since in mcp23018's sequential mode
             // it is addressed directly after writing to GPIOA in select_row()
-            mcp23018_status = i2c_readReg(MCP23018_EXPANDER_I2C_ADDR, EXPANDER_COL_REGISTER, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_read_register(MCP23018_EXPANDER_I2C_ADDR, EXPANDER_COL_REGISTER, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
             return ~data;
         }
     } else {
@@ -234,7 +235,7 @@ static void select_row(uint8_t row) {
             // set other rows hi-Z : 1
             uint8_t data;
             data = 0xFF & ~(1 << row);
-            mcp23018_status = i2c_writeReg(MCP23018_EXPANDER_I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_write_register(MCP23018_EXPANDER_I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // select on teensy

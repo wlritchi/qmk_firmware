@@ -37,13 +37,16 @@
 #    define AUTO_MOUSE_TIME 650
 #endif
 #ifndef AUTO_MOUSE_DELAY
-#    define AUTO_MOUSE_DELAY GET_TAPPING_TERM(KC_MS_BTN1, &(keyrecord_t){})
+#    define AUTO_MOUSE_DELAY GET_TAPPING_TERM(QK_MOUSE_BUTTON_1, &(keyrecord_t){})
 #endif
 #ifndef AUTO_MOUSE_DEBOUNCE
 #    define AUTO_MOUSE_DEBOUNCE 25
 #endif
 #ifndef AUTO_MOUSE_THRESHOLD
 #    define AUTO_MOUSE_THRESHOLD 10
+#endif
+#ifndef AUTO_MOUSE_SCROLL_THRESHOLD
+#    define AUTO_MOUSE_SCROLL_THRESHOLD AUTO_MOUSE_THRESHOLD
 #endif
 
 /* data structure */
@@ -70,6 +73,10 @@ typedef struct {
         int8_t mouse_key_tracker;
     } status;
     total_mouse_movement_t total_mouse_movement;
+#ifdef AUTO_MOUSE_ONESHOT
+    bool one_shot;
+    bool one_shot_triggered;
+#endif
 } auto_mouse_context_t;
 
 /* ----------Set up and control------------------------------------------------------------------------------ */
@@ -80,6 +87,7 @@ uint8_t       get_auto_mouse_layer(void);                               // get t
 void          set_auto_mouse_timeout(uint16_t timeout);                 // set layer timeout
 uint16_t      get_auto_mouse_timeout(void);                             // get layer timeout
 void          set_auto_mouse_debounce(uint8_t debounce);                // set debounce
+void          set_auto_mouse_toggled(bool toggled);                     // set toggled mouse layer flag
 uint8_t       get_auto_mouse_debounce(void);                            // get debounce
 void          set_auto_mouse_key_tracker(int8_t key_tracker);           // set key tracker
 int8_t        get_auto_mouse_key_tracker(void);                         // get key tracker

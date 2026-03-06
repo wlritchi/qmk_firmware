@@ -17,7 +17,17 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "moonlander.h"
+
+#ifdef COMMUNITY_MODULE_ORYX_ENABLE
+#    include "oryx.h"
+#endif // COMMUNITY_MODULE_ORYX_ENABLE
+#ifdef COMMUNITY_MODULE_DEFAULTS_ENABLE
+#    include "defaults.h"
+#endif // COMMUNITY_MODULE_ORYX_ENABLE
+
+#ifdef COMMUNITY_MODULE_DEFAULTS_ENABLE
+#     include "defaults.h"
+#endif
 
 keyboard_config_t keyboard_config;
 
@@ -56,18 +66,27 @@ static uint32_t dynamic_macro_led(uint32_t trigger_time, void *cb_arg) {
     return 100;
 }
 
-void dynamic_macro_record_start_user(int8_t direction) {
+
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
     if (dynamic_macro_token == INVALID_DEFERRED_TOKEN) {
         STATUS_LED_3(true);
         dynamic_macro_token = defer_exec(100, dynamic_macro_led, NULL);
     }
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     if (cancel_deferred_exec(dynamic_macro_token)) {
         dynamic_macro_token = INVALID_DEFERRED_TOKEN;
         STATUS_LED_3(false);
     }
+    return true;
 }
 #    endif
 
@@ -140,10 +159,11 @@ void keyboard_pre_init_kb(void) {
 layer_state_t layer_state_set_kb(layer_state_t state) {
 #if !defined(MOONLANDER_USER_LEDS)
     state = layer_state_set_user(state);
-#    ifdef ORYX_ENABLE
-    layer_state_set_oryx(state);
-    if (rawhid_state.status_led_control) return state;
-#    endif
+#    ifdef COMMUNITY_MODULE_ORYX_ENABLE
+    if (rawhid_state.status_led_control) {
+        return state;
+    }
+#    endif // COMMUNITY_MODULE_ORYX_ENABLE
     if (is_launching || !keyboard_config.led_level) return state;
     bool LED_1 = false;
     bool LED_2 = false;
@@ -291,6 +311,7 @@ bool music_mask_kb(uint16_t keycode) {
         case QK_TO ... QK_TO_MAX:
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
@@ -398,6 +419,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -436,7 +458,7 @@ void keyboard_post_init_kb(void) {
     is_launching = true;
     defer_exec(500, startup_exec, NULL);
 #endif
-    matrix_init_user();
+    keyboard_post_init_user();
 }
 
 void eeconfig_init_kb(void) { // EEPROM is getting reset!
@@ -447,3 +469,34 @@ void eeconfig_init_kb(void) { // EEPROM is getting reset!
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }
+
+#ifdef BOOTLOADER_CUSTOM
+#define APP_ADDRESS 0x08002000
+__attribute__((weak)) void bootloader_jump(void) {
+    // The ignition bootloader is checking for a high signal on A8 for 100ms when powering on the board.
+    // Setting both A8 and A9 high will charge the capacitor quickly.
+    // Setting A9 low before reset will cause the capacitor to discharge
+    // thus making the bootloder unlikely to trigger twice between power cycles.
+    setPinOutputPushPull(A9);
+    setPinOutputPushPull(A8);
+    writePinHigh(A9);
+    writePinHigh(A8);
+    wait_ms(500);
+    writePinLow(A9);
+
+    NVIC_SystemReset();
+}
+
+__attribute__((weak)) void mcu_reset(void) {
+    // When resetting the MCU, we want to jump to the application.
+    SCB->AIRCR = APP_ADDRESS & 0xFFFF;
+
+    // Set the stack pointer to the applications stack pointer
+    __asm__ volatile("msr msp, %0" ::"g"(*(volatile uint32_t *)APP_ADDRESS));
+
+    // Jump to the application
+    (*(void (**)())(APP_ADDRESS + 4))();
+    while (1)
+        ;
+}
+#endif

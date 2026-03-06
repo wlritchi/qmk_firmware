@@ -22,6 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bootmagic.h"
 #include "gpio.h"
 
+#ifdef COMMUNITY_MODULE_ORYX_ENABLE
+#    include "oryx.h"
+#endif // COMMUNITY_MODULE_ORYX_ENABLE
+#ifdef COMMUNITY_MODULE_DEFAULTS_ENABLE
+#    include "defaults.h"
+#endif // COMMUNITY_MODULE_ORYX_ENABLE
+
 keyboard_config_t keyboard_config;
 
 __attribute__((weak)) void keyboard_post_init_sub(void) {
@@ -192,7 +199,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-__attribute__((weak)) const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+__attribute__((weak)) const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /*   driver
  *   |  R location
  *   |  |      G location
@@ -254,14 +261,6 @@ __attribute__((weak)) const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] =
 
 #endif
 
-#ifdef ORYX_ENABLE
-layer_state_t layer_state_set_kb(layer_state_t state) {
-    state = layer_state_set_user(state);
-    layer_state_set_oryx(state);
-    return state;
-}
-#endif
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LED_LEVEL:
@@ -284,6 +283,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -312,15 +312,17 @@ void eeconfig_init_kb(void) { // EEPROM is getting reset!
 static bool     is_dynamic_recording = false;
 static uint16_t dynamic_loop_timer;
 
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_kb(int8_t direction) {
     is_dynamic_recording = true;
     dynamic_loop_timer   = timer_read();
     ergodox_right_led_1_on();
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
     is_dynamic_recording = false;
     layer_state_set_user(layer_state);
+    return true;
 }
 #endif
 
