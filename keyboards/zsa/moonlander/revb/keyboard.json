@@ -184,6 +184,9 @@
     "layout_aliases": {
         "LAYOUT_moonlander": "LAYOUT"
     },
+    "modules": [
+        "zsa/defaults"
+    ],
     "tapping": {
         "toggle": 1
     },
