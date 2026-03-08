@@ -76,6 +76,34 @@ ZSA modules: `defaults` (common config/keycodes), `oryx` (Oryx/Keymapp connectiv
 
 Each keyboard has a folder hierarchy with revision subfolders (e.g., `moonlander/reva/`, `moonlander/revb/`). The revision's `keyboard.json` defines USB IDs, feature flags, physical layout, RGB positions, and module references. Keymaps live under `keymaps/` and minimally require a `keymap.c` with the `keymaps[]` array.
 
+### Moonlander Board Revisions
+
+The Moonlander has two hardware revisions with different bootloaders:
+
+| | Rev A | Rev B |
+|---|---|---|
+| Keyboard path | `zsa/moonlander/reva` | `zsa/moonlander/revb` |
+| USB VID:PID (normal) | `3297:1969` | `3297:1972` |
+| USB VID:PID (DFU) | `0483:df11` | `3297:2003` |
+| Bootloader type | `stm32-dfu` (ST ROM) | `custom` (flash-resident) |
+| Flash offset | `0x08000000` | `0x08002000` (8K bootloader) |
+
+Both revisions share the same keymap, matrix layout, and physical key layout. The only build-time difference is the `-kb` argument. To detect which board is connected (in DFU mode) for flashing:
+
+```sh
+# Linux
+lsusb -d 0483:df11  # Rev A
+lsusb -d 3297:2003  # Rev B
+
+# macOS
+system_profiler SPUSBDataType 2>/dev/null | grep -A2 'Vendor ID: 0x0483' | grep 'Product ID: 0xdf11'  # Rev A
+system_profiler SPUSBDataType 2>/dev/null | grep -A2 'Vendor ID: 0x3297' | grep 'Product ID: 0x2003'  # Rev B
+
+# Cross-platform (requires dfu-util)
+dfu-util -l 2>/dev/null | grep '0483:df11'  # Rev A
+dfu-util -l 2>/dev/null | grep '3297:2003'  # Rev B
+```
+
 ### Split Keyboard (Moonlander)
 
 The Moonlander uses I2C to an MCP23018 GPIO expander for the right half. Custom matrix scanning logic is in `moonlander/matrix.c`.
