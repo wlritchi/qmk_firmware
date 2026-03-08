@@ -774,6 +774,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     layer_invert(WINDOWNAV);
     return false;
   }
+  // After a launcher or scratchpad key fires, exit windownav entirely
+  if (record->event.pressed && keycode != KC_NO) {
+    uint8_t top_layer = biton32(layer_state);
+    if (top_layer == WN_LAUNCHER || top_layer == WN_SCRATCHPAD) {
+      layer_off(WINDOWNAV);
+    }
+  }
   if (!record->event.pressed) {
     return true;
   }
