@@ -75,6 +75,11 @@ enum wn_keycodes {
     WN_SAFE_RANGE,
 };
 
+// ── Key repeat configuration ────────────────────────────────────────────────
+
+#define WN_REPEAT_DELAY 500   // ms before first repeat
+#define WN_REPEAT_INTERVAL 40 // ms between subsequent repeats
+
 // ── Public API ──────────────────────────────────────────────────────────────
 
 bool wn_process_record(uint16_t keycode, keyrecord_t *record);
