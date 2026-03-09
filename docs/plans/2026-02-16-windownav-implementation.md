@@ -1253,10 +1253,11 @@ For configuring niri, Aerospace, tmux, etc. on the host side. This is the comple
 
 | Operation | Window | Workspace | Pane | Monitor |
 |---|---|---|---|---|
-| Fullscreen | Ctrl+Shift+F | Ctrl+Shift+Alt+F | Ctrl+Shift+GUI+F | Ctrl+Shift+Alt+GUI+F |
-| Float | Ctrl+Shift+V | Ctrl+Shift+Alt+V | Ctrl+Shift+GUI+V | Ctrl+Shift+Alt+GUI+V |
-| Close | Ctrl+Shift+X | Ctrl+Shift+Alt+X | Ctrl+Shift+GUI+X | Ctrl+Shift+Alt+GUI+X |
-| Create | Ctrl+Shift+A | Ctrl+Shift+Alt+A | Ctrl+Shift+GUI+A | Ctrl+Shift+Alt+GUI+A |
+| Fullscreen | Ctrl+Shift+F17 | Ctrl+Shift+Alt+F17 | Ctrl+Shift+GUI+F17 | Ctrl+Shift+Alt+GUI+F17 |
+| Float | Ctrl+Shift+F18 | Ctrl+Shift+Alt+F18 | Ctrl+Shift+GUI+F18 | Ctrl+Shift+Alt+GUI+F18 |
+| Close | Ctrl+Shift+F19 | Ctrl+Shift+Alt+F19 | Ctrl+Shift+GUI+F19 | Ctrl+Shift+Alt+GUI+F19 |
+| Create | Ctrl+Shift+F20 | Ctrl+Shift+Alt+F20 | Ctrl+Shift+GUI+F20 | Ctrl+Shift+Alt+GUI+F20 |
+| Zoom | Ctrl+Shift+F21 | Ctrl+Shift+Alt+F21 | Ctrl+Shift+GUI+F21 | Ctrl+Shift+Alt+GUI+F21 |
 
 ### Absolute workspace
 

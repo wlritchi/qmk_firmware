@@ -303,31 +303,22 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         // ── Scoped one-shot actions ─────────────────────────────────────────
-        case WN_FULLSCREEN: {
+        case WN_FULLSCREEN:
+        case WN_FLOAT:
+        case WN_CLOSE:
+        case WN_CREATE:
+        case WN_ZOOM: {
+            static const uint16_t oneshot_fkeys[] = {
+                [0] = KC_F17, // fullscreen
+                [1] = KC_F18, // float
+                [2] = KC_F19, // close
+                [3] = KC_F20, // create
+                [4] = KC_F21, // zoom
+            };
             uint8_t real_mods = get_mods();
             clear_mods();
-            send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | scope_mods[wn_scope], KC_F);
-            set_mods(real_mods);
-            return false;
-        }
-        case WN_FLOAT: {
-            uint8_t real_mods = get_mods();
-            clear_mods();
-            send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | scope_mods[wn_scope], KC_V);
-            set_mods(real_mods);
-            return false;
-        }
-        case WN_CLOSE: {
-            uint8_t real_mods = get_mods();
-            clear_mods();
-            send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | scope_mods[wn_scope], KC_X);
-            set_mods(real_mods);
-            return false;
-        }
-        case WN_CREATE: {
-            uint8_t real_mods = get_mods();
-            clear_mods();
-            send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | scope_mods[wn_scope], KC_A);
+            send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT) | scope_mods[wn_scope],
+                         oneshot_fkeys[keycode - WN_FULLSCREEN]);
             set_mods(real_mods);
             return false;
         }

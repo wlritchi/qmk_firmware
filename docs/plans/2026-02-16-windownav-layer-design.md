@@ -97,6 +97,7 @@ These are single-keypress operations that respect the current scope.
 | `v` | Float toggle   | ho**v**er        |
 | `x` | Close          | e**x**it         |
 | `a` | Create/add new | **a**dd          |
+| `z` | Zoom (max width)| **z**oom        |
 
 Scope interaction:
 
@@ -244,7 +245,7 @@ Right: tab (switcher-back)      backspace (switcher)   enter (scratchpad prefix)
 ### Unassigned keys
 
 Left: `'`, `,`, `.`, `y`, `u`, `;`, `q`, `j`, `k`
-Right: `d`, `l`, `b`, `m`, `z`
+Right: `d`, `l`, `b`, `m`
 
 These are available for future operations.
 

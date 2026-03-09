@@ -236,8 +236,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // left lower: _ _ _ x _ _
         KC_NO, KC_NO, KC_NO, WN_CLOSE, KC_NO, KC_NO,
-        // right lower: _ _ w v _ _
-        KC_NO, KC_NO, WN_KEY_SCOPE_WINDOW, WN_FLOAT, KC_NO, KC_NO,
+        // right lower: _ _ w v z _
+        KC_NO, KC_NO, WN_KEY_SCOPE_WINDOW, WN_FLOAT, WN_ZOOM, KC_NO,
 
         // left bottom
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -558,8 +558,8 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_BLACK},
         // right col 6: _ _ _ _ _
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
-        // right col 5: _ _ workspace/s _ _
-        {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 5: _ _ workspace/s zoom/z _
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW}, {RGB_YELLOW}, {RGB_BLACK},
         // right col 4: _ tab-right/r right/n float/v _
         {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW}, {RGB_BLACK},
         // right col 3: _ up/c down/t window/w _
