@@ -27,8 +27,8 @@ make test:basic
 # Lint a keyboard definition
 qmk lint --keyboard zsa/moonlander
 
-# Format C code
-qmk format-c --core-only -a
+# Format C code (omit -a to only format changed files; -a formats all core files)
+qmk format-c --core-only
 
 # Clean build artifacts
 make clean
