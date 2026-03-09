@@ -319,8 +319,9 @@ operates on keysyms or keycodes.
 
 ### Linux XKB keysym remapping (important!)
 
-On Linux, the XKB `inet(evdev)` overlay remaps F13-F24 to XF86\* keysyms.
-The WM and wev will see these keysyms rather than "F13", "F14", etc.
+On Linux, the XKB `inet(evdev)` overlay remaps most of F13-F24 to XF86\*
+keysyms. The WM and wev will see these keysyms rather than "F13", "F14",
+etc. (F19 and F24 are exceptions — they keep their original keysym names.)
 
 | HID key | evdev code | XKB keysym      |
 |---------|------------|-----------------|
@@ -330,12 +331,12 @@ The WM and wev will see these keysyms rather than "F13", "F14", etc.
 | F16     | 186        | XF86Launch7     |
 | F17     | 187        | XF86Launch8     |
 | F18     | 188        | XF86Launch9     |
-| F19     | 189        | XF86Star        |
-| F20     | 190        | XF86AudioRewind |
-| F21     | 191        | XF86Phone       |
-| F22     | 192        | XF86HomePage    |
-| F23     | 193        | XF86Close       |
-| F24     | 194        | (varies)        |
+| F19     | 189        | F19 (not remapped) |
+| F20     | 190        | XF86AudioMicMute |
+| F21     | 191        | XF86TouchpadToggle |
+| F22     | 192        | XF86TouchpadOn  |
+| F23     | 193        | XF86TouchpadOff |
+| F24     | 194        | F24 (not remapped) |
 
 Note: wev on Wayland displays XKB keycodes (evdev + 8), not raw evdev codes.
 If wev shows "key: 191", that is evdev 183 = KEY_F13, not KEY_F21.
