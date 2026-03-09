@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_LEFT_GUI, KC_LEFT_ALT, MO(SHIFTNAV), MO(NAV),
         // left red: (noop)
         KC_TRANSPARENT,
-        // right red: (noop)
-        KC_TRANSPARENT,
+        // right red: (delete)
+        KC_DELETE,
         // right bottom: (nav) (noop) (noop) (noop) (noop)
         MO(NAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 
@@ -427,7 +427,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     [SHIFT] = {
@@ -448,7 +448,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     [NUM] = {
@@ -469,7 +469,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_MAUVE}, {RGB_YELLOW}, {RGB_YELLOW}, {RGB_YELLOW},
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     [SHIFTNUM] = {
@@ -490,7 +490,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_MAUVE}, {RGB_YELLOW}, {RGB_YELLOW}, {RGB_BLACK},
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     [NAV] = {
@@ -511,7 +511,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK},
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     [SHIFTNAV] = {
@@ -532,7 +532,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK},
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
         {RGB_CYAN}, {RGB_CYAN}, {RGB_CYAN},
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     // WINDOWNAV: baseline colors (scope keys default to yellow;
@@ -573,7 +573,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         // right thumb: scratchpad/enter sw-fwd/bksp sw-back/tab
         {RGB_CYAN}, {RGB_WHITE}, {RGB_WHITE},
         // right red
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     // WN_NUM: workspace numpad on right hand
@@ -608,7 +608,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         // right thumb
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
         // right red
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     // WN_LAUNCHER: launcher mnemonic keys
@@ -642,7 +642,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         // right thumb
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
         // right red
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     // WN_SCRATCHPAD: scratchpad mnemonic keys
@@ -674,7 +674,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         // right thumb
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
         // right red
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 
     // WN_SWITCHER: only thumb cluster keys bound
@@ -702,7 +702,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         // right thumb: back fwd confirm
         {RGB_WHITE}, {RGB_WHITE}, {RGB_WHITE},
         // right red
-        {RGB_BLACK}
+        {RGB_CYAN}
     },
 };
 
