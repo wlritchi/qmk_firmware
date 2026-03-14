@@ -395,7 +395,7 @@ sequences via `user-keys`.
 
 #### Escape sequence convention
 
-Custom CSI sequences `\e[200~` through `\e[226~` encode pane-scope and tab
+Custom CSI sequences `\e[200~` through `\e[230~` encode pane-scope and tab
 operations. These are well outside the standard F-key range (`\e[1~`-`\e[34~`).
 
 | Sequence | Operation | Keyboard keybind |
@@ -420,15 +420,17 @@ operations. These are well outside the standard F-key range (`\e[1~`-`\e[34~`).
 | `\e[217~` | Emit pane up | Super+F22 |
 | `\e[218~` | Emit pane down | Super+F23 |
 | `\e[219~` | Emit pane right | Super+F24 |
-| `\e[220~` | Zoom pane | Ctrl+Shift+Super+F21 |
-| `\e[221~` | Close pane | Ctrl+Shift+Super+F19 |
-| `\e[222~` | Create pane | Ctrl+Shift+Super+F20 |
-| `\e[227~` | Split pane horizontal | Ctrl+Shift+Super+F22 |
-| `\e[228~` | Split pane vertical | Ctrl+Shift+Super+F23 |
-| `\e[223~` | Tab navigate left | Ctrl+Alt+F13 |
-| `\e[224~` | Tab navigate right | Ctrl+Alt+F16 |
-| `\e[225~` | Tab move left | Ctrl+Alt+Shift+F13 |
-| `\e[226~` | Tab move right | Ctrl+Alt+Shift+F16 |
+| `\e[220~` | Fullscreen pane | Ctrl+Shift+Super+F17 |
+| `\e[221~` | Float pane | Ctrl+Shift+Super+F18 |
+| `\e[222~` | Close pane | Ctrl+Shift+Super+F19 |
+| `\e[223~` | Create pane | Ctrl+Shift+Super+F20 |
+| `\e[224~` | Zoom pane | Ctrl+Shift+Super+F21 |
+| `\e[225~` | Tab navigate left | Ctrl+Alt+F13 |
+| `\e[226~` | Tab navigate right | Ctrl+Alt+F16 |
+| `\e[227~` | Tab move left | Ctrl+Alt+Shift+F13 |
+| `\e[228~` | Tab move right | Ctrl+Alt+Shift+F16 |
+| `\e[229~` | Split pane horizontal | Ctrl+Shift+Super+F22 |
+| `\e[230~` | Split pane vertical | Ctrl+Shift+Super+F23 |
 
 #### Terminal emulator configuration
 
