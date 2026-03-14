@@ -91,13 +91,15 @@ grabbing the modifier.
 
 These are single-keypress operations that respect the current scope.
 
-| Key | Action         | Mnemonic        |
-|-----|----------------|-----------------|
-| `f` | Fullscreen/zoom| **f**ullscreen   |
-| `v` | Float toggle   | ho**v**er        |
-| `x` | Close          | e**x**it         |
-| `a` | Create/add new | **a**dd          |
-| `z` | Zoom (max width)| **z**oom        |
+| Key | Action           | Mnemonic          |
+|-----|------------------|-------------------|
+| `f` | Fullscreen/zoom  | **f**ullscreen    |
+| `v` | Float toggle     | ho**v**er         |
+| `x` | Close            | e**x**it          |
+| `a` | Create/add new   | **a**dd           |
+| `z` | Zoom (max width) | **z**oom          |
+| `-` | Split horizontal | horizontal line   |
+| `/` | Split vertical   | vertical line     |
 
 Scope interaction:
 
@@ -107,6 +109,8 @@ Scope interaction:
   floating pane (if supported).
 - **Close:** window scope = close window, pane scope = close pane/tab.
 - **Create:** window scope = new terminal window, pane scope = new pane/tab.
+- **Split horizontal/vertical:** pane scope = split pane in tmux. Window
+  scope = split-like operations if WM supports them. Other scopes are no-ops.
 - At scopes where an action doesn't make sense (e.g. "create monitor"), the
   key is a no-op or mapped to a harmless shortcut to allow for future WM
   support (e.g. "create workspace" for WMs that support it).
@@ -230,9 +234,9 @@ transient modifiers).
 ### Right hand
 
 ```
- f  g  c  r  l          f = fullscreen, g = tab-left, c = up, r = tab-right
- d  h  t  n  s          h = left, t = down, n = right, s = workspace scope
- b  m  w  v  z          w = window scope, v = float
+ f  g  c  r  l  /       f = fullscreen, g = tab-left, c = up, r = tab-right, / = split-v
+ d  h  t  n  s  -       h = left, t = down, n = right, s = workspace scope, - = split-h
+ b  m  w  v  z          w = window scope, v = float, z = zoom
 ```
 
 ### Thumb cluster
@@ -269,6 +273,8 @@ x                 close window
 p x               close pane
 a                 new terminal window
 p a               new pane/tab
+p -               split pane horizontally (tmux)
+p /               split pane vertically (tmux)
 in                consume window from right (niri column ingest)
 p ir              consume next tab into pane group (tmux)
 en                emit window to new column right (niri)

@@ -57,6 +57,8 @@ enum wn_keycodes {
     WN_CLOSE,
     WN_CREATE,
     WN_ZOOM,
+    WN_SPLIT_H,
+    WN_SPLIT_V,
     WN_CONSUME,
     WN_EMIT,
     WN_SWITCHER_FORWARD,

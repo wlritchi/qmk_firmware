@@ -307,13 +307,17 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         case WN_FLOAT:
         case WN_CLOSE:
         case WN_CREATE:
-        case WN_ZOOM: {
+        case WN_ZOOM:
+        case WN_SPLIT_H:
+        case WN_SPLIT_V: {
             static const uint16_t oneshot_fkeys[] = {
                 [0] = KC_F17, // fullscreen
                 [1] = KC_F18, // float
                 [2] = KC_F19, // close
                 [3] = KC_F20, // create
                 [4] = KC_F21, // zoom
+                [5] = KC_F22, // split horizontal
+                [6] = KC_F23, // split vertical
             };
             uint8_t real_mods = get_mods();
             clear_mods();

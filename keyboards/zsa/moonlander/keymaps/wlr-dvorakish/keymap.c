@@ -226,13 +226,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // left upper: _ _ _ _ p _ _
         KC_NO, KC_NO, KC_NO, KC_NO, WN_KEY_SCOPE_PANE, KC_NO, KC_NO,
-        // right upper: _ f g c r _ _
-        KC_NO, WN_FULLSCREEN, WN_TAB_LEFT, WN_KEY_UP, WN_TAB_RIGHT, KC_NO, KC_NO,
+        // right upper: | f g c r _ /
+        KC_NO, WN_FULLSCREEN, WN_TAB_LEFT, WN_KEY_UP, WN_TAB_RIGHT, KC_NO, WN_SPLIT_V,
 
         // left home: ctrl a o e _ i num
         KC_LCTL, WN_CREATE, WN_KEY_SCOPE_MONITOR, WN_EMIT, KC_NO, WN_CONSUME, MO(WN_NUM),
-        // right home: _ _ h t n s _
-        KC_NO, KC_NO, WN_KEY_LEFT, WN_KEY_DOWN, WN_KEY_RIGHT, WN_KEY_SCOPE_WORKSPACE, KC_NO,
+        // right home: @ _ h t n s -
+        KC_NO, KC_NO, WN_KEY_LEFT, WN_KEY_DOWN, WN_KEY_RIGHT, WN_KEY_SCOPE_WORKSPACE, WN_SPLIT_H,
 
         // left lower: _ _ _ x _ _
         KC_NO, KC_NO, KC_NO, WN_CLOSE, KC_NO, KC_NO,
@@ -568,8 +568,8 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK},
         // right col 1: _ fullscreen/f _ _
         {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK},
-        // right col 0: _ _ _
-        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK},
+        // right col 0: _ split-v// split-h/-
+        {RGB_BLACK}, {RGB_YELLOW}, {RGB_YELLOW},
         // right thumb: scratchpad/enter sw-fwd/bksp sw-back/tab
         {RGB_CYAN}, {RGB_WHITE}, {RGB_WHITE},
         // right red
