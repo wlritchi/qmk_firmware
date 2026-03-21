@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT,
         // right red: (delete)
         KC_DELETE,
-        // right bottom: (nav) (noop) (noop) (noop) (noop)
-        MO(NAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        // right bottom: (nav) (noop) (noop) (noop) (numlock)
+        MO(NAV), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NUM_LOCK,
 
         // left thumb cluster: (space) (shift) (windownav)
         KC_SPACE, LM(SHIFT, MOD_LSFT), TG_WN,
@@ -722,6 +722,13 @@ bool rgb_matrix_indicators_user(void) {
   // Detect WINDOWNAV activation edge here because layer_state_set_user
   // is never called (MOONLANDER_USER_LEDS blocks it in layer_state_set_kb).
   wn_on_layer_change(layer_state, WINDOWNAV);
+
+  // Numlock indicator: red when off (warning), black when on (normal).
+  // Runs even when rgb_control or disable_layer_led are active.
+  if (!host_keyboard_led_state().num_lock) {
+    float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+    rgb_matrix_set_color(40, f * 0xFF, 0, 0);
+  }
 
   if (rawhid_state.rgb_control) {
     return false;
