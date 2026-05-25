@@ -395,13 +395,15 @@ sequences via `user-keys`.
 
 #### Escape sequence convention
 
-Custom CSI sequences `\e[200~` through `\e[230~` encode pane-scope and tab
+Custom CSI sequences `\e[202~` through `\e[232~` encode pane-scope and tab
 operations. These are well outside the standard F-key range (`\e[1~`-`\e[34~`).
+Note that `\e[200~` and `\e[201~` are skipped because they are reserved for
+bracketed paste (start/end).
 
 | Sequence | Operation | Keyboard keybind |
 |----------|-----------|------------------|
-| `\e[200~` | Navigate pane left | Super+F13 |
-| `\e[201~` | Navigate pane up | Super+F14 |
+| `\e[231~` | Navigate pane left | Super+F13 |
+| `\e[232~` | Navigate pane up | Super+F14 |
 | `\e[202~` | Navigate pane down | Super+F15 |
 | `\e[203~` | Navigate pane right | Super+F16 |
 | `\e[204~` | Move pane left | Super+Shift+F13 |
