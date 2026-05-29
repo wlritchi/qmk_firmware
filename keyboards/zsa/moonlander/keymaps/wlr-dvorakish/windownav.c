@@ -219,7 +219,7 @@ void wn_on_layer_change(layer_state_t state, uint8_t windownav_layer) {
 #define LED_SCOPE_MONITOR 12   // o position: left home key 2   [2,2]
 #define LED_SCOPE_WORKSPACE 43 // s position: right home key 5  [8,5]
 #define LED_SCOPE_WINDOW 54    // w position: right lower key 2 [9,3]
-#define LED_SCOPE_MACHINE 64   // m position: right lower key 1 (f/d/m column)
+#define LED_SCOPE_MACHINE 59   // m position: right lower, below h (g/h/m column)
 
 // ── Public: override active scope key from yellow (ledmap) to green ──────────
 // Called after set_layer_color(WINDOWNAV) sets the baseline from ledmap.

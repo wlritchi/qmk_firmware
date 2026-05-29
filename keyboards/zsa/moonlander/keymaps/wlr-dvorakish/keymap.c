@@ -564,10 +564,10 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW}, {RGB_BLACK},
         // right col 3: _ up/c down/t window/w _
         {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW}, {RGB_BLACK},
-        // right col 2: _ tab-left/g left/h _ _
-        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_BLACK}, {RGB_BLACK},
-        // right col 1: _ fullscreen/f _ machine/m
-        {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_YELLOW},
+        // right col 2: _ tab-left/g left/h machine/m _
+        {RGB_BLACK}, {RGB_CYAN}, {RGB_CYAN}, {RGB_YELLOW}, {RGB_BLACK},
+        // right col 1: _ fullscreen/f _ _
+        {RGB_BLACK}, {RGB_YELLOW}, {RGB_BLACK}, {RGB_BLACK},
         // right col 0: _ split-v// split-h/-
         {RGB_BLACK}, {RGB_YELLOW}, {RGB_YELLOW},
         // right thumb: scratchpad/enter sw-fwd/bksp sw-back/tab
