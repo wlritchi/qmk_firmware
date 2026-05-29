@@ -28,6 +28,10 @@ The WINDOWNAV layer manages two axes for directional operations:
 | Pane      | Super         | Terminal multiplexer (e.g. tmux) |
 | Monitor   | Alt+Super     | WM                   |
 
+The **machine** scope is handled separately (see [Machine Scope](#machine-scope-kvm))
+and does not use scope modifier bits, because it is intercepted by the KVM rather
+than any host application.
+
 ### Action Encoding (additional modifier bits, directional only)
 
 | Action   | Additional modifier | Meaning                             |
@@ -103,6 +107,32 @@ The keybind is: `{scope_mods} + {action_mods} + {F-key}`
 Note: "Resize workspace" and "resize monitor" combinations are sent by the
 keyboard but are unlikely to have meaningful WM actions. They can be left unbound
 or mapped to no-ops.
+
+---
+
+## Machine Scope (KVM)
+
+The **machine** scope switches between physical computers behind a KVM. Unlike
+the other scopes, it is meant to be intercepted by the KVM itself, so its
+keybinds are **not** plumbed through to the window manager, terminal multiplexer,
+or any other host application.
+
+Machine scope is **navigate-only**: only left/right emit a keybind. Up/down do
+nothing, and the move/resize action modifiers and the consume/emit prefixes are
+ignored (no keybind is sent for them). Machine switches are discrete, so the
+keyboard does not auto-repeat them on hold — each tap sends exactly one chord.
+
+Because the binding is grabbed by the KVM before any OS sees it, it reuses the
+canonical left/right F-key anchors (F13/F16) with a Ctrl+Shift base modifier — a
+combination not used by any other directional, tab, or one-shot operation.
+
+| Operation              | Keybind        |
+|------------------------|----------------|
+| Navigate machine left  | Ctrl+Shift+F13 |
+| Navigate machine right | Ctrl+Shift+F16 |
+
+Configure the KVM to switch to the previous/next machine on these two chords.
+Nothing else needs to be configured on the hosts.
 
 ---
 

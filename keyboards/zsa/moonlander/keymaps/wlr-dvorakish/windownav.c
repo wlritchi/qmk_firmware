@@ -23,6 +23,9 @@ static const uint8_t scope_mods[WN_SCOPE_COUNT] = {
     [WN_SCOPE_WORKSPACE] = MOD_BIT(KC_LALT),
     [WN_SCOPE_PANE]      = MOD_BIT(KC_LGUI),
     [WN_SCOPE_MONITOR]   = MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI),
+    // Machine scope is KVM-intercepted and special-cased in send_directional();
+    // it does not participate in the scope-modifier matrix.
+    [WN_SCOPE_MACHINE]   = 0,
 };
 
 // ── F-key bases for directional operations ──────────────────────────────────
@@ -80,6 +83,20 @@ static uint8_t get_action(void) {
 // ── Helper: send directional operation ──────────────────────────────────────
 
 static void send_directional(uint8_t direction) {
+    // Machine scope is KVM-intercepted and navigate-only: only left/right emit,
+    // action modifiers (move/resize) and consume/emit prefixes are ignored, and
+    // up/down do nothing. Always sends the fixed Ctrl+Shift + F13/F16 chord.
+    if (wn_scope == WN_SCOPE_MACHINE) {
+        if (direction == WN_DIR_LEFT || direction == WN_DIR_RIGHT) {
+            uint8_t real_mods = get_mods();
+            clear_mods();
+            send_binding(MOD_BIT(KC_LCTL) | MOD_BIT(KC_LSFT), dir_fkeys[direction]);
+            set_mods(real_mods);
+        }
+        wn_prefix = WN_PREFIX_NONE;
+        return;
+    }
+
     uint8_t action    = get_action();
     uint8_t real_mods = get_mods();
     clear_mods();
@@ -202,6 +219,7 @@ void wn_on_layer_change(layer_state_t state, uint8_t windownav_layer) {
 #define LED_SCOPE_MONITOR 12   // o position: left home key 2   [2,2]
 #define LED_SCOPE_WORKSPACE 43 // s position: right home key 5  [8,5]
 #define LED_SCOPE_WINDOW 54    // w position: right lower key 2 [9,3]
+#define LED_SCOPE_MACHINE 64   // m position: right lower key 1 (f/d/m column)
 
 // ── Public: override active scope key from yellow (ledmap) to green ──────────
 // Called after set_layer_color(WINDOWNAV) sets the baseline from ledmap.
@@ -215,6 +233,7 @@ void wn_set_leds(void) {
         LED_SCOPE_WORKSPACE,
         LED_SCOPE_PANE,
         LED_SCOPE_MONITOR,
+        LED_SCOPE_MACHINE,
     };
     rgb_matrix_set_color(scope_leds[wn_scope], gr, gg, gb);
 }
@@ -265,23 +284,29 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
             wn_scope  = WN_SCOPE_MONITOR;
             wn_prefix = WN_PREFIX_NONE;
             return false;
+        case WN_KEY_SCOPE_MACHINE:
+            wn_scope  = WN_SCOPE_MACHINE;
+            wn_prefix = WN_PREFIX_NONE;
+            return false;
 
         // ── Directional keys ────────────────────────────────────────────────
+        // Machine scope switches are discrete (KVM-intercepted), so they do not
+        // auto-repeat on hold; all other scopes repeat as usual.
         case WN_KEY_LEFT:
             send_directional(WN_DIR_LEFT);
-            wn_start_repeat(keycode);
+            if (wn_scope != WN_SCOPE_MACHINE) wn_start_repeat(keycode);
             return false;
         case WN_KEY_UP:
             send_directional(WN_DIR_UP);
-            wn_start_repeat(keycode);
+            if (wn_scope != WN_SCOPE_MACHINE) wn_start_repeat(keycode);
             return false;
         case WN_KEY_DOWN:
             send_directional(WN_DIR_DOWN);
-            wn_start_repeat(keycode);
+            if (wn_scope != WN_SCOPE_MACHINE) wn_start_repeat(keycode);
             return false;
         case WN_KEY_RIGHT:
             send_directional(WN_DIR_RIGHT);
-            wn_start_repeat(keycode);
+            if (wn_scope != WN_SCOPE_MACHINE) wn_start_repeat(keycode);
             return false;
 
         // ── Prefix keys ─────────────────────────────────────────────────────
@@ -310,6 +335,8 @@ bool wn_process_record(uint16_t keycode, keyrecord_t *record) {
         case WN_ZOOM:
         case WN_SPLIT_H:
         case WN_SPLIT_V: {
+            // Machine scope is navigate-only; scoped actions emit nothing.
+            if (wn_scope == WN_SCOPE_MACHINE) return false;
             static const uint16_t oneshot_fkeys[] = {
                 [0] = KC_F17, // fullscreen
                 [1] = KC_F18, // float

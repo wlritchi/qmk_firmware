@@ -9,6 +9,7 @@ enum wn_scope {
     WN_SCOPE_WORKSPACE,
     WN_SCOPE_PANE,
     WN_SCOPE_MONITOR,
+    WN_SCOPE_MACHINE,
     WN_SCOPE_COUNT,
 };
 
@@ -52,6 +53,7 @@ enum wn_keycodes {
     WN_KEY_SCOPE_WORKSPACE,
     WN_KEY_SCOPE_PANE,
     WN_KEY_SCOPE_MONITOR,
+    WN_KEY_SCOPE_MACHINE,
     WN_FULLSCREEN,
     WN_FLOAT,
     WN_CLOSE,
