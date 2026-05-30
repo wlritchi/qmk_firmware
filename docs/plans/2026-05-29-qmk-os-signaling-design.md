@@ -12,6 +12,14 @@ alongside this document: `qmk-os-signaling-interface.md` (broker motivation),
 `qmk-os-signaling-interface-response-2.md` (settled). This document is the
 QMK-side implementation design only; the broker/hid_device side is out of scope.
 
+**As-built (post-design):** During execution two points were finalized. (1) The pre-hook
+is named `oryx_command_kb`/`oryx_command_user` — the VIA-style `_kb`→`_user` chain
+(`raw_hid_receive` calls `oryx_command_kb`; the keymap overrides `oryx_command_user`) —
+rather than the generic `raw_hid_receive_user` shown in the snippets below. (2) `modules/zsa`
+is a git submodule, so the hook is carried on a fork (`wlritchi/qmk_modules`, branch
+`oryx-command-hook`) with `.gitmodules` repointed, intended for upstreaming to ZSA. This
+settles open decision #1 (module-local hook, on a fork — not core `raw_hid.{c,h}`).
+
 ## Why
 
 Through the switch the keyboard enumerates against the broker (a constant), so

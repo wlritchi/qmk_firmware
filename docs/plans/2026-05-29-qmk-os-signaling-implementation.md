@@ -12,6 +12,10 @@
 
 **Conventions:** Commit directly to `main`. Do **not** run autoformatters on the keymap files (`os_signal.c`, `keymap.c`); match surrounding style by hand. End commit messages with the `Co-Authored-By` line shown in each commit step.
 
+**As-built revisions (post-design):** Two things changed during execution; the Task 2 body below predates them — read accordingly.
+1. **Hook renamed to the VIA-style `_kb`/`_user` chain.** The Oryx pre-hook is `oryx_command_kb(uint8_t*, uint8_t)` whose weak default delegates to a weak `oryx_command_user` — mirroring VIA's `via_command_kb` instead of squatting on the generic name `raw_hid_receive_user`. `raw_hid_receive` calls only `oryx_command_kb`; the keymap overrides `oryx_command_user`. (Read the inline `raw_hid_receive_user` references below as `oryx_command_*`.)
+2. **Carried on a fork, not an in-tree patch.** `modules/zsa` is a git submodule pinned to `zsa/qmk_modules`. The hook lives on the fork `wlritchi/qmk_modules` (branch `oryx-command-hook`, pushed); `.gitmodules` was repointed to the fork. Intended for upstreaming to ZSA, after which the fork can retire. This resolves design decision #1 (module-local hook, on a fork — not core `raw_hid.{c,h}`).
+
 ---
 
 ## File structure
@@ -255,11 +259,11 @@ Create `keyboards/zsa/moonlander/keymaps/wlr-dvorakish/os_signal.c` with exactly
 #define OSIG_MSG_SET_OS 0x01
 #define OSIG_CAP_SET_OS 0x01  // capability bitmask: bit0 = SET_HOST_OS supported
 
-// Strong override of the weak hook in the oryx module; claims our 0xB0 reports
-// before Oryx parses them. Returns true when the report is ours.
-bool raw_hid_receive_user(uint8_t *data, uint8_t length);
+// Strong override of the weak oryx_command_user() hook in the (forked) Oryx
+// module; claims our 0xB0 reports before Oryx parses them. Returns true when ours.
+bool oryx_command_user(uint8_t *data, uint8_t length);
 
-bool raw_hid_receive_user(uint8_t *data, uint8_t length) {
+bool oryx_command_user(uint8_t *data, uint8_t length) {
     if (length < 3 || data[0] != OSIG_MAGIC) {
         return false;  // not ours -> let Oryx handle it
     }
