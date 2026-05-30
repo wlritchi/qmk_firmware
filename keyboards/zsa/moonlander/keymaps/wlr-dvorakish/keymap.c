@@ -2,8 +2,6 @@
 #include "version.h"
 #include "windownav.h"
 
-#define OS_DETECTION_KEYBOARD_RESET
-
 enum layers {
   BASE,
   SHIFT,
