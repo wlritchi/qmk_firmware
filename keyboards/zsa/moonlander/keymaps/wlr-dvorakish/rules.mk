@@ -6,3 +6,4 @@ TAP_DANCE_ENABLE = no
 SPACE_CADET_ENABLE = no
 OS_DETECTION_ENABLE = yes
 SRC += windownav.c
+SRC += os_signal.c
