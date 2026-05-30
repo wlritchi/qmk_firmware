@@ -61,6 +61,9 @@ struct setups_data_t setups_data = {
 static volatile os_variant_t detected_os = OS_UNSURE;
 static volatile os_variant_t reported_os = OS_UNSURE;
 
+// set when an explicit host OS has been pushed in; suppresses native fingerprinting
+static volatile bool os_locked = false;
+
 // we need to be able to report OS_UNSURE if that is the stable result of the guesses
 static volatile bool first_report = true;
 
@@ -131,6 +134,10 @@ __attribute__((weak)) bool process_detected_host_os_user(os_variant_t detected_o
 
 // Some collected sequences of wLength can be found in tests.
 void process_wlength(const uint16_t w_length) {
+    if (os_locked) {
+        // an explicit host OS is authoritative; ignore native fingerprinting
+        return;
+    }
 #ifdef OS_DETECTION_DEBUG_ENABLE
     usb_setups[setups_data.count] = w_length;
 #endif
@@ -180,6 +187,17 @@ os_variant_t detected_host_os(void) {
     return detected_os;
 }
 
+void os_detection_set_explicit(os_variant_t os) {
+    if (os == OS_UNSURE) {
+        // keep-last: a transient UNSURE must never downgrade a good value
+        return;
+    }
+    detected_os = os;
+    os_locked   = true;
+    last_time   = timer_read_fast();  // drive the normal debounce/report path too
+    debouncing  = true;
+}
+
 void erase_wlength_data(void) {
     memset(&setups_data, 0, sizeof(setups_data));
     detected_os                              = OS_UNSURE;
@@ -189,6 +207,7 @@ void erase_wlength_data(void) {
     debouncing                               = false;
     last_time                                = 0;
     first_report                             = true;
+    os_locked                                = false;
 }
 
 void os_detection_notify_usb_device_state_change(struct usb_device_state usb_device_state) {

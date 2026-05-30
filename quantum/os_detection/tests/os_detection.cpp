@@ -442,3 +442,42 @@ TEST_F(OsDetectionTest, TestDoNotGoBackToUnsure) {
     os_detection_task();
     assert_not_reported();
 }
+
+// --- Explicit host-OS signaling (os_detection_set_explicit) ---
+
+TEST_F(OsDetectionTest, TestExplicitSetsValue) {
+    os_detection_set_explicit(OS_MACOS);
+    EXPECT_EQ(detected_host_os(), OS_MACOS);
+}
+
+TEST_F(OsDetectionTest, TestExplicitLockBeatsNative) {
+    os_detection_set_explicit(OS_MACOS);
+    // A Linux fingerprint must NOT override the locked explicit value.
+    EXPECT_EQ(check_sequence({0xFF, 0xFF, 0xFF}), OS_MACOS);
+    EXPECT_EQ(detected_host_os(), OS_MACOS);
+}
+
+TEST_F(OsDetectionTest, TestExplicitUnsureKeepsLast) {
+    os_detection_set_explicit(OS_MACOS);
+    os_detection_set_explicit(OS_UNSURE);  // transient UNSURE must not revert
+    EXPECT_EQ(detected_host_os(), OS_MACOS);
+}
+
+TEST_F(OsDetectionTest, TestNativeWorksWithoutExplicit) {
+    // Lock defaults off (erase_wlength_data runs in SetUp), so native still works.
+    EXPECT_EQ(check_sequence({0xFF, 0xFF, 0xFF}), OS_LINUX);
+}
+
+TEST_F(OsDetectionTest, TestExplicitReportsOnceIdempotent) {
+    os_detection_notify_usb_device_state_change(usb_device_state_configured);
+    os_detection_set_explicit(OS_MACOS);
+    advance_time(OS_DETECTION_DEBOUNCE + 1);
+    os_detection_task();
+    assert_reported(OS_MACOS);
+
+    // Re-applying the same OS must not fire the callback again.
+    os_detection_set_explicit(OS_MACOS);
+    advance_time(OS_DETECTION_DEBOUNCE + 1);
+    os_detection_task();
+    assert_reported(OS_MACOS);  // still reported exactly once
+}
