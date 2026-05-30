@@ -5,8 +5,8 @@ Firmware support for receiving an authoritative host-OS value from the USB switc
 machinery so the `wlr-dvorakish` keymap's Mac-vs-not logic works through the
 switch.
 
-The cross-agent interface negotiation that produced this contract lives in the
-repo root: `qmk-os-signaling-interface.md` (broker motivation),
+The cross-agent interface negotiation that produced this contract lives
+alongside this document: `qmk-os-signaling-interface.md` (broker motivation),
 `qmk-os-signaling-interface-response.md` (our review),
 `qmk-os-signaling-interface-broker-reply.md`, and
 `qmk-os-signaling-interface-response-2.md` (settled). This document is the
