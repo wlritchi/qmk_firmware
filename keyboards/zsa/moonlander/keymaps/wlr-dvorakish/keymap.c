@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
     [NAV] = LAYOUT_moonlander(
-        KC_AUDIO_VOL_UP, NK_ON, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRANSPARENT,
@@ -217,8 +217,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
     [WINDOWNAV] = LAYOUT_moonlander(
-        // left top
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        // left top: NKRO-on (secret; NKRO already default-on, so effectively a noop)
+        NK_ON, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         // right top
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 
@@ -492,8 +492,8 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     },
 
     [NAV] = {
-        {RGB_WHITE}, {RGB_BLACK}, {RGB_MAUVE}, {RGB_YELLOW}, {RGB_BLACK},
-        {RGB_GREEN}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_MAUVE}, {RGB_YELLOW}, {RGB_BLACK},
+        {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN},
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_CYAN},
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_YELLOW},
         {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_BLACK}, {RGB_WHITE},
